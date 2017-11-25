@@ -31,6 +31,7 @@ class FormExampleWidthField extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const itemsRef = firebase.database().ref('items');
+    const now = new Date();
     const item = {
       project: this.state.project,
       subproject: this.state.subproject,
@@ -42,7 +43,6 @@ class FormExampleWidthField extends Component {
       timeEnd: this.state.timeEnd
     }
     itemsRef.push(item);
-    const now = new Date();
     this.setState({
       project: '',
       subproject: '',

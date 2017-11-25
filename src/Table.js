@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table } from 'semantic-ui-react'
+import { Button, Table } from 'semantic-ui-react'
 
 const TableExampleColumnCount = (props) => (
   <Table columns={5}>
@@ -10,6 +10,7 @@ const TableExampleColumnCount = (props) => (
         <Table.HeaderCell>Arbeitspaket</Table.HeaderCell>
         <Table.HeaderCell>Tätigkeit</Table.HeaderCell>
         <Table.HeaderCell>Beschreibung</Table.HeaderCell>
+        <Table.HeaderCell></Table.HeaderCell>
       </Table.Row>
     </Table.Header>
 
@@ -22,6 +23,9 @@ const TableExampleColumnCount = (props) => (
             <Table.Cell>{item.workitem}</Table.Cell>
             <Table.Cell>{item.task}</Table.Cell>
             <Table.Cell>{item.description}</Table.Cell>
+            <Table.Cell>
+              <Button icon='delete' onClick={props.handleRemove.bind(this, item.id)}/>
+            </Table.Cell>
           </Table.Row>
         )
       })}
@@ -31,6 +35,7 @@ const TableExampleColumnCount = (props) => (
       <Table.Row>
         <Table.HeaderCell>3 People</Table.HeaderCell>
         <Table.HeaderCell>2 Approved</Table.HeaderCell>
+        <Table.HeaderCell />
         <Table.HeaderCell />
         <Table.HeaderCell />
         <Table.HeaderCell />

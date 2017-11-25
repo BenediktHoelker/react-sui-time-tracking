@@ -38,6 +38,12 @@ class SidebarLeftOverlay extends Component {
     });
   }
 
+  handleRemove = (itemId) => {
+    console.log(itemId);
+    const itemsRef = firebase.database().ref('items/' + itemId);
+    itemsRef.remove();
+  }
+
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
   render() {
@@ -73,7 +79,7 @@ class SidebarLeftOverlay extends Component {
                 Bereits erfasste Tätigkeiten
                 </Header>
               <Segment attached>
-                <MyTable basic items={this.state.items} />
+                <MyTable basic items={this.state.items} handleRemove={this.handleRemove}/>
               </Segment>
             </Segment>
           </Sidebar.Pusher>
