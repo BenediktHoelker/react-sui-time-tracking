@@ -4,9 +4,39 @@ import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui
 import MyGrid from './Grid';
 import MyForm from './Form';
 import MyTable from './Table';
+import firebase from './firebase.js';
 
 class SidebarLeftOverlay extends Component {
-  state = { visible: false }
+  constructor() {
+    super();
+    this.state = {
+      items: []
+    }
+  }
+
+  componentDidMount() {
+    const itemsRef = firebase.database().ref('items');
+    itemsRef.on('value', (snapshot) => {
+      let items = snapshot.val();
+      let newState = [];
+      for (let item in items) {
+        newState.push({
+          id: item,
+          project: items[item].project,
+          subproject: items[item].subproject,
+          workitem: items[item].workitem,
+          task: items[item].task,
+          description: items[item].description,
+          date: items[item].date,
+          timeStart: items[item].timeStart,
+          timeEnd: items[item].timeEnd,
+        });
+      }
+      this.setState({
+        items: newState
+      });
+    });
+  }
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
@@ -32,20 +62,20 @@ class SidebarLeftOverlay extends Component {
           </Sidebar>
           <Sidebar.Pusher>
             <Segment basic>
-                <Header as='h3'>Arbeitszeiterfassung</Header>            
-                <Header as='h4' attached='top' block>
-                    Tätigkeiten erfassen
+              <Header as='h3'>Arbeitszeiterfassung</Header>
+              <Header as='h4' attached='top' block>
+                Tätigkeiten erfassen
                 </Header>
-                <Segment attached>
-                    <MyForm/>
-                </Segment>
-                <Header as='h4' attached='top' block>
-                    Bereits erfasste Tätigkeiten
+              <Segment attached>
+                <MyForm item={this.state.newItem} submitHandler={this.handleSubmit} changeHandler={this.handleChange} />
+              </Segment>
+              <Header as='h4' attached='top' block>
+                Bereits erfasste Tätigkeiten
                 </Header>
-                <Segment attached>
-                    <MyTable basic/>      
-                </Segment>
-            </Segment>          
+              <Segment attached>
+                <MyTable basic items={this.state.items} />
+              </Segment>
+            </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
       </div>

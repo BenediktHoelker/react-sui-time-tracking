@@ -1,40 +1,30 @@
 import React from 'react'
 import { Table } from 'semantic-ui-react'
 
-const TableExampleColumnCount = () => (
+const TableExampleColumnCount = (props) => (
   <Table columns={5}>
     <Table.Header>
       <Table.Row>
-        <Table.HeaderCell>Name</Table.HeaderCell>
-        <Table.HeaderCell>Status</Table.HeaderCell>
-        <Table.HeaderCell>Age</Table.HeaderCell>
-        <Table.HeaderCell>Gender</Table.HeaderCell>
-        <Table.HeaderCell>Notes</Table.HeaderCell>
+        <Table.HeaderCell>Projekt</Table.HeaderCell>
+        <Table.HeaderCell>Teilprojekt</Table.HeaderCell>
+        <Table.HeaderCell>Arbeitspaket</Table.HeaderCell>
+        <Table.HeaderCell>Tätigkeit</Table.HeaderCell>
+        <Table.HeaderCell>Beschreibung</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
 
     <Table.Body>
-      <Table.Row>
-        <Table.Cell>John</Table.Cell>
-        <Table.Cell>Approved</Table.Cell>
-        <Table.Cell>22</Table.Cell>
-        <Table.Cell>Male</Table.Cell>
-        <Table.Cell>None</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>Jamie</Table.Cell>
-        <Table.Cell>Approved</Table.Cell>
-        <Table.Cell>32</Table.Cell>
-        <Table.Cell>Male</Table.Cell>
-        <Table.Cell>Requires call</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>Jill</Table.Cell>
-        <Table.Cell>Denied</Table.Cell>
-        <Table.Cell>22</Table.Cell>
-        <Table.Cell>Female</Table.Cell>
-        <Table.Cell>None</Table.Cell>
-      </Table.Row>
+      {props.items.map((item) => {
+        return (
+          <Table.Row key={item.id}>
+            <Table.Cell>{item.project}</Table.Cell>
+            <Table.Cell>{item.subproject}</Table.Cell>
+            <Table.Cell>{item.workitem}</Table.Cell>
+            <Table.Cell>{item.task}</Table.Cell>
+            <Table.Cell>{item.description}</Table.Cell>
+          </Table.Row>
+        )
+      })}
     </Table.Body>
 
     <Table.Footer>

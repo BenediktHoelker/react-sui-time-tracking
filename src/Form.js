@@ -1,22 +1,81 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Form, Header, Segment } from 'semantic-ui-react'
+import firebase from './firebase.js';
 
-const FormExampleWidthField = () => (
-  <Form>
-    <Form.Group >
-      <Form.Input placeholder='Projekt' width={3} />
-      <Form.Input placeholder='Teilprojekt' width={3} />
-      <Form.Input placeholder='Arbeitspaket' width={3} />
-      <Form.Input placeholder='Tätigkeit' width={3} />
-      <Form.Input placeholder='Beschreibung' width={3} />
-    </Form.Group>
-    <Form.Group>
-      <Form.Input placeholder='Datum' width={6} placeholder="Datum" />
-      <Form.Input placeholder='Beginn' width={5} placeholder="Beginn" />
-      <Form.Input placeholder='Ende' width={5} placeholder="Ende" />
-    </Form.Group>
-    <Form.Button>Abschicken</Form.Button>
-  </Form>
-)
+class FormExampleWidthField extends Component {
+  constructor(props) {
+    super(props);
+    var now = new Date();
+    this.state = {
+      visible: false,
+      project: 'Frankonia',
+      subproject: 'Logistik',
+      workitem: 'Frontend',
+      task: 'Programmierung',
+      description: 'React-Entwicklung',
+      date: now.toLocaleDateString(),
+      timeStart: now.toLocaleTimeString(),
+      timeEnd: now.toLocaleTimeString()
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(e) {
+    e.preventDefault();
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const itemsRef = firebase.database().ref('items');
+    const item = {
+      project: this.state.project,
+      subproject: this.state.subproject,
+      workitem: this.state.workitem,
+      task: this.state.task,
+      description: this.state.description,
+      date: this.state.date,
+      timeStart: this.state.timeStart,
+      timeEnd: this.state.timeEnd
+    }
+    itemsRef.push(item);
+    const now = new Date();
+    this.setState({
+      project: '',
+      subproject: '',
+      workitem: '',
+      task: '',
+      description: '',
+      date: now.toLocaleDateString(),
+      timeStart: now.toLocaleTimeString(),
+      timeEnd: now.toLocaleTimeString()
+    });
+  }
+
+  render() {
+    return (
+      <Form onSubmit={this.handleSubmit}>
+        <Form.Group>
+          <Form.Input placeholder='Projekt' name="project" width={3} onChange={this.handleChange} value={this.state.project} />
+          <Form.Input placeholder='Teilprojekt' name="subproject" width={3} onChange={this.handleChange} value={this.state.subproject} />
+          <Form.Input placeholder='Arbeitspaket' name="workitem" width={3} onChange={this.handleChange} value={this.state.workitem} />
+          <Form.Input placeholder='Tätigkeit' name="task" width={3} onChange={this.handleChange} value={this.state.task} />
+          <Form.Input placeholder='Beschreibung' name="description" width={3} onChange={this.handleChange} value={this.state.description} />
+        </Form.Group>
+        <Form.Group>
+          <Form.Input placeholder='Datum' name="date" width={6} placeholder="Datum" onChange={this.handleChange} value={this.state.date} />
+          <Form.Input placeholder='Beginn' name="timeStart" width={5} placeholder="Beginn" onChange={this.handleChange} value={this.state.timeStart} />
+          <Form.Input placeholder='Ende' name="timeEnd" width={5} placeholder="Ende" onChange={this.handleChange} value={this.state.timeEnd} />
+        </Form.Group>
+        <Form.Button>Abschicken</Form.Button>
+      </Form>
+    );
+  }
+}
+
+
 
 export default FormExampleWidthField
