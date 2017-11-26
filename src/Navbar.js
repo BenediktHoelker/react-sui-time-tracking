@@ -30,6 +30,7 @@ class SidebarLeftOverlay extends Component {
           date: items[item].date,
           timeStart: items[item].timeStart,
           timeEnd: items[item].timeEnd,
+          timeSpent: items[item].timeSpent
         });
       }
       this.setState({
@@ -50,7 +51,7 @@ class SidebarLeftOverlay extends Component {
     const { visible } = this.state
     return (
       <div>
-        <Button onClick={this.toggleVisibility}>Toggle Visibility</Button>
+        <Button onClick={this.toggleVisibility}>Seitenleiste einblenden</Button>
         <Sidebar.Pushable as={Segment}>
           <Sidebar as={Menu} animation='push' width='thin' visible={visible} icon='labeled' vertical>
             <Menu.Item name='home'>

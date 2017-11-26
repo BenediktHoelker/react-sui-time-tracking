@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Header, Segment } from 'semantic-ui-react'
 import firebase from './firebase.js';
+import moment from 'moment';
 
 class FormExampleWidthField extends Component {
   constructor(props) {
@@ -32,6 +33,11 @@ class FormExampleWidthField extends Component {
     e.preventDefault();
     const itemsRef = firebase.database().ref('items');
     const now = new Date();
+    const dateStart = moment(this.state.date + ' ' + this.state.timeStart, 'DD.MM.YYYY HH:mm:ss');
+    const dateEnd = moment(this.state.date + ' ' + this.state.timeEnd, 'DD.MM.YYYY HH:mm:ss');
+    const dateDiff = dateEnd.diff(dateStart);
+    const timeSpent = moment.utc(dateDiff).format("HH:mm:ss");
+
     const item = {
       project: this.state.project,
       subproject: this.state.subproject,
@@ -40,7 +46,8 @@ class FormExampleWidthField extends Component {
       description: this.state.description,
       date: this.state.date,
       timeStart: this.state.timeStart,
-      timeEnd: this.state.timeEnd
+      timeEnd: this.state.timeEnd,
+      timeSpent: timeSpent
     }
     itemsRef.push(item);
     this.setState({
