@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react'
+import { Grid, Button, Header, Image, Icon, Menu, Sidebar, Segment } from 'semantic-ui-react'
 
 import MyGrid from './Grid';
 import MyForm from './Form';
@@ -53,7 +53,7 @@ class SidebarLeftOverlay extends Component {
     return (
       <div>
         {/* <Button onClick={this.toggleVisibility}>Seitenleiste einblenden</Button>
-         */}<MySearch floated="right" items={this.state.items}/>
+         */}
         <Sidebar.Pushable as={Segment}>
           <Sidebar as={Menu} animation='push' width='thin' visible={visible} icon='labeled' vertical>
             <Menu.Item name='home'>
@@ -79,10 +79,17 @@ class SidebarLeftOverlay extends Component {
                 <MyForm item={this.state.newItem} submitHandler={this.handleSubmit} changeHandler={this.handleChange} />
               </Segment>
               <Header as='h4' attached='top' block>
-                Bereits erfasste Tätigkeiten
-                </Header>
+                <Grid>
+                  <Grid.Column width={12}>
+                    Bereits erfasste Tätigkeiten
+                  </Grid.Column>
+                  <Grid.Column width={4} >
+                    <MySearch items={this.state.items} />
+                  </Grid.Column>
+                </Grid>
+              </Header>
               <Segment attached>
-                <MyTable basic items={this.state.items} handleRemove={this.handleRemove}/>
+                <MyTable basic items={this.state.items} handleRemove={this.handleRemove} />
               </Segment>
             </Segment>
           </Sidebar.Pusher>

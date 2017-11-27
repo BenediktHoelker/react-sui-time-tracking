@@ -19,11 +19,13 @@ export default class SearchExampleStandard extends Component {
             if (this.state.value.length < 1) return this.resetComponent()
 
             const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-            const isMatch = result => re.test(result.title)
+            const isMatch = result => re.test(result.project)
 
             this.setState({
                 isLoading: false,
-                results: _.filter(this.props.items.map((item) => Object.assign({ title: item.project, description: item.description })), isMatch),
+                results: _.map(_.filter(this.props.items, isMatch), item =>
+                    Object.assign({ title: item.project, description: item.description })
+                )
             })
         }, 500)
     }
@@ -33,8 +35,8 @@ export default class SearchExampleStandard extends Component {
 
         return (
             <Grid>
-                <Grid.Column width={8}>
-                    <Search
+                <Grid.Column width={2}>
+                    <Search 
                         loading={isLoading}
                         onResultSelect={this.handleResultSelect}
                         onSearchChange={this.handleSearchChange}
@@ -43,7 +45,7 @@ export default class SearchExampleStandard extends Component {
                         {...this.props}
                     />
                 </Grid.Column>
-            </Grid>
+            </Grid >
         )
     }
 }
