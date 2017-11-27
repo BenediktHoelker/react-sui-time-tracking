@@ -4,6 +4,7 @@ import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui
 import MyGrid from './Grid';
 import MyForm from './Form';
 import MyTable from './Table';
+import MySearch from './Search';
 import firebase from './firebase.js';
 
 class SidebarLeftOverlay extends Component {
@@ -51,7 +52,8 @@ class SidebarLeftOverlay extends Component {
     const { visible } = this.state
     return (
       <div>
-        <Button onClick={this.toggleVisibility}>Seitenleiste einblenden</Button>
+        {/* <Button onClick={this.toggleVisibility}>Seitenleiste einblenden</Button>
+         */}<MySearch floated="right" items={this.state.items}/>
         <Sidebar.Pushable as={Segment}>
           <Sidebar as={Menu} animation='push' width='thin' visible={visible} icon='labeled' vertical>
             <Menu.Item name='home'>
