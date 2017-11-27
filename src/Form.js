@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Header, Segment } from 'semantic-ui-react'
+import { Form, Dropdown, Header, Segment } from 'semantic-ui-react'
 import firebase from './firebase.js';
 import moment from 'moment';
 
@@ -9,7 +9,6 @@ class FormExampleWidthField extends Component {
     var now = new Date();
     this.state = {
       visible: false,
-      project: 'Frankonia',
       subproject: 'Logistik',
       workitem: 'Frontend',
       task: 'Programmierung',
@@ -19,6 +18,7 @@ class FormExampleWidthField extends Component {
       timeEnd: now.toLocaleTimeString()
     }
     this.handleChange = this.handleChange.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -26,6 +26,13 @@ class FormExampleWidthField extends Component {
     e.preventDefault();
     this.setState({
       [e.target.name]: e.target.value
+    });
+  }
+
+  handleSelect(e, {value}) {
+    e.preventDefault();
+    this.setState({
+      project: value
     });
   }
 
@@ -66,7 +73,7 @@ class FormExampleWidthField extends Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Group>
-          <Form.Input placeholder='Projekt' name="project" width={3} onChange={this.handleChange} value={this.state.project} />
+          <Form.Dropdown placeholder='Projekt auswählen' name="project" search selection options={this.props.companies} onChange={this.handleSelect} />
           <Form.Input placeholder='Teilprojekt' name="subproject" width={3} onChange={this.handleChange} value={this.state.subproject} />
           <Form.Input placeholder='Arbeitspaket' name="workitem" width={3} onChange={this.handleChange} value={this.state.workitem} />
           <Form.Input placeholder='Tätigkeit' name="task" width={3} onChange={this.handleChange} value={this.state.task} />

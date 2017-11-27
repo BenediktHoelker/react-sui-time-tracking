@@ -1,25 +1,27 @@
 import React, { Component } from 'react'
 import { Grid, Button, Header, Image, Icon, Menu, Sidebar, Segment } from 'semantic-ui-react'
 
-import MyGrid from './Grid';
-import MyForm from './Form';
-import MyTable from './Table';
-import MySearch from './Search';
-import firebase from './firebase.js';
+import MyGrid from './Grid'
+import MyForm from './Form'
+import MyTable from './Table'
+import MySearch from './Search'
+import firebase from './firebase.js'
 
 class SidebarLeftOverlay extends Component {
   constructor() {
-    super();
+    super()
     this.state = {
       items: []
     }
   }
 
   componentDidMount() {
-    const itemsRef = firebase.database().ref('items');
+    const itemsRef = firebase.database().ref('items')
+    const samplesRef = firebase.database().ref('samples')
+
     itemsRef.on('value', (snapshot) => {
-      let items = snapshot.val();
-      let newState = [];
+      let items = snapshot.val()
+      let newState = []
       for (let item in items) {
         newState.push({
           id: item,
@@ -33,17 +35,31 @@ class SidebarLeftOverlay extends Component {
           timeEnd: items[item].timeEnd,
           timeSpent: items[item].timeSpent
         });
+
+        this.setState({
+          items: newState
+        });
       }
-      this.setState({
-        items: newState
-      });
+
+      let companies = []
+      samplesRef.on('value', (snapshot) => {
+        let samples = snapshot.val()
+        companies = samples.map(sample => Object.assign({
+          key: sample.company, value: sample.company, text: sample.company
+        }))
+        
+        this.setState({
+          companies: companies
+        });
+      })
+
+      
     });
   }
 
   handleRemove = (itemId) => {
-    console.log(itemId);
-    const itemsRef = firebase.database().ref('items/' + itemId);
-    itemsRef.remove();
+    const itemsRef = firebase.database().ref('items/' + itemId)
+    itemsRef.remove()
   }
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
@@ -76,7 +92,7 @@ class SidebarLeftOverlay extends Component {
                 Tätigkeiten erfassen
                 </Header>
               <Segment attached>
-                <MyForm item={this.state.newItem} submitHandler={this.handleSubmit} changeHandler={this.handleChange} />
+                <MyForm item={this.state.newItem} companies={this.state.companies} submitHandler={this.handleSubmit} changeHandler={this.handleChange} />
               </Segment>
               <Header as='h4' attached='top' block>
                 <Grid>
