@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Button, Header, Image, Icon, Menu, Sidebar, Segment } from 'semantic-ui-react'
+import { Button, Container, Grid, Header, Image, Icon, Menu, Sidebar, Segment } from 'semantic-ui-react'
 
 import MyGrid from './Grid'
 import MyForm from './Form'
@@ -35,11 +35,12 @@ class SidebarLeftOverlay extends Component {
           timeEnd: items[item].timeEnd,
           timeSpent: items[item].timeSpent
         });
-
-        this.setState({
-          items: newState
-        });
       }
+
+      this.setState({
+        items: newState,
+        lastItem: newState[newState.length - 1]
+      });
 
       let companies = []
       samplesRef.on('value', (snapshot) => {
@@ -92,18 +93,21 @@ class SidebarLeftOverlay extends Component {
                 Tätigkeiten erfassen
                 </Header>
               <Segment attached>
-                <MyForm item={this.state.newItem}
+                <MyForm
+                  item={this.state.newItem}
+                  lastItem={this.state.lastItem}
                   companies={this.state.companies}
                   submitHandler={this.handleSubmit}
                   changeHandler={this.handleChange} />
               </Segment>
               <Header as='h4' attached='top' block>
-                <Grid>
-                  <Grid.Column width={12}>
+                <Grid stackable columns={3}>
+                  <Grid.Column textAlign='left'>
                     Bereits erfasste Tätigkeiten
                   </Grid.Column>
-                  <Grid.Column width={4} >
-                    <MySearch items={this.state.items} />
+                  <Grid.Column/>
+                  <Grid.Column floated='right' textAlign='right'>
+                    <MySearch fluid vertical items={this.state.items} />
                   </Grid.Column>
                 </Grid>
               </Header>

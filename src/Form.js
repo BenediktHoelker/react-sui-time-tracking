@@ -3,9 +3,15 @@ import { Form, Dropdown, Header, Segment } from 'semantic-ui-react'
 import firebase from './firebase.js';
 import moment from 'moment';
 
+const style = {
+  form: {
+    margin: '0.5em',
+  }
+}
+
 class FormExampleWidthField extends Component {
   constructor(props) {
-    super(props);
+    super(props);     
     var now = new Date();
     this.state = {
       visible: false,
@@ -14,12 +20,19 @@ class FormExampleWidthField extends Component {
       task: 'Programmierung',
       description: 'React-Entwicklung',
       date: now.toLocaleDateString(),
-      timeStart: now.toLocaleTimeString(),
+      timeStart: props.lastItem ? props.lastItem.timeEnd : now.toLocaleTimeString(),
       timeEnd: now.toLocaleTimeString()
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentWillReceiveProps(props){    
+    var now = new Date();
+    this.setState({
+      timeStart: props.lastItem ? props.lastItem.timeEnd : this.state.timeStart
+    })
   }
 
   handleChange(e) {
@@ -29,7 +42,7 @@ class FormExampleWidthField extends Component {
     });
   }
 
-  handleSelect(e, {value}) {
+  handleSelect(e, { value }) {
     e.preventDefault();
     this.setState({
       project: value
@@ -72,17 +85,19 @@ class FormExampleWidthField extends Component {
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Form.Group>
-          <Form.Dropdown placeholder='Projekt auswählen' name="project" search selection options={this.props.companies} onChange={this.handleSelect} />
-          <Form.Input placeholder='Teilprojekt' name="subproject" width={3} onChange={this.handleChange} value={this.state.subproject} />
-          <Form.Input placeholder='Arbeitspaket' name="workitem" width={3} onChange={this.handleChange} value={this.state.workitem} />
-          <Form.Input placeholder='Tätigkeit' name="task" width={3} onChange={this.handleChange} value={this.state.task} />
-          <Form.Input placeholder='Beschreibung' name="description" width={3} onChange={this.handleChange} value={this.state.description} />
+        <Form.Group widths='equal'>
+          <Form.Dropdown label='Projekt' name="project" search selection options={this.props.companies} onChange={this.handleSelect} />
+          <Form.Input label='Teilprojekt' name="subproject" onChange={this.handleChange} value={this.state.subproject} />
+          <Form.Input label='Arbeitspaket' name="workitem" onChange={this.handleChange} value={this.state.workitem} />
         </Form.Group>
-        <Form.Group>
-          <Form.Input placeholder='Datum' name="date" width={6} placeholder="Datum" onChange={this.handleChange} value={this.state.date} />
-          <Form.Input placeholder='Beginn' name="timeStart" width={5} placeholder="Beginn" onChange={this.handleChange} value={this.state.timeStart} />
-          <Form.Input placeholder='Ende' name="timeEnd" width={5} placeholder="Ende" onChange={this.handleChange} value={this.state.timeEnd} />
+        <Form.Group widths='equal'>
+          <Form.Input label='Tätigkeit' name="task" onChange={this.handleChange} value={this.state.task} />
+          <Form.Input label='Beschreibung' name="description" onChange={this.handleChange} value={this.state.description} />
+        </Form.Group>
+        <Form.Group widths='equal'>
+          <Form.Input label='Datum' name="date" onChange={this.handleChange} value={this.state.date} />
+          <Form.Input label='Beginn' name="timeStart" onChange={this.handleChange} value={this.state.timeStart} />
+          <Form.Input label='Ende' name="timeEnd" onChange={this.handleChange} value={this.state.timeEnd} />
         </Form.Group>
         <Form.Button>Abschicken</Form.Button>
       </Form>

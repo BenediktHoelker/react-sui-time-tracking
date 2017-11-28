@@ -3,7 +3,7 @@ import { Button, Table } from 'semantic-ui-react'
 import moment from 'moment'
 
 const TableExampleColumnCount = (props) => (
-  <Table columns={5}>
+  <Table>
     <Table.Header>
       <Table.Row>
         <Table.HeaderCell>Projekt</Table.HeaderCell>

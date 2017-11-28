@@ -34,8 +34,8 @@ export default class SearchExampleStandard extends Component {
 
         return (
             <Grid>
-                <Grid.Column width={2}>
-                    <Search
+                <Grid.Column floated='right'>
+                    <Search size='small'
                         loading={isLoading}
                         onResultSelect={this.handleResultSelect}
                         onSearchChange={this.handleSearchChange}
@@ -44,7 +44,7 @@ export default class SearchExampleStandard extends Component {
                         {...this.props}
                     />
                 </Grid.Column>
-            </Grid >
+            </Grid>
         )
     }
 }
