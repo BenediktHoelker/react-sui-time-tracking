@@ -23,9 +23,8 @@ export default class SearchExampleStandard extends Component {
 
             this.setState({
                 isLoading: false,
-                results: _.map(_.filter(this.props.items, isMatch), item =>
-                    Object.assign({ title: item.project, description: item.description })
-                )
+                results: this.props.items.filter(isMatch).map(item =>
+                    ({ title: item.project, description: item.description, key: item.id }))
             })
         }, 500)
     }
@@ -36,7 +35,7 @@ export default class SearchExampleStandard extends Component {
         return (
             <Grid>
                 <Grid.Column width={2}>
-                    <Search 
+                    <Search
                         loading={isLoading}
                         onResultSelect={this.handleResultSelect}
                         onSearchChange={this.handleSearchChange}

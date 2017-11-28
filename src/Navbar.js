@@ -47,13 +47,13 @@ class SidebarLeftOverlay extends Component {
         companies = samples.map(sample => Object.assign({
           key: sample.company, value: sample.company, text: sample.company
         }))
-        
+
         this.setState({
           companies: companies
         });
       })
 
-      
+
     });
   }
 
@@ -92,7 +92,10 @@ class SidebarLeftOverlay extends Component {
                 Tätigkeiten erfassen
                 </Header>
               <Segment attached>
-                <MyForm item={this.state.newItem} companies={this.state.companies} submitHandler={this.handleSubmit} changeHandler={this.handleChange} />
+                <MyForm item={this.state.newItem}
+                  companies={this.state.companies}
+                  submitHandler={this.handleSubmit}
+                  changeHandler={this.handleChange} />
               </Segment>
               <Header as='h4' attached='top' block>
                 <Grid>
