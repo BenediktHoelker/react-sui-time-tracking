@@ -11,7 +11,7 @@ const style = {
 
 class FormExampleWidthField extends Component {
   constructor(props) {
-    super(props);     
+    super(props);
     var now = new Date();
     this.state = {
       visible: false,
@@ -28,7 +28,7 @@ class FormExampleWidthField extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillReceiveProps(props){    
+  componentWillReceiveProps(props) {
     var now = new Date();
     this.setState({
       timeStart: props.lastItem ? props.lastItem.timeEnd : this.state.timeStart
@@ -84,23 +84,30 @@ class FormExampleWidthField extends Component {
 
   render() {
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <Form.Group widths='equal'>
-          <Form.Dropdown label='Projekt' name="project" search selection options={this.props.companies} onChange={this.handleSelect} />
-          <Form.Input label='Teilprojekt' name="subproject" onChange={this.handleChange} value={this.state.subproject} />
-          <Form.Input label='Arbeitspaket' name="workitem" onChange={this.handleChange} value={this.state.workitem} />
-        </Form.Group>
-        <Form.Group widths='equal'>
-          <Form.Input label='Tätigkeit' name="task" onChange={this.handleChange} value={this.state.task} />
-          <Form.Input label='Beschreibung' name="description" onChange={this.handleChange} value={this.state.description} />
-        </Form.Group>
-        <Form.Group widths='equal'>
-          <Form.Input label='Datum' name="date" onChange={this.handleChange} value={this.state.date} />
-          <Form.Input label='Beginn' name="timeStart" onChange={this.handleChange} value={this.state.timeStart} />
-          <Form.Input label='Ende' name="timeEnd" onChange={this.handleChange} value={this.state.timeEnd} />
-        </Form.Group>
-        <Form.Button>Abschicken</Form.Button>
-      </Form>
+      <div>
+        <Header as='h4' attached='top' block>
+          Tätigkeiten erfassen
+        </Header>
+        <Segment attached>
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Group widths='equal'>
+              <Form.Dropdown label='Projekt' name="project" search selection options={this.props.companies} onChange={this.handleSelect} />
+              <Form.Input label='Teilprojekt' name="subproject" onChange={this.handleChange} value={this.state.subproject} />
+              <Form.Input label='Arbeitspaket' name="workitem" onChange={this.handleChange} value={this.state.workitem} />
+            </Form.Group>
+            <Form.Group widths='equal'>
+              <Form.Input label='Tätigkeit' name="task" onChange={this.handleChange} value={this.state.task} />
+              <Form.Input label='Beschreibung' name="description" onChange={this.handleChange} value={this.state.description} />
+            </Form.Group>
+            <Form.Group widths='equal'>
+              <Form.Input label='Datum' name="date" onChange={this.handleChange} value={this.state.date} />
+              <Form.Input label='Beginn' name="timeStart" onChange={this.handleChange} value={this.state.timeStart} />
+              <Form.Input label='Ende' name="timeEnd" onChange={this.handleChange} value={this.state.timeEnd} />
+            </Form.Group>
+            <Form.Button>Abschicken</Form.Button>
+          </Form>
+        </Segment>
+      </div>
     );
   }
 }

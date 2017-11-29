@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
 import { Button, Container, Grid, Header, Image, Icon, Menu, Sidebar, Segment } from 'semantic-ui-react'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 
 import MyGrid from './Grid'
 import MyForm from './Form'
@@ -12,7 +17,8 @@ class SidebarLeftOverlay extends Component {
   constructor() {
     super()
     this.state = {
-      activeItem: "",
+      vMenuActiveItem: "",
+      hMenuActiveItem: "",
       companies: [],
       newState: {},
       items: [],
@@ -69,50 +75,35 @@ class SidebarLeftOverlay extends Component {
     itemsRef.remove()
   }
 
-  handleItemClick = (id) => this.setState({ activeItem: id })
+  handleVMenuItemClick = (id) => this.setState({ vMenuActiveItem: id })
+
+  handleHMenuItemClick = (e, { name }) => this.setState({ hMenuActiveItem: name })
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
   render() {
     const state = this.state
     return (
-      <div>
+
+      <Router>
         <Sidebar.Pushable as={Segment}>
-          <MySidebar visible={state.visible} items={state.items} handleItemClick={this.handleItemClick} activeItem={state.activeItem} />
+          <MySidebar visible={state.visible} items={state.items} handleItemClick={this.handleVMenuItemClick} activeItem={state.vMenuActiveItem} />
           <Sidebar.Pusher>
             <Segment basic>
               <Menu >
                 <Menu.Item icon='sidebar' onClick={this.toggleVisibility} />
-                <Menu.Item header as='h3'>Arbeitszeiterfassung</Menu.Item>
+                <Menu.Item header as='h3'>Arbeitszeit</Menu.Item>
+                <Menu.Item as={Link} to='/create' name='erfassung' active={this.state.hMenuActiveItem === 'erfassung'} onClick={this.handleHMenuItemClick} />
+                <Menu.Item as={Link} to='/index' name='auswertung' active={this.state.hMenuActiveItem === 'auswertung'} onClick={this.handleHMenuItemClick} />
               </Menu>
-              <Header as='h4' attached='top' block>
-                Tätigkeiten erfassen
-                </Header>
-              <Segment attached>
-                <MyForm
-                  item={this.state.newItem}
-                  lastItem={this.state.lastItem}
-                  companies={this.state.companies}
-                  submitHandler={this.handleSubmit}
-                  changeHandler={this.handleChange} />
-              </Segment>
-              <Header as='h4' attached='top' block>
-                <Grid stackable columns={3}>
-                  <Grid.Column textAlign='left'>
-                    Bereits erfasste Tätigkeiten
-                  </Grid.Column>
-                  <Grid.Column floated='right' textAlign='right'>
-                    <MySearch fluid vertical items={state.items} />
-                  </Grid.Column>
-                </Grid>
-              </Header>
-              <Segment attached>
-                <MyTable basic items={state.items} handleRemove={this.handleRemove} />
-              </Segment>
+              <Route exact path="/create" component={MyForm} />
+              <Route exact path="/index" render={(routeProps) => (
+                <MyTable {...routeProps} {...{ items: this.state.items, handleRemove: this.handleRemove }} />
+              )} />
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
-      </div>
+      </Router>
     )
   }
 }
