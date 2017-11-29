@@ -104,7 +104,6 @@ class SidebarLeftOverlay extends Component {
                   <Grid.Column textAlign='left'>
                     Bereits erfasste Tätigkeiten
                   </Grid.Column>
-                  <Grid.Column/>
                   <Grid.Column floated='right' textAlign='right'>
                     <MySearch fluid vertical items={this.state.items} />
                   </Grid.Column>
