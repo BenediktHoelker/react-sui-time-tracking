@@ -5,6 +5,7 @@ import MyGrid from './Grid'
 import MyForm from './Form'
 import MyTable from './Table'
 import MySearch from './Search'
+import MySidebar from './Sidebar'
 import firebase from './firebase.js'
 
 class SidebarLeftOverlay extends Component {
@@ -69,25 +70,14 @@ class SidebarLeftOverlay extends Component {
     const { visible } = this.state
     return (
       <div>
-        {/* <Button onClick={this.toggleVisibility}>Seitenleiste einblenden</Button>
-         */}<Sidebar.Pushable as={Segment}>
-          <Sidebar as={Menu} animation='push' width='thin' visible={visible} icon='labeled' vertical>
-            <Menu.Item name='home'>
-              <Icon name='home' />
-              Home
-            </Menu.Item>
-            <Menu.Item name='gamepad'>
-              <Icon name='gamepad' />
-              Games
-            </Menu.Item>
-            <Menu.Item name='camera'>
-              <Icon name='camera' />
-              Channels
-            </Menu.Item>
-          </Sidebar>
+        <Sidebar.Pushable as={Segment}>
+          <MySidebar visible={visible} items={this.state.items} />
           <Sidebar.Pusher>
             <Segment basic>
-              <Header as='h3'>Arbeitszeiterfassung</Header>
+              <Menu >
+                <Menu.Item icon='sidebar' onClick={this.toggleVisibility} />
+                <Menu.Item header as='h3'>Arbeitszeiterfassung</Menu.Item>
+              </Menu>
               <Header as='h4' attached='top' block>
                 Tätigkeiten erfassen
                 </Header>
