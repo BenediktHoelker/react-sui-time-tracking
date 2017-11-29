@@ -70,8 +70,7 @@ class SidebarLeftOverlay extends Component {
     return (
       <div>
         {/* <Button onClick={this.toggleVisibility}>Seitenleiste einblenden</Button>
-         */}
-        <Sidebar.Pushable as={Segment}>
+         */}<Sidebar.Pushable as={Segment}>
           <Sidebar as={Menu} animation='push' width='thin' visible={visible} icon='labeled' vertical>
             <Menu.Item name='home'>
               <Icon name='home' />
