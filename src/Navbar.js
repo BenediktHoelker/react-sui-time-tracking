@@ -12,7 +12,12 @@ class SidebarLeftOverlay extends Component {
   constructor() {
     super()
     this.state = {
-      items: []
+      activeItem: "",
+      companies: [],
+      newState: {},
+      items: [],
+      lastItem: {},
+      visible: false
     }
   }
 
@@ -64,14 +69,16 @@ class SidebarLeftOverlay extends Component {
     itemsRef.remove()
   }
 
+  handleItemClick = (id) => this.setState({ activeItem: id })
+
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
   render() {
-    const { visible } = this.state
+    const state = this.state
     return (
       <div>
         <Sidebar.Pushable as={Segment}>
-          <MySidebar visible={visible} items={this.state.items} />
+          <MySidebar visible={state.visible} items={state.items} handleItemClick={this.handleItemClick} activeItem={state.activeItem} />
           <Sidebar.Pusher>
             <Segment basic>
               <Menu >
@@ -95,12 +102,12 @@ class SidebarLeftOverlay extends Component {
                     Bereits erfasste Tätigkeiten
                   </Grid.Column>
                   <Grid.Column floated='right' textAlign='right'>
-                    <MySearch fluid vertical items={this.state.items} />
+                    <MySearch fluid vertical items={state.items} />
                   </Grid.Column>
                 </Grid>
               </Header>
               <Segment attached>
-                <MyTable basic items={this.state.items} handleRemove={this.handleRemove} />
+                <MyTable basic items={state.items} handleRemove={this.handleRemove} />
               </Segment>
             </Segment>
           </Sidebar.Pusher>
