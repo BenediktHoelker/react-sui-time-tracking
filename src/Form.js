@@ -91,7 +91,7 @@ class FormExampleWidthField extends Component {
         <Segment attached>
           <Form onSubmit={this.handleSubmit}>
             <Form.Group widths='equal'>
-              <Form.Dropdown label='Projekt' name="project" search selection options={this.props.companies} onChange={this.handleSelect} />
+              <Form.Dropdown label='Projekt' name="project" search selection options={this.props.companies} onChange={this.handleSelect} loading={true}/>
               <Form.Input label='Teilprojekt' name="subproject" onChange={this.handleChange} value={this.state.subproject} />
               <Form.Input label='Arbeitspaket' name="workitem" onChange={this.handleChange} value={this.state.workitem} />
             </Form.Group>

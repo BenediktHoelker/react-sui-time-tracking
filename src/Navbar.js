@@ -19,7 +19,7 @@ class SidebarLeftOverlay extends Component {
     this.state = {
       vMenuActiveItem: "",
       hMenuActiveItem: "",
-      companies: [],
+      companies: [{}],
       newState: {},
       items: [],
       lastItem: {},
@@ -65,8 +65,6 @@ class SidebarLeftOverlay extends Component {
           companies: companies
         });
       })
-
-
     });
   }
 

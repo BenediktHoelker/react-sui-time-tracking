@@ -9,6 +9,7 @@ class SidebarLeftOverlay extends Component {
 				{this.props.items.map((item) => {
 					return (
 						<Menu.Item
+							key={item.id}
 							name={item.project}
 							active={this.props.activeItem === item.id}
 							onClick={this.props.handleItemClick.bind(this, item.id)}>
