@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Grid, Header, Segment, Table } from 'semantic-ui-react'
+import { Button, Container, Grid, Header, Responsive, Segment, Table } from 'semantic-ui-react'
 import moment from 'moment'
 
 import MySearch from './Search'
@@ -16,12 +16,12 @@ const TableExampleColumnCount = (props) => (
         </Grid.Column>
       </Grid>
     </Header>
-    <Segment attached>
+    <Container as={Segment} attached>
       <Table>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>Projekt</Table.HeaderCell>
-            <Table.HeaderCell>Teilprojekt</Table.HeaderCell>
+            <Table.HeaderCell computer={8}>Projekt</Table.HeaderCell>
+            <Responsive as={Table.HeaderCell} {...Responsive.onlyComputer}>Teilprojekt</Responsive>
             <Table.HeaderCell>Arbeitspaket</Table.HeaderCell>
             <Table.HeaderCell>Tätigkeit</Table.HeaderCell>
             <Table.HeaderCell>Beschreibung</Table.HeaderCell>
@@ -35,7 +35,7 @@ const TableExampleColumnCount = (props) => (
             return (
               <Table.Row key={item.id}>
                 <Table.Cell>{item.project}</Table.Cell>
-                <Table.Cell>{item.subproject}</Table.Cell>
+                <Responsive as={Table.Cell} {...Responsive.onlyComputer}>{item.subproject}</Responsive>
                 <Table.Cell>{item.workitem}</Table.Cell>
                 <Table.Cell>{item.task}</Table.Cell>
                 <Table.Cell>{item.description}</Table.Cell>
@@ -51,7 +51,7 @@ const TableExampleColumnCount = (props) => (
         <Table.Footer>
           <Table.Row>
             <Table.HeaderCell />
-            <Table.HeaderCell />
+            <Responsive as={Table.HeaderCell} {...Responsive.onlyComputer}></Responsive>
             <Table.HeaderCell />
             <Table.HeaderCell />
             <Table.HeaderCell />
@@ -67,7 +67,7 @@ const TableExampleColumnCount = (props) => (
           </Table.Row>
         </Table.Footer>
       </Table>
-    </Segment>
+    </Container>
   </div>
 )
 
