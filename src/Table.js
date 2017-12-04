@@ -7,7 +7,7 @@ import MySearch from './Search'
 const TableExampleColumnCount = (props) => (
   <div>
     <Header as='h4' attached='top' block>
-      <Grid stackable columns={3}>
+      <Grid stackable columns={2}>
         <Grid.Column textAlign='left'>
           Bereits erfasste Tätigkeiten
         </Grid.Column>
@@ -20,7 +20,7 @@ const TableExampleColumnCount = (props) => (
       <Table>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell computer={8}>Projekt</Table.HeaderCell>
+            <Table.HeaderCell>Projekt</Table.HeaderCell>
             <Responsive as={Table.HeaderCell} {...Responsive.onlyComputer}>Teilprojekt</Responsive>
             <Table.HeaderCell>Arbeitspaket</Table.HeaderCell>
             <Table.HeaderCell>Tätigkeit</Table.HeaderCell>

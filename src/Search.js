@@ -41,7 +41,6 @@ export default class SearchExampleStandard extends Component {
                         onSearchChange={this.handleSearchChange}
                         results={results}
                         value={value}
-                        {...this.props}
                     />
                 </Grid.Column>
             </Grid>

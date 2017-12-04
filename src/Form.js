@@ -15,6 +15,8 @@ class FormExampleWidthField extends Component {
     var now = new Date();
     this.state = {
       visible: false,
+      companies: [],
+      companiesLoading: true,
       subproject: 'Logistik',
       workitem: 'Frontend',
       task: 'Programmierung',
@@ -31,10 +33,12 @@ class FormExampleWidthField extends Component {
   componentWillReceiveProps(props) {
     var now = new Date();
     this.setState({
-      timeStart: props.lastItem ? props.lastItem.timeEnd : this.state.timeStart
+      timeStart: props.lastItem ? props.lastItem.timeEnd : this.state.timeStart,
+      companies: props.companies,
+      companiesLoading: props.companiesLoading
     })
   }
-
+a
   handleChange(e) {
     e.preventDefault();
     this.setState({
@@ -91,7 +95,7 @@ class FormExampleWidthField extends Component {
         <Segment attached>
           <Form onSubmit={this.handleSubmit}>
             <Form.Group widths='equal'>
-              <Form.Dropdown label='Projekt' name="project" search selection options={this.props.companies} onChange={this.handleSelect} loading={true}/>
+              <Form.Dropdown label='Projekt' name="project" search selection options={this.props.companies} onChange={this.handleSelect} loading={this.props.companiesLoading} />
               <Form.Input label='Teilprojekt' name="subproject" onChange={this.handleChange} value={this.state.subproject} />
               <Form.Input label='Arbeitspaket' name="workitem" onChange={this.handleChange} value={this.state.workitem} />
             </Form.Group>

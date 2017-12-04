@@ -19,7 +19,8 @@ class SidebarLeftOverlay extends Component {
     this.state = {
       vMenuActiveItem: "",
       hMenuActiveItem: "",
-      companies: [{}],
+      companies: [],
+      companiesLoading: true,
       newState: {},
       items: [],
       lastItem: {},
@@ -62,7 +63,8 @@ class SidebarLeftOverlay extends Component {
         }))
 
         this.setState({
-          companies: companies
+          companies: companies,
+          companiesLoading: false
         });
       })
     });
@@ -82,7 +84,6 @@ class SidebarLeftOverlay extends Component {
   render() {
     const state = this.state
     return (
-
       <Router>
         <Sidebar.Pushable as={Segment}>
           <MySidebar visible={state.visible} items={state.items} handleItemClick={this.handleVMenuItemClick} activeItem={state.vMenuActiveItem} />
@@ -90,11 +91,13 @@ class SidebarLeftOverlay extends Component {
             <Segment basic>
               <Menu >
                 <Menu.Item icon='sidebar' onClick={this.toggleVisibility} />
-                <Menu.Item header as='h3'>Arbeitszeit</Menu.Item>
+                <Menu.Item header as='h3'>Arbeit</Menu.Item>
                 <Menu.Item as={Link} to='/create' name='erfassung' active={this.state.hMenuActiveItem === 'erfassung'} onClick={this.handleHMenuItemClick} />
                 <Menu.Item as={Link} to='/index' name='auswertung' active={this.state.hMenuActiveItem === 'auswertung'} onClick={this.handleHMenuItemClick} />
               </Menu>
-              <Route exact path="/create" component={MyForm} />
+              <Route exact path="/create"  render={(routeProps) => (
+                <MyForm {...routeProps} {...{ companies: this.state.companies, companiesLoading: this.state.companiesLoading }} />
+              )} />
               <Route exact path="/index" render={(routeProps) => (
                 <MyTable {...routeProps} {...{ items: this.state.items, handleRemove: this.handleRemove }} />
               )} />
