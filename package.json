@@ -1,10 +1,11 @@
 {
   "name": "my-react-semantic-ui",
-  "homepage" : "http://myname.github.io/myapp",
+  "homepage": "https://benedikthoelker.github.io/react-sui-time-tracking",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "firebase": "^4.6.2",
+    "gh-pages": "^1.1.0",
     "lodash": "^4.17.4",
     "moment": "^2.19.2",
     "react": "^16.1.1",
@@ -15,6 +16,8 @@
     "semantic-ui-react": "^0.76.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
