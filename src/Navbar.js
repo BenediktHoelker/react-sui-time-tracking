@@ -17,8 +17,8 @@ class SidebarLeftOverlay extends Component {
   constructor() {
     super()
     this.state = {
-      vMenuActiveItem: "",
-      hMenuActiveItem: "",
+      vMenuActiveItem: "auswertung",
+      hMenuActiveItem: "auswertung",
       companies: [],
       companiesLoading: true,
       newState: {},
@@ -59,7 +59,9 @@ class SidebarLeftOverlay extends Component {
       samplesRef.on('value', (snapshot) => {
         let samples = snapshot.val()
         companies = samples.map(sample => Object.assign({
-          key: sample.company, value: sample.company, text: sample.company
+          key: sample.company, 
+          value: sample.company, 
+          text: sample.company
         }))
 
         this.setState({
@@ -93,12 +95,12 @@ class SidebarLeftOverlay extends Component {
                 <Menu.Item icon='sidebar' onClick={this.toggleVisibility} />
                 <Menu.Item header as='h3'>Arbeit</Menu.Item>
                 <Menu.Item as={Link} to='/create' name='erfassung' active={this.state.hMenuActiveItem === 'erfassung'} onClick={this.handleHMenuItemClick} />
-                <Menu.Item as={Link} to='/index' name='auswertung' active={this.state.hMenuActiveItem === 'auswertung'} onClick={this.handleHMenuItemClick} />
+                <Menu.Item as={Link} to='/' name='auswertung' active={this.state.hMenuActiveItem === 'auswertung'} onClick={this.handleHMenuItemClick} />
               </Menu>
-              <Route exact path="/create"  render={(routeProps) => (
+              <Route exact path="/create" render={(routeProps) => (
                 <MyForm {...routeProps} {...{ companies: this.state.companies, companiesLoading: this.state.companiesLoading }} />
               )} />
-              <Route exact path="/index" render={(routeProps) => (
+              <Route exact path="/" render={(routeProps) => (
                 <MyTable {...routeProps} {...{ items: this.state.items, handleRemove: this.handleRemove }} />
               )} />
             </Segment>
