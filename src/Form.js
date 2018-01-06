@@ -17,13 +17,15 @@ class FormExampleWidthField extends Component {
       visible: false,
       companies: [],
       companiesLoading: true,
-      subproject: 'Logistik',
-      workitem: 'Frontend',
-      task: 'Programmierung',
-      description: 'React-Entwicklung',
-      date: now.toLocaleDateString(),
-      timeStart: props.lastItem ? props.lastItem.timeEnd : now.toLocaleTimeString(),
-      timeEnd: now.toLocaleTimeString()
+      workItem: {
+        subproject: 'Logistik',
+        scope: 'Frontend',
+        task: 'Programmierung',
+        description: 'React-Entwicklung',
+        date: now.toLocaleDateString(),
+        timeStart: props.lastItem ? props.lastItem.timeEnd : now.toLocaleTimeString(),
+        timeEnd: now.toLocaleTimeString()
+      }
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
@@ -35,10 +37,11 @@ class FormExampleWidthField extends Component {
     this.setState({
       timeStart: props.lastItem ? props.lastItem.timeEnd : this.state.timeStart,
       companies: props.companies,
-      companiesLoading: props.companiesLoading
+      companiesLoading: props.companiesLoading,
+      workItem: props.workItem
     })
   }
-a
+
   handleChange(e) {
     e.preventDefault();
     this.setState({
@@ -54,35 +57,38 @@ a
   }
 
   handleSubmit(e) {
+    let workItem = this.state.workItem;
     e.preventDefault();
     const itemsRef = firebase.database().ref('items');
     const now = new Date();
-    const dateStart = moment(this.state.date + ' ' + this.state.timeStart, 'DD.MM.YYYY HH:mm:ss');
-    const dateEnd = moment(this.state.date + ' ' + this.state.timeEnd, 'DD.MM.YYYY HH:mm:ss');
+    const dateStart = moment(workItem.date + ' ' + workItem.timeStart, 'DD.MM.YYYY HH:mm:ss');
+    const dateEnd = moment(workItem.date + ' ' + workItem.timeEnd, 'DD.MM.YYYY HH:mm:ss');
     const dateDiff = dateEnd.diff(dateStart);
     const timeSpent = moment.utc(dateDiff).format("HH:mm:ss");
 
     const item = {
-      project: this.state.project,
-      subproject: this.state.subproject,
-      workitem: this.state.workitem,
-      task: this.state.task,
-      description: this.state.description,
-      date: this.state.date,
-      timeStart: this.state.timeStart,
-      timeEnd: this.state.timeEnd,
+      project: workItem.project,
+      subproject: workItem.subproject,
+      scope: workItem.scope,
+      task: workItem.task,
+      description: workItem.description,
+      date: workItem.date,
+      timeStart: workItem.timeStart,
+      timeEnd: workItem.timeEnd,
       timeSpent: timeSpent
     }
     itemsRef.push(item);
     this.setState({
-      project: '',
-      subproject: '',
-      workitem: '',
-      task: '',
-      description: '',
-      date: now.toLocaleDateString(),
-      timeStart: now.toLocaleTimeString(),
-      timeEnd: now.toLocaleTimeString()
+      workItem: {
+        project: '',
+        subproject: '',
+        scope: '',
+        task: '',
+        description: '',
+        date: now.toLocaleDateString(),
+        timeStart: now.toLocaleTimeString(),
+        timeEnd: now.toLocaleTimeString()
+      }
     });
   }
 
@@ -96,17 +102,17 @@ a
           <Form onSubmit={this.handleSubmit}>
             <Form.Group widths='equal'>
               <Form.Dropdown label='Projekt' name="project" search selection options={this.props.companies} onChange={this.handleSelect} loading={this.props.companiesLoading} />
-              <Form.Input label='Teilprojekt' name="subproject" onChange={this.handleChange} value={this.state.subproject} />
-              <Form.Input label='Arbeitspaket' name="workitem" onChange={this.handleChange} value={this.state.workitem} />
+              <Form.Input label='Teilprojekt' name="subproject" onChange={this.handleChange} value={this.state.workItem.subproject} />
+              <Form.Input label='Arbeitspaket' name="scope" onChange={this.handleChange} value={this.state.workItem.scope} />
             </Form.Group>
             <Form.Group widths='equal'>
-              <Form.Input label='Tätigkeit' name="task" onChange={this.handleChange} value={this.state.task} />
-              <Form.Input label='Beschreibung' name="description" onChange={this.handleChange} value={this.state.description} />
+              <Form.Input label='Tätigkeit' name="task" onChange={this.handleChange} value={this.state.workItem.task} />
+              <Form.Input label='Beschreibung' name="description" onChange={this.handleChange} value={this.state.workItem.description} />
             </Form.Group>
             <Form.Group widths='equal'>
-              <Form.Input label='Datum' name="date" onChange={this.handleChange} value={this.state.date} />
-              <Form.Input label='Beginn' name="timeStart" onChange={this.handleChange} value={this.state.timeStart} />
-              <Form.Input label='Ende' name="timeEnd" onChange={this.handleChange} value={this.state.timeEnd} />
+              <Form.Input label='Datum' name="date" onChange={this.handleChange} value={this.state.workItem.date} />
+              <Form.Input label='Beginn' name="timeStart" onChange={this.handleChange} value={this.state.workItem.timeStart} />
+              <Form.Input label='Ende' name="timeEnd" onChange={this.handleChange} value={this.state.workItem.timeEnd} />
             </Form.Group>
             <Form.Button>Abschicken</Form.Button>
           </Form>

@@ -36,7 +36,7 @@ const TableExampleColumnCount = (props) => (
               <Table.Row key={item.id}>
                 <Table.Cell>{item.project}</Table.Cell>
                 <Responsive as={Table.Cell} {...Responsive.onlyComputer}>{item.subproject}</Responsive>
-                <Table.Cell>{item.workitem}</Table.Cell>
+                <Table.Cell>{item.scope}</Table.Cell>
                 <Table.Cell>{item.task}</Table.Cell>
                 <Table.Cell>{item.description}</Table.Cell>
                 <Table.Cell>{item.timeSpent}</Table.Cell>

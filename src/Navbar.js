@@ -24,7 +24,8 @@ class SidebarLeftOverlay extends Component {
       newState: {},
       items: [],
       lastItem: {},
-      visible: false
+      visible: false,
+      workItem: {}
     }
   }
 
@@ -40,7 +41,7 @@ class SidebarLeftOverlay extends Component {
           id: item,
           project: items[item].project,
           subproject: items[item].subproject,
-          workitem: items[item].workitem,
+          scope: items[item].scope,
           task: items[item].task,
           description: items[item].description,
           date: items[item].date,
@@ -59,8 +60,8 @@ class SidebarLeftOverlay extends Component {
       samplesRef.on('value', (snapshot) => {
         let samples = snapshot.val()
         companies = samples.map(sample => Object.assign({
-          key: sample.company, 
-          value: sample.company, 
+          key: sample.company,
+          value: sample.company,
           text: sample.company
         }))
 
@@ -77,7 +78,14 @@ class SidebarLeftOverlay extends Component {
     itemsRef.remove()
   }
 
-  handleVMenuItemClick = (id) => this.setState({ vMenuActiveItem: id })
+  handleVMenuItemClick = (id) => {
+    firebase.database().ref('/items/' + id).once('value', (snapshot) => {
+      this.setState({
+        vMenuActiveItem: id,
+        workItem: snapshot.val()
+      })
+    });
+  }
 
   handleHMenuItemClick = (e, { name }) => this.setState({ hMenuActiveItem: name })
 
@@ -98,7 +106,12 @@ class SidebarLeftOverlay extends Component {
                 <Menu.Item as={Link} to='/' name='auswertung' active={this.state.hMenuActiveItem === 'auswertung'} onClick={this.handleHMenuItemClick} />
               </Menu>
               <Route exact path="/create" render={(routeProps) => (
-                <MyForm {...routeProps} {...{ companies: this.state.companies, companiesLoading: this.state.companiesLoading }} />
+                <MyForm {...routeProps} {
+                  ...{
+                    companies: this.state.companies,
+                    companiesLoading: this.state.companiesLoading,
+                    workItem: this.state.workItem
+                  }} />
               )} />
               <Route exact path="/" render={(routeProps) => (
                 <MyTable {...routeProps} {...{ items: this.state.items, handleRemove: this.handleRemove }} />
