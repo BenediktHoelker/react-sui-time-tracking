@@ -32,18 +32,19 @@ export default class SearchExampleStandard extends Component {
     render() {
         const { isLoading, value, results } = this.state
 
-        return (
+        return (/* 
             <Grid>
-                <Grid.Column floated='right'>
+                <Grid.Column floated='right'> */
                     <Search size='small'
+                        fluid="true"
                         loading={isLoading}
                         onResultSelect={this.handleResultSelect}
                         onSearchChange={this.handleSearchChange}
                         results={results}
                         value={value}
                     />
-                </Grid.Column>
-            </Grid>
+                /* </Grid.Column>
+            </Grid> */
         )
     }
 }

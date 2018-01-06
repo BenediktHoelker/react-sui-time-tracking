@@ -3,7 +3,8 @@ const config = {
     apiKey: 'AIzaSyAiu7BXtsU5Yh7nHj_QucFBhWFGm1vmvqw',
     authDomain: 'my-react-redux-firebase.firebaseapp.com',
     databaseURL: 'https://my-react-redux-firebase.firebaseio.com',
-    storageBucket: 'my-react-redux-firebase.appspot.com'  
+    storageBucket: 'my-react-redux-firebase.appspot.com'
 };
 firebase.initializeApp(config);
+
 export default firebase;

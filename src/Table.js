@@ -11,8 +11,8 @@ const TableExampleColumnCount = (props) => (
         <Grid.Column textAlign='left'>
           Bereits erfasste Tätigkeiten
         </Grid.Column>
-        <Grid.Column floated='right' textAlign='right'>
-          <MySearch fluid vertical items={props.items} />
+        <Grid.Column floated='right' textAlign='left' computer="5" tablet="6" stretched>
+          <MySearch vertical items={props.items} />
         </Grid.Column>
       </Grid>
     </Header>
