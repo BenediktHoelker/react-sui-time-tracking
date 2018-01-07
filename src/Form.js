@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import { Form, Dropdown, Header, Segment } from 'semantic-ui-react'
+import React, {Component} from 'react'
+import {Form, Dropdown, Header, Segment} from 'semantic-ui-react'
 import firebase from './firebase.js';
 import moment from 'moment';
 
 const style = {
   form: {
-    margin: '0.5em',
+    margin: '0.5em'
   }
 }
 
@@ -18,53 +18,72 @@ class FormExampleWidthField extends Component {
       companies: [],
       companiesLoading: true,
       workItem: {
+        project: '',
         subproject: 'Logistik',
         scope: 'Frontend',
         task: 'Programmierung',
         description: 'React-Entwicklung',
         date: now.toLocaleDateString(),
-        timeStart: props.lastItem ? props.lastItem.timeEnd : now.toLocaleTimeString(),
+        timeStart: props.lastItem
+          ? props.lastItem.timeEnd
+          : now.toLocaleTimeString(),
         timeEnd: now.toLocaleTimeString()
       }
     }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this
+      .handleChange
+      .bind(this);
+    this.handleSelect = this
+      .handleSelect
+      .bind(this);
+    this.handleSubmit = this
+      .handleSubmit
+      .bind(this);
   }
 
   componentWillReceiveProps(props) {
     var now = new Date();
     this.setState({
-      timeStart: props.lastItem ? props.lastItem.timeEnd : this.state.timeStart,
+      timeStart: props.lastItem
+        ? props.lastItem.timeEnd
+        : this.state.timeStart,
       companies: props.companies,
       companiesLoading: props.companiesLoading,
-      workItem: props.workItem
+      workItem: Object.assign({}, this.state.workItem, props.workItem)
     })
+    console.log(this.state.workItem);
   }
 
   handleChange(e) {
     e.preventDefault();
     this.setState({
-      [e.target.name]: e.target.value
+      workItem: Object.assign({}, this.state.workItem, {
+        [e.target.name]: e.target.value
+      })
     });
   }
 
-  handleSelect(e, { value }) {
+  handleSelect(e, {value}) {
     e.preventDefault();
+    console.log(this.state.workItem)
     this.setState({
-      project: value
+      workItem: Object.assign({}, this.state.workItem, {project: value})
     });
   }
 
   handleSubmit(e) {
-    let workItem = this.state.workItem;
     e.preventDefault();
-    const itemsRef = firebase.database().ref('items');
+    let workItem = this.state.workItem;
+    const itemsRef = firebase
+      .database()
+      .ref('items');
     const now = new Date();
     const dateStart = moment(workItem.date + ' ' + workItem.timeStart, 'DD.MM.YYYY HH:mm:ss');
     const dateEnd = moment(workItem.date + ' ' + workItem.timeEnd, 'DD.MM.YYYY HH:mm:ss');
     const dateDiff = dateEnd.diff(dateStart);
-    const timeSpent = moment.utc(dateDiff).format("HH:mm:ss");
+    const timeSpent = moment
+      .utc(dateDiff)
+      .format("HH:mm:ss");
 
     const item = {
       project: workItem.project,
@@ -101,18 +120,54 @@ class FormExampleWidthField extends Component {
         <Segment attached>
           <Form onSubmit={this.handleSubmit}>
             <Form.Group widths='equal'>
-              <Form.Dropdown label='Projekt' name="project" search selection options={this.props.companies} onChange={this.handleSelect} loading={this.props.companiesLoading} />
-              <Form.Input label='Teilprojekt' name="subproject" onChange={this.handleChange} value={this.state.workItem.subproject} />
-              <Form.Input label='Arbeitspaket' name="scope" onChange={this.handleChange} value={this.state.workItem.scope} />
+              <Form.Dropdown
+                label='Projekt'
+                name="project"
+                search
+                selection
+                options={this.props.companies}
+                onChange={this.handleSelect}
+                loading={this.props.companiesLoading}
+                value={this.state.workItem.project}/>
+              <Form.Input
+                label='Teilprojekt'
+                name="subproject"
+                onChange={this.handleChange}
+                value={this.state.workItem.subproject}/>
+              <Form.Input
+                label='Arbeitspaket'
+                name="scope"
+                onChange={this.handleChange}
+                value={this.state.workItem.scope}/>
             </Form.Group>
             <Form.Group widths='equal'>
-              <Form.Input label='Tätigkeit' name="task" onChange={this.handleChange} value={this.state.workItem.task} />
-              <Form.Input label='Beschreibung' name="description" onChange={this.handleChange} value={this.state.workItem.description} />
+              <Form.Input
+                label='Tätigkeit'
+                name="task"
+                onChange={this.handleChange}
+                value={this.state.workItem.task}/>
+              <Form.Input
+                label='Beschreibung'
+                name="description"
+                onChange={this.handleChange}
+                value={this.state.workItem.description}/>
             </Form.Group>
             <Form.Group widths='equal'>
-              <Form.Input label='Datum' name="date" onChange={this.handleChange} value={this.state.workItem.date} />
-              <Form.Input label='Beginn' name="timeStart" onChange={this.handleChange} value={this.state.workItem.timeStart} />
-              <Form.Input label='Ende' name="timeEnd" onChange={this.handleChange} value={this.state.workItem.timeEnd} />
+              <Form.Input
+                label='Datum'
+                name="date"
+                onChange={this.handleChange}
+                value={this.state.workItem.date}/>
+              <Form.Input
+                label='Beginn'
+                name="timeStart"
+                onChange={this.handleChange}
+                value={this.state.workItem.timeStart}/>
+              <Form.Input
+                label='Ende'
+                name="timeEnd"
+                onChange={this.handleChange}
+                value={this.state.workItem.timeEnd}/>
             </Form.Group>
             <Form.Button>Abschicken</Form.Button>
           </Form>
@@ -121,7 +176,5 @@ class FormExampleWidthField extends Component {
     );
   }
 }
-
-
 
 export default FormExampleWidthField
