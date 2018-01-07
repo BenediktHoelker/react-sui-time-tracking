@@ -23,7 +23,7 @@ class SidebarLeftOverlay extends Component {
       companiesLoading: true,
       newState: {},
       items: [],
-      lastItem: {},
+      nextStartTime: "",
       visible: false,
       workItem: {}
     }
@@ -32,6 +32,7 @@ class SidebarLeftOverlay extends Component {
   componentDidMount() {
     const itemsRef = firebase.database().ref('items')
     const samplesRef = firebase.database().ref('samples')
+    let companies = []
 
     itemsRef.on('value', (snapshot) => {
       let items = snapshot.val()
@@ -53,24 +54,23 @@ class SidebarLeftOverlay extends Component {
 
       this.setState({
         items: newState,
-        lastItem: newState[newState.length - 1]
+        nextStartTime: newState[newState.length - 1] ? newState[newState.length - 1].timeEnd : new Date().toLocaleTimeString()
       });
-
-      let companies = []
-      samplesRef.on('value', (snapshot) => {
-        let samples = snapshot.val()
-        companies = samples.map(sample => Object.assign({
-          key: sample.company,
-          value: sample.company,
-          text: sample.company
-        }))
-
-        this.setState({
-          companies: companies,
-          companiesLoading: false
-        });
-      })
     });
+
+    samplesRef.on('value', (snapshot) => {
+      let samples = snapshot.val()
+      companies = samples.map(sample => Object.assign({
+        key: sample.company,
+        value: sample.company,
+        text: sample.company
+      }))
+
+      this.setState({
+        companies: companies,
+        companiesLoading: false
+      });
+    })
   }
 
   handleRemove = (itemId) => {
@@ -82,7 +82,7 @@ class SidebarLeftOverlay extends Component {
     firebase.database().ref('/items/' + id).once('value', (snapshot) => {
       this.setState({
         vMenuActiveItem: id,
-        workItem: snapshot.val()
+        workItem: { ...snapshot.val(), ...{ id: id } }
       })
     });
   }
@@ -110,7 +110,8 @@ class SidebarLeftOverlay extends Component {
                   ...{
                     companies: this.state.companies,
                     companiesLoading: this.state.companiesLoading,
-                    workItem: this.state.workItem
+                    workItem: this.state.workItem,
+                    nextStartTime: this.state.nextStartTime
                   }} />
               )} />
               <Route exact path="/" render={(routeProps) => (

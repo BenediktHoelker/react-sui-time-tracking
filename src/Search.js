@@ -34,7 +34,7 @@ export default class SearchExampleStandard extends Component {
 
         return (
             <Search size='small'
-                fluid="true"
+                fluid
                 loading={isLoading}
                 onResultSelect={this.handleResultSelect}
                 onSearchChange={this.handleSearchChange}

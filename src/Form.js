@@ -13,23 +13,7 @@ class FormExampleWidthField extends Component {
   constructor(props) {
     super(props);
     var now = new Date();
-    this.state = {
-      visible: false,
-      companies: [],
-      companiesLoading: true,
-      workItem: {
-        project: '',
-        subproject: 'Logistik',
-        scope: 'Frontend',
-        task: 'Programmierung',
-        description: 'React-Entwicklung',
-        date: now.toLocaleDateString(),
-        timeStart: props.lastItem
-          ? props.lastItem.timeEnd
-          : now.toLocaleTimeString(),
-        timeEnd: now.toLocaleTimeString()
-      }
-    }
+    this.state = this.createNewWorkItem();
     this.handleChange = this
       .handleChange
       .bind(this);
@@ -41,15 +25,37 @@ class FormExampleWidthField extends Component {
       .bind(this);
   }
 
+  createNewWorkItem = function () {
+    var now = new Date()
+    return {
+      visible: false,
+      companies: [],
+      companiesLoading: true,
+      workItem: {
+        project: '',
+        subproject: 'Logistik',
+        scope: 'Frontend',
+        task: 'Programmierung',
+        description: 'React-Entwicklung',
+        date: now.toLocaleDateString(),
+        timeStart: now.toLocaleTimeString(),
+        timeEnd: now.toLocaleTimeString()
+      }
+    }
+  }
+
   componentWillReceiveProps(props) {
     var now = new Date();
     this.setState({
-      timeStart: props.lastItem
-        ? props.lastItem.timeEnd
-        : this.state.timeStart,
       companies: props.companies,
       companiesLoading: props.companiesLoading,
-      workItem: { ...this.state.workItem, ...props.workItem }
+      workItem: {
+        ...this.state.workItem, ...props.workItem, ...{
+          timeStart: props.workItem.id
+            ? props.workItem.timeStart
+            : props.nextStartTime
+        }
+      },
     })
   }
 
@@ -94,16 +100,7 @@ class FormExampleWidthField extends Component {
     itemsRef.push(item);
 
     this.setState({
-      workItem: {
-        project: '',
-        subproject: '',
-        scope: '',
-        task: '',
-        description: '',
-        date: now.toLocaleDateString(),
-        timeStart: now.toLocaleTimeString(),
-        timeEnd: now.toLocaleTimeString()
-      }
+      workItem: this.createNewWorkItem()
     });
   }
 
