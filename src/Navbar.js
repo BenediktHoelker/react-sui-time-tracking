@@ -17,8 +17,8 @@ class SidebarLeftOverlay extends Component {
   constructor() {
     super()
     this.state = {
-      vMenuActiveItem: "auswertung",
-      hMenuActiveItem: "auswertung",
+      vMenuActiveItem: "",
+      hMenuActiveItem: "erfassung",
       companies: [],
       companiesLoading: true,
       newState: {},
