@@ -30,7 +30,7 @@ class SidebarLeftOverlay extends Component {
   }
 
   componentDidMount() {
-    const itemsRef = firebase.database().ref('items')
+    const itemsRef = firebase.database().ref(this.props.user.uid + '/items')
     const samplesRef = firebase.database().ref('samples')
     let companies = []
 
@@ -110,12 +110,16 @@ class SidebarLeftOverlay extends Component {
                   ...{
                     companies: this.state.companies,
                     companiesLoading: this.state.companiesLoading,
-                    workItem: this.state.workItem,
-                    nextStartTime: this.state.nextStartTime
+                    nextStartTime: this.state.nextStartTime,
+                    user: this.props.user,
+                    workItem: this.state.workItem
                   }} />
               )} />
               <Route exact path="/" render={(routeProps) => (
-                <MyTable {...routeProps} {...{ items: this.state.items, handleRemove: this.handleRemove }} />
+                <MyTable {...routeProps} {...{
+                  handleRemove: this.handleRemove,
+                  items: this.state.items
+                }} />
               )} />
             </Segment>
           </Sidebar.Pusher>

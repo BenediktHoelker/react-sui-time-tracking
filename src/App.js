@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <div>
         <Container style={{ margin: '1em', padding: '1em' }}>
-          <MyNavbar />
+          <MyNavbar user={this.props.user}/>
         </Container>
       </div>
     );
