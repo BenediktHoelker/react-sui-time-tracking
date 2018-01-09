@@ -74,12 +74,12 @@ class SidebarLeftOverlay extends Component {
   }
 
   handleRemove = (itemId) => {
-    const itemsRef = firebase.database().ref('items/' + itemId)
+    const itemsRef = firebase.database().ref(this.props.user.uid + '/items/' + itemId)
     itemsRef.remove()
   }
 
   handleVMenuItemClick = (id) => {
-    firebase.database().ref('/items/' + id).once('value', (snapshot) => {
+    firebase.database().ref(this.props.user.uid + '/items/' + id).once('value', (snapshot) => {
       this.setState({
         vMenuActiveItem: id,
         workItem: { ...snapshot.val(), ...{ id: id } }
