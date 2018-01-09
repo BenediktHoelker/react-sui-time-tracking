@@ -11,56 +11,34 @@ import MyForm from './Form'
 import MyTable from './Table'
 import MySearch from './Search'
 import MySidebar from './Sidebar'
-import firebase from './firebase.js'
+import firebase, { auth, provider } from './firebase.js';
 
 class SidebarLeftOverlay extends Component {
   constructor() {
     super()
     this.state = {
       vMenuActiveItem: "",
-      hMenuActiveItem: "erfassung",
+      hMenuActiveItem: "auswertung",
       companies: [],
       companiesLoading: true,
       newState: {},
       items: [],
       nextStartTime: "",
+      user: null,
       visible: false,
       workItem: {}
     }
+
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
-    const itemsRef = firebase.database().ref('items')
     const samplesRef = firebase.database().ref('samples')
-    let companies = []
-
-    itemsRef.on('value', (snapshot) => {
-      let items = snapshot.val()
-      let newState = []
-      for (let item in items) {
-        newState.push({
-          id: item,
-          project: items[item].project,
-          subproject: items[item].subproject,
-          scope: items[item].scope,
-          task: items[item].task,
-          description: items[item].description,
-          date: items[item].date,
-          timeStart: items[item].timeStart,
-          timeEnd: items[item].timeEnd,
-          timeSpent: items[item].timeSpent
-        });
-      }
-
-      this.setState({
-        items: newState,
-        nextStartTime: newState[newState.length - 1] ? newState[newState.length - 1].timeEnd : new Date().toLocaleTimeString()
-      });
-    });
 
     samplesRef.on('value', (snapshot) => {
       let samples = snapshot.val()
-      companies = samples.map(sample => Object.assign({
+      let companies = samples.map(sample => Object.assign({
         key: sample.company,
         value: sample.company,
         text: sample.company
@@ -71,15 +49,66 @@ class SidebarLeftOverlay extends Component {
         companiesLoading: false
       });
     })
+
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ user });
+
+        const itemsRef = firebase.database().ref(this.state.user.uid + '/items')
+
+        itemsRef.on('value', (snapshot) => {
+          let items = snapshot.val()
+          let newState = []
+          for (let item in items) {
+            newState.push({
+              id: item,
+              project: items[item].project,
+              subproject: items[item].subproject,
+              scope: items[item].scope,
+              task: items[item].task,
+              description: items[item].description,
+              date: items[item].date,
+              timeStart: items[item].timeStart,
+              timeEnd: items[item].timeEnd,
+              timeSpent: items[item].timeSpent
+            });
+          }
+
+          this.setState({
+            items: newState,
+            nextStartTime: newState[newState.length - 1] ? newState[newState.length - 1].timeEnd : new Date().toLocaleTimeString()
+          });
+        });
+      }
+    });
+  }
+
+  logout() {
+    auth.signOut()
+      .then(() => {
+        this.setState({
+          user: null
+        });
+      });
+  }
+
+  login() {
+    auth.signInWithPopup(provider)
+      .then((result) => {
+        const user = result.user;
+        this.setState({
+          user
+        });
+      });
   }
 
   handleRemove = (itemId) => {
-    const itemsRef = firebase.database().ref('items/' + itemId)
+    const itemsRef = firebase.database().ref(this.state.user.uid + '/items/' + itemId)
     itemsRef.remove()
   }
 
   handleVMenuItemClick = (id) => {
-    firebase.database().ref('/items/' + id).once('value', (snapshot) => {
+    firebase.database().ref(this.state.user.uid + '/items/' + id).once('value', (snapshot) => {
       this.setState({
         vMenuActiveItem: id,
         workItem: { ...snapshot.val(), ...{ id: id } }
@@ -104,18 +133,34 @@ class SidebarLeftOverlay extends Component {
                 <Menu.Item header as='h3'>Arbeit</Menu.Item>
                 <Menu.Item as={Link} to='/create' name='erfassung' active={this.state.hMenuActiveItem === 'erfassung'} onClick={this.handleHMenuItemClick} />
                 <Menu.Item as={Link} to='/' name='auswertung' active={this.state.hMenuActiveItem === 'auswertung'} onClick={this.handleHMenuItemClick} />
+                {this.state.user
+                  ?
+                  <Menu.Menu position='right'>
+                    <Menu.Item>
+                      <Image src={this.state.user.photoURL} avatar />
+                      <span>{this.state.user.displayName}</span>
+                    </Menu.Item>
+                    <Menu.Item onClick={this.logout}>Logout</Menu.Item>
+                  </Menu.Menu>
+                  : <Menu.Item onClick={this.login} position='right'>Login</Menu.Item>
+                }
               </Menu>
               <Route exact path="/create" render={(routeProps) => (
                 <MyForm {...routeProps} {
                   ...{
                     companies: this.state.companies,
                     companiesLoading: this.state.companiesLoading,
-                    workItem: this.state.workItem,
-                    nextStartTime: this.state.nextStartTime
+                    nextStartTime: this.state.nextStartTime,
+                    user: this.state.user,
+                    workItem: this.state.workItem
                   }} />
               )} />
               <Route exact path="/" render={(routeProps) => (
-                <MyTable {...routeProps} {...{ items: this.state.items, handleRemove: this.handleRemove }} />
+                <MyTable {...routeProps} {...{
+                  items: this.state.items,
+                  handleRemove: this.handleRemove,
+                  user: this.state.user
+                }} />
               )} />
             </Segment>
           </Sidebar.Pusher>
