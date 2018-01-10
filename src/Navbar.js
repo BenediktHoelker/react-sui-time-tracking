@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Container, Grid, Header, Image, Icon, Menu, Sidebar, Segment } from 'semantic-ui-react'
+import { Button, Container, Grid, Header, Image, Icon, Menu, Message, Sidebar, Segment } from 'semantic-ui-react'
 import {
   BrowserRouter as Router,
   Route,
@@ -52,8 +52,6 @@ class SidebarLeftOverlay extends Component {
 
     auth.onAuthStateChanged((user) => {
       if (user) {
-        this.setState({ user });
-
         const itemsRef = firebase.database().ref(this.state.user.uid + '/items')
 
         itemsRef.on('value', (snapshot) => {
@@ -75,6 +73,7 @@ class SidebarLeftOverlay extends Component {
           }
 
           this.setState({
+            user: user,
             items: newState,
             nextStartTime: newState[newState.length - 1] ? newState[newState.length - 1].timeEnd : new Date().toLocaleTimeString()
           });
@@ -125,10 +124,12 @@ class SidebarLeftOverlay extends Component {
     return (
       <Router>
         <Sidebar.Pushable as={Segment}>
+          {this.state.user ?
           <MySidebar visible={state.visible} items={state.items} handleItemClick={this.handleVMenuItemClick} activeItem={state.vMenuActiveItem} />
+          : ""}
           <Sidebar.Pusher>
             <Segment basic>
-              <Menu >
+              <Menu stackable>
                 <Menu.Item icon='sidebar' onClick={this.toggleVisibility} />
                 <Menu.Item header as='h3'>Arbeit</Menu.Item>
                 <Menu.Item as={Link} to='/create' name='erfassung' active={this.state.hMenuActiveItem === 'erfassung'} onClick={this.handleHMenuItemClick} />
@@ -145,6 +146,9 @@ class SidebarLeftOverlay extends Component {
                   : <Menu.Item onClick={this.login} position='right'>Login</Menu.Item>
                 }
               </Menu>
+              {this.state.user
+                  ?
+              <div>
               <Route exact path="/create" render={(routeProps) => (
                 <MyForm {...routeProps} {
                   ...{
@@ -162,6 +166,17 @@ class SidebarLeftOverlay extends Component {
                   user: this.state.user
                 }} />
               )} />
+              </div>
+              
+              : <Message>
+              <Message.Header>
+                Nicht eingeloggt
+              </Message.Header>
+              <p>
+                Sie müssen eingeloggt sein, um die Anwendung zu nutzen
+              </p>
+            </Message>
+              }
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
