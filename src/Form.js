@@ -82,7 +82,7 @@ class FormExampleWidthField extends Component {
     let workItem = this.state.workItem;
     const itemsRef = firebase
       .database()
-      .ref(this.props.user.uid + '/items');
+      .ref('items/' + this.props.user.uid);
     const now = new Date();
     const dateStart = moment(workItem.date + ' ' + workItem.timeStart, 'DD.MM.YYYY HH:mm:ss');
     const dateEnd = moment(workItem.date + ' ' + workItem.timeEnd, 'DD.MM.YYYY HH:mm:ss');
@@ -97,7 +97,13 @@ class FormExampleWidthField extends Component {
       }
     }
 
-    itemsRef.push(item);
+    if(item.id){
+      let key = '/items/' + this.props.user.uid + "/" + item.id;
+      firebase.database().ref(key).set(item);
+      console.log(item.id);
+    } else {
+      itemsRef.push(item);
+    }
 
     this.setState({
       workItem: this.createNewWorkItem()

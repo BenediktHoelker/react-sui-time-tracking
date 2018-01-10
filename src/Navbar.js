@@ -18,7 +18,7 @@ class SidebarLeftOverlay extends Component {
     super()
     this.state = {
       vMenuActiveItem: "",
-      hMenuActiveItem: "auswertung",
+      hMenuActiveItem: "erfassung",
       companies: [],
       companiesLoading: true,
       newState: {},
@@ -51,8 +51,9 @@ class SidebarLeftOverlay extends Component {
     })
 
     auth.onAuthStateChanged((user) => {
+      this.setState({user})
       if (user) {
-        const itemsRef = firebase.database().ref(this.state.user.uid + '/items')
+        const itemsRef = firebase.database().ref('items/' + this.state.user.uid)
 
         itemsRef.on('value', (snapshot) => {
           let items = snapshot.val()
@@ -73,7 +74,6 @@ class SidebarLeftOverlay extends Component {
           }
 
           this.setState({
-            user: user,
             items: newState,
             nextStartTime: newState[newState.length - 1] ? newState[newState.length - 1].timeEnd : new Date().toLocaleTimeString()
           });
@@ -102,12 +102,14 @@ class SidebarLeftOverlay extends Component {
   }
 
   handleRemove = (itemId) => {
-    const itemsRef = firebase.database().ref(this.state.user.uid + '/items/' + itemId)
+    const itemsRef = firebase.database().ref('/items/' + this.state.user.uid + "/" + itemId)
     itemsRef.remove()
   }
 
   handleVMenuItemClick = (id) => {
-    firebase.database().ref(this.state.user.uid + '/items/' + id).once('value', (snapshot) => {
+    console.log(id);
+    this.setState({workItem: {...{id: id}}})
+    firebase.database().ref('/items/'+ this.state.user.uid + "/" + id).once('value', (snapshot) => {
       this.setState({
         vMenuActiveItem: id,
         workItem: { ...snapshot.val(), ...{ id: id } }
@@ -135,14 +137,7 @@ class SidebarLeftOverlay extends Component {
                 <Menu.Item as={Link} to='/create' name='erfassung' active={this.state.hMenuActiveItem === 'erfassung'} onClick={this.handleHMenuItemClick} />
                 <Menu.Item as={Link} to='/' name='auswertung' active={this.state.hMenuActiveItem === 'auswertung'} onClick={this.handleHMenuItemClick} />
                 {this.state.user
-                  ?
-                  <Menu.Menu position='right'>
-                    <Menu.Item>
-                      <Image src={this.state.user.photoURL} avatar />
-                      <span>{this.state.user.displayName}</span>
-                    </Menu.Item>
-                    <Menu.Item onClick={this.logout}>Logout</Menu.Item>
-                  </Menu.Menu>
+                  ? <Menu.Item onClick={this.logout} position='right' >{this.state.user.displayName} - Logout</Menu.Item>
                   : <Menu.Item onClick={this.login} position='right'>Login</Menu.Item>
                 }
               </Menu>
