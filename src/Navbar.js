@@ -92,7 +92,7 @@ class SidebarLeftOverlay extends Component {
   }
 
   login() {
-    auth.signInWithPopup(provider)
+    auth.signInWithRedirect(provider)
       .then((result) => {
         const user = result.user;
         this.setState({
