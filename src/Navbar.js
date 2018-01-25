@@ -20,9 +20,8 @@ import MySearch from './Search'
 import MySidebar from './Sidebar'
 import firebase, { auth, provider } from './firebase.js';
 
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { triggerLogin, toggleNavbar } from './actions/uiActions'
+import { triggerLogin, triggerLogout, toggleNavbar } from './actions/uiActions'
 
 class SidebarLeftOverlay extends Component {
   constructor() {
@@ -39,13 +38,6 @@ class SidebarLeftOverlay extends Component {
       visible: false,
       workItem: {}
     }
-
-    this.login = this
-      .login
-      .bind(this);
-    this.logout = this
-      .logout
-      .bind(this);
   }
 
   componentDidMount() {
@@ -98,23 +90,6 @@ class SidebarLeftOverlay extends Component {
       });
   }
 
-  logout() {
-    auth
-      .signOut()
-      .then(() => {
-        this.setState({ user: null });
-      });
-  }
-
-  login() {
-    auth
-      .signInWithRedirect(provider)
-      .then((result) => {
-        const user = result.user;
-        this.setState({ user });
-      });
-  }
-
   handleRemove = (itemId) => {
     const itemsRef = firebase
       .database()
@@ -149,10 +124,6 @@ class SidebarLeftOverlay extends Component {
 
   handleHMenuItemClick = (e, { name }) => this.setState({ hMenuActiveItem: name })
 
-  /* toggleVisibility = () => this.setState({
-    visible: !this.state.visible
-  }) */
-
   render() {
     const state = this.state
     return (
@@ -183,7 +154,7 @@ class SidebarLeftOverlay extends Component {
                   name='auswertung'
                   active={this.state.hMenuActiveItem === 'auswertung'}
                   onClick={this.handleHMenuItemClick} /> {this.props.user
-                    ? <Menu.Item onClick={this.logout} position='right'>{this.props.user.displayName}
+                    ? <Menu.Item onClick={this.props.logout} position='right'>{this.props.user.displayName}
                       - Logout</Menu.Item>
                     : <Menu.Item onClick={this.props.login} position='right'>Login</Menu.Item>
                 }
@@ -233,7 +204,12 @@ const mapDispatchToProps = dispatch => {
     toggleVisibility: () => {
       dispatch(toggleNavbar())
     },
-    login: bindActionCreators(triggerLogin, dispatch)
+    login: () => {
+      dispatch(triggerLogin())
+    },
+    logout: () => {
+      dispatch(triggerLogout())
+    }
   }
 }
 

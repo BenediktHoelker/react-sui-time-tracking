@@ -16,8 +16,12 @@ export function receiveLogin(result) {
   return { type: types.RECEIVE_LOGIN, user: result.user };
 }
 
-export function triggerLogout() {
-  return { type: types.TRIGGER_LOGOUT };
+export function triggerLogout() { 
+  return (dispatch, getState, firebase) => {
+    return firebase.auth
+      .signOut()
+      .then((result) => dispatch(receiveLogout(result)));
+  };
 }
 
 export function receiveLogout() {
