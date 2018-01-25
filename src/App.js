@@ -4,12 +4,20 @@ import './App.css';
 import MyNavbar from './Navbar';
 import { Container } from 'semantic-ui-react'
 
+import {createStore} from 'redux'
+import uiState from './reducers/uiReducer.js'
+
+const store = createStore(
+  uiState, 
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
 class App extends Component {
   render() {
     return (
       <div>
         <Container style={{ margin: '1em', padding: '1em' }}>
-          <MyNavbar />
+          <MyNavbar store={store}/>
         </Container>
       </div>
     );

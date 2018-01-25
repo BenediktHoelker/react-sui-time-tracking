@@ -1,6 +1,5 @@
 {
   "name": "my-react-semantic-ui",
-  "homepage": "https://benedikthoelker.github.io/react-sui-time-tracking",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,8 +10,11 @@
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-moment": "^0.6.8",
+    "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "semantic-ui-react": "^0.76.0"
   },
   "scripts": {
