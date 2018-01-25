@@ -4,12 +4,16 @@ import './App.css';
 import MyNavbar from './Navbar';
 import { Container } from 'semantic-ui-react'
 
-import {createStore} from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import uiState from './reducers/uiReducer.js'
+import thunk from 'redux-thunk';
+
+import firebase, { auth, provider } from './firebase.js';
 
 const store = createStore(
-  uiState, 
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  uiState,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(thunk.withExtraArgument({ auth, provider }))
 );
 
 class App extends Component {
@@ -17,7 +21,7 @@ class App extends Component {
     return (
       <div>
         <Container style={{ margin: '1em', padding: '1em' }}>
-          <MyNavbar store={store}/>
+          <MyNavbar store={store} />
         </Container>
       </div>
     );

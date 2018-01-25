@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import {
   Button,
   Container,
@@ -11,17 +11,18 @@ import {
   Sidebar,
   Segment
 } from 'semantic-ui-react'
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 import MyGrid from './Grid'
 import MyForm from './Form'
 import MyTable from './Table'
 import MySearch from './Search'
 import MySidebar from './Sidebar'
-import firebase, {auth, provider} from './firebase.js';
+import firebase, { auth, provider } from './firebase.js';
 
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { toggleNavbar } from './actions/uiActions'
+import { triggerLogin, toggleNavbar } from './actions/uiActions'
 
 class SidebarLeftOverlay extends Component {
   constructor() {
@@ -54,20 +55,19 @@ class SidebarLeftOverlay extends Component {
 
     samplesRef.on('value', (snapshot) => {
       let samples = snapshot.val()
-      let companies = samples.map(sample => Object.assign({key: sample.company, value: sample.company, text: sample.company}))
-
-      this.setState({companies: companies, companiesLoading: false});
+      let companies = samples.map(sample => Object.assign({ key: sample.company, value: sample.company, text: sample.company }))
+      this.setState({ companies: companies, companiesLoading: false });
     })
 
     auth
       .getRedirectResult()
       .then((result) => {
         let user = result.user
-        this.setState({user})
+        this.setState({ user })
         if (user) {
           const itemsRef = firebase
             .database()
-            .ref('items/' + this.state.user.uid)
+            .ref('items/' + this.props.user.uid)
 
           itemsRef.on('value', (snapshot) => {
             let items = snapshot.val()
@@ -102,7 +102,7 @@ class SidebarLeftOverlay extends Component {
     auth
       .signOut()
       .then(() => {
-        this.setState({user: null});
+        this.setState({ user: null });
       });
   }
 
@@ -111,14 +111,14 @@ class SidebarLeftOverlay extends Component {
       .signInWithRedirect(provider)
       .then((result) => {
         const user = result.user;
-        this.setState({user});
+        this.setState({ user });
       });
   }
 
   handleRemove = (itemId) => {
     const itemsRef = firebase
       .database()
-      .ref('/items/' + this.state.user.uid + "/" + itemId)
+      .ref('/items/' + this.props.user.uid + "/" + itemId)
     itemsRef.remove()
   }
 
@@ -133,7 +133,7 @@ class SidebarLeftOverlay extends Component {
     })
     firebase
       .database()
-      .ref('/items/' + this.state.user.uid + "/" + id)
+      .ref('/items/' + this.props.user.uid + "/" + id)
       .once('value', (snapshot) => {
         this.setState({
           vMenuActiveItem: id,
@@ -147,7 +147,7 @@ class SidebarLeftOverlay extends Component {
       });
   }
 
-  handleHMenuItemClick = (e, {name}) => this.setState({hMenuActiveItem: name})
+  handleHMenuItemClick = (e, { name }) => this.setState({ hMenuActiveItem: name })
 
   /* toggleVisibility = () => this.setState({
     visible: !this.state.visible
@@ -158,52 +158,51 @@ class SidebarLeftOverlay extends Component {
     return (
       <Router>
         <Sidebar.Pushable as={Segment}>
-          {this.state.user
+          {this.props.user
             ? <MySidebar
-                visible={this.props.visible}
-                items={state.items}
-                handleItemClick={this.handleVMenuItemClick}
-                activeItem={state.vMenuActiveItem}/>
+              visible={this.props.visible}
+              items={state.items}
+              handleItemClick={this.handleVMenuItemClick}
+              activeItem={state.vMenuActiveItem} />
             : ""}
           <Sidebar.Pusher>
             <Segment basic>
               <Menu stackable>
-                <Menu.Item icon='sidebar' onClick={this.props.toggleVisibility}/>
-                <Menu.Item icon='external' onClick={this.props.toggleVisibility}/>
+                <Menu.Item icon='sidebar' onClick={this.props.toggleVisibility} />
+                <Menu.Item icon='external' onClick={this.props.toggleVisibility} />
                 <Menu.Item header as='h3'>Arbeit</Menu.Item>
                 <Menu.Item
                   as={Link}
                   to='/create'
                   name='erfassung'
                   active={this.state.hMenuActiveItem === 'erfassung'}
-                  onClick={this.handleHMenuItemClick}/>
+                  onClick={this.handleHMenuItemClick} />
                 <Menu.Item
                   as={Link}
                   to='/'
                   name='auswertung'
                   active={this.state.hMenuActiveItem === 'auswertung'}
-                  onClick={this.handleHMenuItemClick}/> {this.state.user
-                  ? <Menu.Item onClick={this.logout} position='right'>{this.state.user.displayName}
+                  onClick={this.handleHMenuItemClick} /> {this.props.user
+                    ? <Menu.Item onClick={this.logout} position='right'>{this.props.user.displayName}
                       - Logout</Menu.Item>
-                  : <Menu.Item onClick={this.login} position='right'>Login</Menu.Item>
-}
+                    : <Menu.Item onClick={this.props.login} position='right'>Login</Menu.Item>
+                }
               </Menu>
-              {this.state.user
+              {this.props.user
                 ? <div>
-                    <Route
-                      exact
-                      path="/create"
-                      render={(routeProps) => (<MyForm
+                  <Route
+                    exact
+                    path="/create"
+                    render={(routeProps) => (<MyForm
                       {...routeProps}
-                      { ...{ companies: this.state.companies, companiesLoading: this.state.companiesLoading, nextStartTime: this.state.nextStartTime, user: this.state.user, workItem: this.state.workItem }}/>)}/>
-                    <Route
-                      exact
-                      path="/"
-                      render={(routeProps) => (<MyTable
+                      { ...{ companies: this.state.companies, companiesLoading: this.state.companiesLoading, nextStartTime: this.state.nextStartTime, user: this.props.user, workItem: this.state.workItem }} />)} />
+                  <Route
+                    exact
+                    path="/"
+                    render={(routeProps) => (<MyTable
                       {...routeProps}
-                      {...{ items: this.state.items, handleRemove: this.handleRemove, user: this.state.user }}/>)}/>
-                  </div>
-
+                      {...{ items: this.state.items, handleRemove: this.handleRemove, user: this.props.user }} />)} />
+                </div>
                 : <Message>
                   <Message.Header>
                     Nicht eingeloggt
@@ -212,7 +211,7 @@ class SidebarLeftOverlay extends Component {
                     Sie müssen eingeloggt sein, um die Anwendung zu nutzen
                   </p>
                 </Message>
-}
+              }
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
@@ -224,7 +223,8 @@ class SidebarLeftOverlay extends Component {
 
 const mapStateToProps = state => {
   return {
-    visible: state.isNavbarVisible
+    visible: state.isNavbarVisible,
+    user: state.user
   }
 }
 
@@ -232,7 +232,8 @@ const mapDispatchToProps = dispatch => {
   return {
     toggleVisibility: () => {
       dispatch(toggleNavbar())
-    }
+    },
+    login: bindActionCreators(triggerLogin, dispatch)
   }
 }
 

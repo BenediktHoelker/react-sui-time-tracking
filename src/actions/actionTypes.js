@@ -1,1 +1,7 @@
 export const TOGGLE_NAVBAR = 'TOGGLE_NAVBAR';
+
+export const TRIGGER_LOGIN = 'TRIGGER_LOGIN';
+export const RECEIVE_LOGIN = 'RECEIVE_LOGIN';
+
+export const TRIGGER_LOGOUT = 'TRIGGER_LOGOUT';
+export const RECEIVE_LOGOUT = 'RECEIVE_LOGOUT';
