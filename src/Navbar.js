@@ -21,7 +21,7 @@ import MySidebar from './Sidebar'
 import firebase, { auth, provider } from './firebase.js';
 
 import { connect } from 'react-redux'
-import { triggerLogin, triggerLogout, toggleNavbar } from './actions/uiActions'
+import { getUser, triggerLogin, triggerLogout, toggleNavbar } from './actions/uiActions'
 
 class SidebarLeftOverlay extends Component {
   constructor() {
@@ -50,6 +50,10 @@ class SidebarLeftOverlay extends Component {
       let companies = samples.map(sample => Object.assign({ key: sample.company, value: sample.company, text: sample.company }))
       this.setState({ companies: companies, companiesLoading: false });
     })
+    
+    this.props.store.dispatch(
+      getUser()
+    );
 
     auth
       .getRedirectResult()
@@ -190,7 +194,6 @@ class SidebarLeftOverlay extends Component {
     )
   }
 }
-
 
 const mapStateToProps = state => {
   return {

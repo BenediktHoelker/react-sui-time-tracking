@@ -1,3 +1,4 @@
 export default {
-  isNavbarVisible: false
+  isNavbarVisible: false,
+  user: null
 };

@@ -1,5 +1,5 @@
 import initialState from './initialState';
-import { TOGGLE_NAVBAR, TRIGGER_LOGIN, RECEIVE_LOGIN, RECEIVE_LOGOUT, TRIGGER_LOGOUT } from '../actions/actionTypes';
+import { TOGGLE_NAVBAR, RECEIVE_LOGIN, RECEIVE_LOGOUT } from '../actions/actionTypes';
 import { receiveLogin } from '../actions/uiActions';
 
 export default function uiState(state = initialState, action) {
@@ -14,8 +14,6 @@ export default function uiState(state = initialState, action) {
         ...state,
         user: action.user
       }
-    case TRIGGER_LOGOUT:
-      return action
     case RECEIVE_LOGOUT:
       return {
         ...state,
