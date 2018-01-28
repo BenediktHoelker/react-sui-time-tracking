@@ -1,6 +1,5 @@
 import initialState from './initialState';
-import { TOGGLE_NAVBAR, RECEIVE_LOGIN, RECEIVE_LOGOUT } from '../actions/actionTypes';
-import { receiveLogin } from '../actions/uiActions';
+import {TOGGLE_NAVBAR, RECEIVE_LOGIN, RECEIVE_LOGOUT, REQUEST_PROJECTS, RECEIVE_PROJECTS} from '../actions/actionTypes';
 
 export default function uiState(state = initialState, action) {
   switch (action.type) {
@@ -18,6 +17,17 @@ export default function uiState(state = initialState, action) {
       return {
         ...state,
         user: null
+      }
+    case REQUEST_PROJECTS:
+      return {
+        ...state,
+        projectsLoading: true
+      }
+    case RECEIVE_PROJECTS:
+      return {
+        ...state,
+        projects: action.projects,
+        projectsLoading: false
       }
     default:
       return state

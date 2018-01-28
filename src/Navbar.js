@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import {
   Button,
   Container,
@@ -11,17 +11,17 @@ import {
   Sidebar,
   Segment
 } from 'semantic-ui-react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 
 import MyGrid from './Grid'
 import MyForm from './Form'
 import MyTable from './Table'
 import MySearch from './Search'
 import MySidebar from './Sidebar'
-import firebase, { auth, provider } from './firebase.js';
+import firebase, {auth, provider} from './firebase.js';
 
-import { connect } from 'react-redux'
-import { getUser, triggerLogin, triggerLogout, toggleNavbar } from './actions/uiActions'
+import {connect} from 'react-redux'
+import {getUser, loadProjects, triggerLogin, triggerLogout, toggleNavbar} from './actions/uiActions'
 
 class SidebarLeftOverlay extends Component {
   constructor() {
@@ -41,25 +41,15 @@ class SidebarLeftOverlay extends Component {
   }
 
   componentDidMount() {
-    const samplesRef = firebase
-      .database()
-      .ref('samples')
-
-    samplesRef.on('value', (snapshot) => {
-      let samples = snapshot.val()
-      let companies = samples.map(sample => Object.assign({ key: sample.company, value: sample.company, text: sample.company }))
-      this.setState({ companies: companies, companiesLoading: false });
-    })
-    
-    this.props.store.dispatch(
-      getUser()
-    );
+    const store = this.props.store;
+    store.dispatch(getUser())
+    store.dispatch(loadProjects())
 
     auth
       .getRedirectResult()
       .then((result) => {
         let user = result.user
-        this.setState({ user })
+        this.setState({user})
         if (user) {
           const itemsRef = firebase
             .database()
@@ -126,7 +116,7 @@ class SidebarLeftOverlay extends Component {
       });
   }
 
-  handleHMenuItemClick = (e, { name }) => this.setState({ hMenuActiveItem: name })
+  handleHMenuItemClick = (e, {name}) => this.setState({hMenuActiveItem: name})
 
   render() {
     const state = this.state
@@ -135,49 +125,49 @@ class SidebarLeftOverlay extends Component {
         <Sidebar.Pushable as={Segment}>
           {this.props.user
             ? <MySidebar
-              visible={this.props.visible}
-              items={state.items}
-              handleItemClick={this.handleVMenuItemClick}
-              activeItem={state.vMenuActiveItem} />
+                visible={this.props.visible}
+                items={state.items}
+                handleItemClick={this.handleVMenuItemClick}
+                activeItem={state.vMenuActiveItem}/>
             : ""}
           <Sidebar.Pusher>
             <Segment basic>
               <Menu stackable>
-                <Menu.Item icon='sidebar' onClick={this.props.toggleVisibility} />
-                <Menu.Item icon='external' onClick={this.props.toggleVisibility} />
+                <Menu.Item icon='sidebar' onClick={this.props.toggleVisibility}/>
+                <Menu.Item icon='external' onClick={this.props.toggleVisibility}/>
                 <Menu.Item header as='h3'>Arbeit</Menu.Item>
                 <Menu.Item
                   as={Link}
                   to='/create'
                   name='erfassung'
                   active={this.state.hMenuActiveItem === 'erfassung'}
-                  onClick={this.handleHMenuItemClick} />
+                  onClick={this.handleHMenuItemClick}/>
                 <Menu.Item
                   as={Link}
                   to='/'
                   name='auswertung'
                   active={this.state.hMenuActiveItem === 'auswertung'}
-                  onClick={this.handleHMenuItemClick} /> {this.props.user
-                    ? <Menu.Item onClick={this.props.logout} position='right'>{this.props.user.displayName}
+                  onClick={this.handleHMenuItemClick}/> {this.props.user
+                  ? <Menu.Item onClick={this.props.logout} position='right'>{this.props.user.displayName}
                       - Logout</Menu.Item>
-                    : <Menu.Item onClick={this.props.login} position='right'>Login</Menu.Item>
-                }
+                  : <Menu.Item onClick={this.props.login} position='right'>Login</Menu.Item>
+}
               </Menu>
               {this.props.user
                 ? <div>
-                  <Route
-                    exact
-                    path="/create"
-                    render={(routeProps) => (<MyForm
+                    <Route
+                      exact
+                      path="/create"
+                      render={(routeProps) => (<MyForm
                       {...routeProps}
-                      { ...{ companies: this.state.companies, companiesLoading: this.state.companiesLoading, nextStartTime: this.state.nextStartTime, user: this.props.user, workItem: this.state.workItem }} />)} />
-                  <Route
-                    exact
-                    path="/"
-                    render={(routeProps) => (<MyTable
+                      { ...{ companies: this.props.projects, companiesLoading: this.props.projectsLoading, nextStartTime: this.state.nextStartTime, user: this.props.user, workItem: this.state.workItem }}/>)}/>
+                    <Route
+                      exact
+                      path="/"
+                      render={(routeProps) => (<MyTable
                       {...routeProps}
-                      {...{ items: this.state.items, handleRemove: this.handleRemove, user: this.props.user }} />)} />
-                </div>
+                      {...{ items: this.state.items, handleRemove: this.handleRemove, user: this.props.user }}/>)}/>
+                  </div>
                 : <Message>
                   <Message.Header>
                     Nicht eingeloggt
@@ -186,7 +176,7 @@ class SidebarLeftOverlay extends Component {
                     Sie müssen eingeloggt sein, um die Anwendung zu nutzen
                   </p>
                 </Message>
-              }
+}
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
@@ -197,8 +187,10 @@ class SidebarLeftOverlay extends Component {
 
 const mapStateToProps = state => {
   return {
-    visible: state.isNavbarVisible,
-    user: state.user
+    visible: state.isNavbarVisible, 
+    user: state.user,
+    projects: state.projects,
+    projectsLoading: state.projectsLoading
   }
 }
 
@@ -216,9 +208,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default SidebarLeftOverlay = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SidebarLeftOverlay)
-
-
+export default SidebarLeftOverlay = connect(mapStateToProps, mapDispatchToProps)(SidebarLeftOverlay)
