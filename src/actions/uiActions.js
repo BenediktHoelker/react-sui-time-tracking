@@ -35,8 +35,15 @@ export function getUser() {
     return firebase
       .auth
       .getRedirectResult()
-      .then((result) => dispatch(receiveLogin(result)));
-  };
+      .then((result) => {
+        if(result.user){
+          dispatch(receiveLogin(result))
+          return Promise.resolve(result)
+        } else {
+          return Promise.reject()
+        }
+      })
+  }
 }
 
 export function requestProjects(projects) {
