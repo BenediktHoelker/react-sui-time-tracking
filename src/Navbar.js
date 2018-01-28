@@ -21,7 +21,14 @@ import MySidebar from './Sidebar'
 import firebase, {auth, provider} from './firebase.js';
 
 import {connect} from 'react-redux'
-import {getUser, loadProjects, triggerLogin, triggerLogout, toggleNavbar} from './actions/uiActions'
+import {
+  getUser,
+  loadProjects,
+  triggerLogin,
+  triggerLogout,
+  toggleNavbar,
+  requestWorkItems
+} from './actions/uiActions'
 
 class SidebarLeftOverlay extends Component {
   constructor() {
@@ -45,42 +52,10 @@ class SidebarLeftOverlay extends Component {
     store
       .dispatch(getUser())
       .then((result) => {
-        let user = result.user
-
-        const itemsRef = firebase
-          .database()
-          .ref('items/' + this.props.user.uid)
-
-        itemsRef.on('value', (snapshot) => {
-          let items = snapshot.val()
-          let newState = []
-          for (let item in items) {
-            newState.push({
-              id: item,
-              project: items[item].project,
-              subproject: items[item].subproject,
-              scope: items[item].scope,
-              task: items[item].task,
-              description: items[item].description,
-              date: items[item].date,
-              timeStart: items[item].timeStart,
-              timeEnd: items[item].timeEnd,
-              timeSpent: items[item].timeSpent
-            });
-          }
-
-          this.setState({
-            items: newState,
-            nextStartTime: newState[newState.length - 1]
-              ? newState[newState.length - 1].timeEnd
-              : new Date().toLocaleTimeString()
-          });
-        });
-      })
+        store.dispatch(requestWorkItems(result.user))
+      });
 
     store.dispatch(loadProjects())
-
-    auth.getRedirectResult()
   }
 
   handleRemove = (itemId) => {
@@ -159,13 +134,13 @@ class SidebarLeftOverlay extends Component {
                       path="/create"
                       render={(routeProps) => (<MyForm
                       {...routeProps}
-                      { ...{ companies: this.props.projects, companiesLoading: this.props.projectsLoading, nextStartTime: this.state.nextStartTime, user: this.props.user, workItem: this.state.workItem }}/>)}/>
+                      { ...{ companies: this.props.projects, companiesLoading: this.props.projectsLoading, nextStartTime: this.props.nextStartTime, user: this.props.user, workItem: this.props.workItem }}/>)}/>
                     <Route
                       exact
                       path="/"
                       render={(routeProps) => (<MyTable
                       {...routeProps}
-                      {...{ items: this.state.items, handleRemove: this.handleRemove, user: this.props.user }}/>)}/>
+                      {...{ items: this.props.items ? this.props.items : [], handleRemove: this.handleRemove, user: this.props.user }}/>)}/>
                   </div>
                 : <Message>
                   <Message.Header>
@@ -185,7 +160,7 @@ class SidebarLeftOverlay extends Component {
 }
 
 const mapStateToProps = state => {
-  return {visible: state.isNavbarVisible, user: state.user, projects: state.projects, projectsLoading: state.projectsLoading}
+  return {visible: state.isNavbarVisible, user: state.user, projects: state.projects, projectsLoading: state.projectsLoading, items: state.items}
 }
 
 const mapDispatchToProps = dispatch => {

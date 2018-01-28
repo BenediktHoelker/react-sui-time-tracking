@@ -1,5 +1,5 @@
 import initialState from './initialState';
-import {TOGGLE_NAVBAR, RECEIVE_LOGIN, RECEIVE_LOGOUT, REQUEST_PROJECTS, RECEIVE_PROJECTS} from '../actions/actionTypes';
+import {TOGGLE_NAVBAR, RECEIVE_LOGIN, RECEIVE_LOGOUT, REQUEST_PROJECTS, RECEIVE_PROJECTS, SET_ITEMS} from '../actions/actionTypes';
 
 export default function uiState(state = initialState, action) {
   switch (action.type) {
@@ -28,6 +28,15 @@ export default function uiState(state = initialState, action) {
         ...state,
         projects: action.projects,
         projectsLoading: false
+      }
+    case SET_ITEMS:
+      const items = action.items
+      return {
+        ...state,
+        items: items,
+        nextStartTime: items[items.length - 1]
+          ? items[items.length - 1].timeEnd
+          : new Date().toLocaleTimeString()
       }
     default:
       return state

@@ -6,3 +6,5 @@ export const RECEIVE_LOGOUT = 'RECEIVE_LOGOUT';
 
 export const REQUEST_PROJECTS = 'REQUEST_PROJECTS';
 export const RECEIVE_PROJECTS = 'RECEIVE_PROJECTS';
+
+export const SET_ITEMS = 'SET_ITEMS';

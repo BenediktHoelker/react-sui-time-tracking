@@ -36,7 +36,7 @@ export function getUser() {
       .auth
       .getRedirectResult()
       .then((result) => {
-        if(result.user){
+        if (result.user) {
           dispatch(receiveLogin(result))
           return Promise.resolve(result)
         } else {
@@ -65,6 +65,39 @@ export function loadProjects() {
       dispatch(receiveProjects(companies))
     })
   }
+}
+
+export function requestWorkItems(user) {
+  return (dispatch, getState, firebase) => {
+    const itemsRef = firebase
+      .database
+      .ref('items/' + user.uid)
+
+    itemsRef.on('value', (snapshot) => {
+      let items = snapshot.val()
+      let newState = []
+      for (let item in items) {
+        newState.push({
+          id: item,
+          project: items[item].project,
+          subproject: items[item].subproject,
+          scope: items[item].scope,
+          task: items[item].task,
+          description: items[item].description,
+          date: items[item].date,
+          timeStart: items[item].timeStart,
+          timeEnd: items[item].timeEnd,
+          timeSpent: items[item].timeSpent
+        });
+      }
+
+      dispatch(setItems(newState))
+    })
+  }
+}
+
+export function setItems(items) {
+  return {type: types.SET_ITEMS, items: items};
 }
 
 export function receiveProjects(projects) {
