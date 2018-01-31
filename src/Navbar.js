@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import {
-  Menu,
-  Message,
-  Sidebar,
-  Segment
-} from "semantic-ui-react";
+import { Menu, Message, Sidebar, Segment } from "semantic-ui-react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import MyForm from "./Form";
@@ -22,18 +17,24 @@ import {
   triggerLogin,
   triggerLogout,
   toggleNavbar,
-  requestWorkItems
+  requestWorkItems,
+  receiveLogin
 } from "./actions/uiActions";
 
 class SidebarLeftOverlay extends Component {
   componentDidMount() {
     const store = this.props.store;
-    store.dispatch(getUser())
-    .then(result => {
-      return Promise.resolve(store.dispatch(requestWorkItems(result.user)));
-    }).then(() => 
-      store.dispatch(loadProjects())
-    );
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        store.dispatch(receiveLogin(user));
+        Promise.resolve(store.dispatch(requestWorkItems(user))).then(() =>
+          store.dispatch(loadProjects())
+        );
+      }
+    });
+
+    store.dispatch(getUser());
   }
 
   render() {
@@ -167,7 +168,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(handleHMenuItemClick(name));
     },
     handleRemove: id => {
-      dispatch(handleRemoveItem(id))
+      dispatch(handleRemoveItem(id));
     }
   };
 };

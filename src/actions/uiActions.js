@@ -20,8 +20,8 @@ export function triggerLogin() {
   };
 }
 
-export function receiveLogin(result) {
-  return { type: types.RECEIVE_LOGIN, user: result.user };
+export function receiveLogin(user) {
+  return { type: types.RECEIVE_LOGIN, user: user };
 }
 
 export function triggerLogout() {
@@ -40,8 +40,7 @@ export function getUser() {
   return (dispatch, getState, firebase) => {
     return firebase.auth.getRedirectResult().then(result => {
       if (result.user) {
-        dispatch(receiveLogin(result));
-        return Promise.resolve(result);
+        return Promise.resolve(result.user);
       } else {
         return Promise.reject();
       }
