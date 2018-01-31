@@ -1,5 +1,13 @@
-import initialState from './initialState';
-import {TOGGLE_NAVBAR, RECEIVE_LOGIN, RECEIVE_LOGOUT, REQUEST_PROJECTS, RECEIVE_PROJECTS, SET_ITEMS} from '../actions/actionTypes';
+import initialState from "./initialState";
+import {
+  TOGGLE_NAVBAR,
+  RECEIVE_LOGIN,
+  RECEIVE_LOGOUT,
+  REQUEST_PROJECTS,
+  RECEIVE_PROJECTS,
+  SET_ITEMS,
+  SET_ACTIVE_MENU_ITEM_V
+} from "../actions/actionTypes";
 
 export default function uiState(state = initialState, action) {
   switch (action.type) {
@@ -7,38 +15,46 @@ export default function uiState(state = initialState, action) {
       return {
         ...state,
         isNavbarVisible: !state.isNavbarVisible
-      }
+      };
     case RECEIVE_LOGIN:
       return {
         ...state,
         user: action.user
-      }
+      };
     case RECEIVE_LOGOUT:
       return {
         ...state,
         user: null
-      }
+      };
     case REQUEST_PROJECTS:
       return {
         ...state,
         projectsLoading: true
-      }
+      };
     case RECEIVE_PROJECTS:
       return {
         ...state,
         projects: action.projects,
         projectsLoading: false
-      }
+      };
     case SET_ITEMS:
-      const items = action.items
+      const items = action.items;
       return {
         ...state,
         items: items,
         nextStartTime: items[items.length - 1]
           ? items[items.length - 1].timeEnd
-          : new Date().toLocaleTimeString()
-      }
+          : new Date().toLocaleTimeString(),
+        workItem: items[0] ? items[0] : {}
+      };
+    case SET_ACTIVE_MENU_ITEM_V:
+      const selectedItem = state.items.find(item => item.id === action.Id);
+      return {
+        ...state,
+        vMenuActiveItem: action.Id,
+        workItem: selectedItem ? selectedItem : {}
+      };
     default:
-      return state
+      return state;
   }
 }

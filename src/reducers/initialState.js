@@ -1,4 +1,10 @@
 export default {
-  isNavbarVisible: false,
-  user: null
+  items: [],
+  hMenuActiveItem: "",
+  projects: [],
+  projectsLoading: false,
+  user: null,
+  visible: false,
+  vMenuActiveItem: "",
+  workItem: {}
 };
