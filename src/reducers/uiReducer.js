@@ -6,7 +6,8 @@ import {
   REQUEST_PROJECTS,
   RECEIVE_PROJECTS,
   SET_ITEMS,
-  SET_ACTIVE_MENU_ITEM_V
+  SET_ACTIVE_MENU_ITEM_V,
+  SET_ACTIVE_MENU_ITEM_H
 } from "../actions/actionTypes";
 
 export default function uiState(state = initialState, action) {
@@ -53,6 +54,11 @@ export default function uiState(state = initialState, action) {
         ...state,
         vMenuActiveItem: action.Id,
         workItem: selectedItem ? selectedItem : {}
+      };
+    case SET_ACTIVE_MENU_ITEM_H:
+      return {
+        ...state,
+        hMenuActiveItem: action.name
       };
     default:
       return state;

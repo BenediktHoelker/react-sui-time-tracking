@@ -1,11 +1,5 @@
 import React, { Component } from "react";
 import {
-  Button,
-  Container,
-  Grid,
-  Header,
-  Image,
-  Icon,
   Menu,
   Message,
   Sidebar,
@@ -13,17 +7,16 @@ import {
 } from "semantic-ui-react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import MyGrid from "./Grid";
 import MyForm from "./Form";
 import MyTable from "./Table";
-import MySearch from "./Search";
 import MySidebar from "./Sidebar";
-import firebase, { auth, provider } from "./firebase.js";
+import firebase from "./firebase.js";
 
 import { connect } from "react-redux";
 import {
   getUser,
   handleVMenuItemClick,
+  handleHMenuItemClick,
   loadProjects,
   triggerLogin,
   triggerLogout,
@@ -32,17 +25,14 @@ import {
 } from "./actions/uiActions";
 
 class SidebarLeftOverlay extends Component {
-  constructor() {
-    super();
-  }
-
   componentDidMount() {
     const store = this.props.store;
-    store.dispatch(getUser()).then(result => {
-      store.dispatch(requestWorkItems(result.user));
-    });
-
-    store.dispatch(loadProjects());
+    store.dispatch(getUser())
+    .then(result => {
+      return Promise.resolve(store.dispatch(requestWorkItems(result.user)));
+    }).then(() => 
+      store.dispatch(loadProjects())
+    );
   }
 
   handleRemove = itemId => {
@@ -51,34 +41,6 @@ class SidebarLeftOverlay extends Component {
       .ref("/items/" + this.props.user.uid + "/" + itemId);
     itemsRef.remove();
   };
-
-  handleVMenuItemClick = id => {
-    console.log(id);
-    this.setState({
-      workItem: {
-        ...{
-          id: id
-        }
-      }
-    });
-    firebase
-      .database()
-      .ref("/items/" + this.props.user.uid + "/" + id)
-      .once("value", snapshot => {
-        this.setState({
-          vMenuActiveItem: id,
-          workItem: {
-            ...snapshot.val(),
-            ...{
-              id: id
-            }
-          }
-        });
-      });
-  };
-
-  handleHMenuItemClick = (e, { name }) =>
-    this.setState({ hMenuActiveItem: name });
 
   render() {
     return (
@@ -113,14 +75,14 @@ class SidebarLeftOverlay extends Component {
                   to="/create"
                   name="erfassung"
                   active={this.props.hMenuActiveItem === "erfassung"}
-                  onClick={this.handleHMenuItemClick}
+                  onClick={this.props.handleHMenuItemClick}
                 />
                 <Menu.Item
                   as={Link}
                   to="/"
                   name="auswertung"
                   active={this.props.hMenuActiveItem === "auswertung"}
-                  onClick={this.handleHMenuItemClick}
+                  onClick={this.props.handleHMenuItemClick}
                 />
                 {this.props.user ? (
                   <Menu.Item onClick={this.props.logout} position="right">
@@ -206,6 +168,9 @@ const mapDispatchToProps = dispatch => {
     },
     handleVMenuItemClick: Id => {
       dispatch(handleVMenuItemClick(Id));
+    },
+    handleHMenuItemClick: (e, { name }) => {
+      dispatch(handleHMenuItemClick(name));
     }
   };
 };

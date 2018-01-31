@@ -1,7 +1,11 @@
 import * as types from "./actionTypes";
 
-export function handleVMenuItemClick(Id) {
-  return { type: types.SET_ACTIVE_MENU_ITEM_V, Id };
+export function handleVMenuItemClick(id) {
+  return { type: types.SET_ACTIVE_MENU_ITEM_V, id };
+}
+
+export function handleHMenuItemClick(name) {
+  return { type: types.SET_ACTIVE_MENU_ITEM_H, name };
 }
 
 export function toggleNavbar() {
