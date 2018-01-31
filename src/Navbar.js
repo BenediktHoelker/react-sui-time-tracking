@@ -17,6 +17,7 @@ import {
   getUser,
   handleVMenuItemClick,
   handleHMenuItemClick,
+  handleRemoveItem,
   loadProjects,
   triggerLogin,
   triggerLogout,
@@ -34,13 +35,6 @@ class SidebarLeftOverlay extends Component {
       store.dispatch(loadProjects())
     );
   }
-
-  handleRemove = itemId => {
-    const itemsRef = firebase
-      .database()
-      .ref("/items/" + this.props.user.uid + "/" + itemId);
-    itemsRef.remove();
-  };
 
   render() {
     return (
@@ -121,7 +115,7 @@ class SidebarLeftOverlay extends Component {
                         {...routeProps}
                         {...{
                           items: this.props.items ? this.props.items : [],
-                          handleRemove: this.handleRemove,
+                          handleRemove: this.props.handleRemove,
                           user: this.props.user
                         }}
                       />
@@ -166,11 +160,14 @@ const mapDispatchToProps = dispatch => {
     logout: () => {
       dispatch(triggerLogout());
     },
-    handleVMenuItemClick: Id => {
-      dispatch(handleVMenuItemClick(Id));
+    handleVMenuItemClick: id => {
+      dispatch(handleVMenuItemClick(id));
     },
     handleHMenuItemClick: (e, { name }) => {
       dispatch(handleHMenuItemClick(name));
+    },
+    handleRemove: id => {
+      dispatch(handleRemoveItem(id))
     }
   };
 };

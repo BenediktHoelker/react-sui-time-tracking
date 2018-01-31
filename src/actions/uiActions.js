@@ -71,6 +71,20 @@ export function loadProjects() {
   };
 }
 
+export function handleRemoveItem(itemId) {
+  return (dispatch, getState, firebase) => {
+    const itemsRef = firebase.database.ref(
+      "/items/" + getState().user.uid + "/" + itemId
+    )
+    itemsRef.remove()
+    //dispatch(removeFromState(itemId)) // Does not need to be triggered due to firebase realtime
+  };
+}
+
+export function removeFromState(itemId){
+  return {type: types.REMOVE_FROM_STATE, itemId: itemId}
+}
+
 export function requestWorkItems(user) {
   return (dispatch, getState, firebase) => {
     const itemsRef = firebase.database.ref("items/" + user.uid);
