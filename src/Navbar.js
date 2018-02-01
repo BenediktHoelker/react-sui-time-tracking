@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import MyForm from "./Form";
 import MyTable from "./Table";
 import MySidebar from "./Sidebar";
+import MyCalendar from "./Calendar";
 import firebase from "./firebase.js";
 
 import { connect } from "react-redux";
@@ -81,6 +82,11 @@ class SidebarLeftOverlay extends Component {
                   active={this.props.hMenuActiveItem === "auswertung"}
                   onClick={this.props.handleHMenuItemClick}
                 />
+                <Menu.Item
+                  as={Link}
+                  to="/calendar"
+                  name="tage"
+                />
                 {this.props.user ? (
                   <Menu.Item onClick={this.props.logout} position="right">
                     {this.props.user.displayName}
@@ -108,6 +114,13 @@ class SidebarLeftOverlay extends Component {
                           workItem: this.props.workItem
                         }}
                       />
+                    )}
+                  />
+                  <Route
+                    exact
+                    path="/calendar"
+                    render={routeProps => (
+                      <MyCalendar/>
                     )}
                   />
                   <Route
