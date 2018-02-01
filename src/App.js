@@ -8,12 +8,12 @@ import { createStore, applyMiddleware } from 'redux'
 import uiState from './reducers/uiReducer.js'
 import thunk from 'redux-thunk';
 
-import firebase, { auth, provider } from './firebase.js';
+import firebase, { auth, database, provider } from './firebase.js';
 
 const store = createStore(
   uiState,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(thunk.withExtraArgument({ auth, provider }))
+  applyMiddleware(thunk.withExtraArgument({ auth, database, provider }))
 );
 
 class App extends Component {
