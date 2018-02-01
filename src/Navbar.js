@@ -9,15 +9,18 @@ import firebase from "./firebase.js";
 
 import { connect } from "react-redux";
 import {
+  handleRemoveItem,
+  loadProjects,
+  requestWorkItems
+} from "./actions/dataActions";
+
+import {
   getUser,
   handleVMenuItemClick,
   handleHMenuItemClick,
-  handleRemoveItem,
-  loadProjects,
   triggerLogin,
   triggerLogout,
   toggleNavbar,
-  requestWorkItems,
   receiveLogin
 } from "./actions/uiActions";
 
