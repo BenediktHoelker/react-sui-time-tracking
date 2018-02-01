@@ -31,9 +31,9 @@ class SidebarLeftOverlay extends Component {
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        store.dispatch(receiveLogin(user))
-        store.dispatch(requestWorkItems(user))
-        store.dispatch(loadProjects())
+        store.dispatch(receiveLogin(user));
+        store.dispatch(requestWorkItems(user));
+        store.dispatch(loadProjects());
       }
     });
 
@@ -52,8 +52,8 @@ class SidebarLeftOverlay extends Component {
               activeItem={this.props.vMenuActiveItem}
             />
           ) : (
-              ""
-            )}
+            ""
+          )}
           <Sidebar.Pusher>
             <Segment basic>
               <Menu stackable>
@@ -63,7 +63,7 @@ class SidebarLeftOverlay extends Component {
                 />
                 <Menu.Item
                   icon="external"
-                  onClick={this.props.toggleVisibility}
+                  onClick={this.props.handleVMenuItemClick.bind(this, "")}
                 />
                 <Menu.Item header as="h3">
                   Arbeit
@@ -86,17 +86,19 @@ class SidebarLeftOverlay extends Component {
                   as={Link}
                   to="/calendar"
                   name="tage"
+                  active={this.props.hMenuActiveItem === "tage"}
+                  onClick={this.props.handleHMenuItemClick}
                 />
                 {this.props.user ? (
                   <Menu.Item onClick={this.props.logout} position="right">
                     {this.props.user.displayName}
-                    - Logout
+                     - Logout
                   </Menu.Item>
                 ) : (
-                    <Menu.Item onClick={this.props.login} position="right">
-                      Login
+                  <Menu.Item onClick={this.props.login} position="right">
+                    Login
                   </Menu.Item>
-                  )}
+                )}
               </Menu>
               {this.props.user ? (
                 <div>
@@ -119,9 +121,7 @@ class SidebarLeftOverlay extends Component {
                   <Route
                     exact
                     path="/calendar"
-                    render={routeProps => (
-                      <MyCalendar/>
-                    )}
+                    render={routeProps => <MyCalendar />}
                   />
                   <Route
                     exact
@@ -139,11 +139,11 @@ class SidebarLeftOverlay extends Component {
                   />
                 </div>
               ) : (
-                  <Message>
-                    <Message.Header>Nicht eingeloggt</Message.Header>
-                    <p>Sie müssen eingeloggt sein, um die Anwendung zu nutzen</p>
-                  </Message>
-                )}
+                <Message>
+                  <Message.Header>Nicht eingeloggt</Message.Header>
+                  <p>Sie müssen eingeloggt sein, um die Anwendung zu nutzen</p>
+                </Message>
+              )}
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>

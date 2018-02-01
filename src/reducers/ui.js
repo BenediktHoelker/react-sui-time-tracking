@@ -25,11 +25,11 @@ export default function uiState(state = ui, action) {
         user: null
       }
     case SET_ACTIVE_MENU_ITEM_V:
-      const selectedItem = state.items.find(item => item.id === action.Id);
+      //const selectedItem = state.data.items.find(item => item.id === action.Id);
       return {
         ...state,
         vMenuActiveItem: action.Id,
-        workItem: selectedItem ? selectedItem : {}
+        //workItem: selectedItem ? selectedItem : {}
       }
     case SET_ACTIVE_MENU_ITEM_H:
       return {
