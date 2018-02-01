@@ -5,13 +5,13 @@ import MyNavbar from './Navbar';
 import { Container } from 'semantic-ui-react'
 
 import { createStore, applyMiddleware } from 'redux'
-import uiState from './reducers/uiReducer.js'
+import rootReducer from './reducers/rootReducer.js'
 import thunk from 'redux-thunk';
 
 import firebase, { auth, database, provider } from './firebase.js';
 
 const store = createStore(
-  uiState,
+  rootReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   applyMiddleware(thunk.withExtraArgument({ auth, database, provider }))
 );

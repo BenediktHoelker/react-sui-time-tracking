@@ -1,10 +1,14 @@
-export default {
+export const data = {
   items: [],
-  hMenuActiveItem: "",
+  nextStartTime: "08:00:00",
   projects: [],
   projectsLoading: false,
-  user: null,
-  visible: false,
+  workItem: {},
+};
+
+export const ui = {
+  hMenuActiveItem: "erfassung",
   vMenuActiveItem: "",
-  workItem: {}
+  user: null,
+  visible: false
 };

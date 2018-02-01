@@ -30,10 +30,9 @@ class SidebarLeftOverlay extends Component {
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        store.dispatch(receiveLogin(user));
-        Promise.resolve(store.dispatch(requestWorkItems(user))).then(() =>
-          store.dispatch(loadProjects())
-        );
+        store.dispatch(receiveLogin(user))
+        store.dispatch(requestWorkItems(user))
+        store.dispatch(loadProjects())
       }
     });
 
@@ -52,8 +51,8 @@ class SidebarLeftOverlay extends Component {
               activeItem={this.props.vMenuActiveItem}
             />
           ) : (
-            ""
-          )}
+              ""
+            )}
           <Sidebar.Pusher>
             <Segment basic>
               <Menu stackable>
@@ -88,10 +87,10 @@ class SidebarLeftOverlay extends Component {
                     - Logout
                   </Menu.Item>
                 ) : (
-                  <Menu.Item onClick={this.props.login} position="right">
-                    Login
+                    <Menu.Item onClick={this.props.login} position="right">
+                      Login
                   </Menu.Item>
-                )}
+                  )}
               </Menu>
               {this.props.user ? (
                 <div>
@@ -127,11 +126,11 @@ class SidebarLeftOverlay extends Component {
                   />
                 </div>
               ) : (
-                <Message>
-                  <Message.Header>Nicht eingeloggt</Message.Header>
-                  <p>Sie müssen eingeloggt sein, um die Anwendung zu nutzen</p>
-                </Message>
-              )}
+                  <Message>
+                    <Message.Header>Nicht eingeloggt</Message.Header>
+                    <p>Sie müssen eingeloggt sein, um die Anwendung zu nutzen</p>
+                  </Message>
+                )}
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
@@ -142,14 +141,14 @@ class SidebarLeftOverlay extends Component {
 
 const mapStateToProps = state => {
   return {
-    items: state.items,
-    hMenuActiveItem: state.hMenuActiveItem,
-    projects: state.projects,
-    projectsLoading: state.projectsLoading,
-    user: state.user,
-    visible: state.isNavbarVisible,
-    vMenuActiveItem: state.vMenuActiveItem,
-    workItem: state.workItem
+    items: state.data.items,
+    hMenuActiveItem: state.ui.hMenuActiveItem,
+    projects: state.data.projects,
+    projectsLoading: state.data.projectsLoading,
+    user: state.ui.user,
+    visible: state.ui.isNavbarVisible,
+    vMenuActiveItem: state.ui.vMenuActiveItem,
+    workItem: state.data.workItem
   };
 };
 

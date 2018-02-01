@@ -1,10 +1,10 @@
-import {combineReducers} from 'redux';
-import uiReducer from './uiReducer';
-import dataReducer from './dataReducer';
+import { combineReducers } from 'redux';
+import ui from './ui';
+import data from './data';
 
 const rootReducer = combineReducers({
-  uiReducer,
-  dataReducer
+  ui,
+  data
 });
 
 export default rootReducer;

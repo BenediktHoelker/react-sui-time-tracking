@@ -1,4 +1,4 @@
-import initialState from "./initialState";
+import { ui } from "./initialState";
 import {
   TOGGLE_NAVBAR,
   RECEIVE_LOGIN,
@@ -7,7 +7,7 @@ import {
   SET_ACTIVE_MENU_ITEM_H
 } from "../actions/actionTypes";
 
-export default function uiState(state = initialState, action) {
+export default function uiState(state = ui, action) {
   switch (action.type) {
     case TOGGLE_NAVBAR:
       return {
