@@ -17,7 +17,7 @@ function getDaysOfEffort(workItems) {
   let date
 
   for (var i = 0; i < todayDaysCount; i++) {
-    date = monthDate.format('DD.MM.YYYY')
+    date = monthDate.format('D.M.YYYY')
     dailyEffort = calculateDailyEffort(workItems, date)
     daysOfEffort.push({ id: i, date: date, effort: dailyEffort })
     monthDate.add(1, 'day')
@@ -26,12 +26,25 @@ function getDaysOfEffort(workItems) {
   return daysOfEffort
 }
 
-function calculateDailyEffort(workItems, date){
-  return workItems.filter(workItem => {
-    workItem.date === date
+function calculateDailyEffort(workItems, date) {
+  let duration
+  let filteredItems = workItems.filter(workItem => {
+    return workItem.date === date
+  })
+
+  let sum  =  filteredItems.reduce((accumulator, current) => {
+    duration = moment.duration(current.effort)
+    return accumulator.add(duration)
+  }, moment.duration("00:00:00"))
+
+}
+
+function accumulateTimespans(timespans) {
+  timespans.map(timespan => {
+    return moment.duration(timespan)
   }).reduce((accumulator, current) => {
-    accumulator + current.effort
-  }, 0)
+    return accumulator.add(current)
+  }, moment.duration("00:00:00"))
 }
 
 export default function uiState(state = data, action) {
@@ -59,12 +72,12 @@ export default function uiState(state = data, action) {
       const items = action.items;
       return {
         ...state,
+        daysOfEffort: getDaysOfEffort(items),
         items: items,
         nextStartTime: items[items.length - 1]
           ? items[items.length - 1].timeEnd
           : new Date().toLocaleTimeString(),
-        workItem: items[0] ? items[0] : {}
-        //daysOfEffort: getDaysOfEffort(items)
+        workItem: items[0] ? items[0] : {},
       }
     default:
       return state

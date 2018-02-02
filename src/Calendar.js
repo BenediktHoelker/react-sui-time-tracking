@@ -32,7 +32,7 @@ const DaysTable = props => (
       </Table.Row>
     </Table.Header>
     <Table.Body>
-      {daysOfEffort.map(day => {
+      {props.daysOfEffort.map(day => {
         return (
           <Table.Row key={day.id}>
             <Table.Cell>{day.date}</Table.Cell>

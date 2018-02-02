@@ -121,7 +121,9 @@ class SidebarLeftOverlay extends Component {
                   <Route
                     exact
                     path="/calendar"
-                    render={routeProps => <MyCalendar />}
+                    render={routeProps => <MyCalendar {...routeProps} {...{
+                      daysOfEffort: this.props.daysOfEffort
+                    }}/>}
                   />
                   <Route
                     exact
@@ -154,6 +156,7 @@ class SidebarLeftOverlay extends Component {
 
 const mapStateToProps = state => {
   return {
+    daysOfEffort: state.data.daysOfEffort,
     items: state.data.items,
     hMenuActiveItem: state.ui.hMenuActiveItem,
     projects: state.data.projects,
