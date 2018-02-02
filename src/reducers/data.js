@@ -5,6 +5,34 @@ import {
   SET_ITEMS,
   REMOVE_FROM_STATE
 } from "../actions/actionTypes";
+import moment from "moment"
+
+function getDaysOfEffort(workItems) {
+  const daysOfEffort = []
+  const monthDate = moment().startOf('month') // change to a date in the month of interest
+  const daysInMonthCount = monthDate.daysInMonth()
+  const todayDaysCount = moment().date()
+
+  let dailyEffort
+  let date
+
+  for (var i = 0; i < todayDaysCount; i++) {
+    date = monthDate.format('DD.MM.YYYY')
+    dailyEffort = calculateDailyEffort(workItems, date)
+    daysOfEffort.push({ id: i, date: date, effort: dailyEffort })
+    monthDate.add(1, 'day')
+  }
+
+  return daysOfEffort
+}
+
+function calculateDailyEffort(workItems, date){
+  return workItems.filter(workItem => {
+    workItem.date === date
+  }).reduce((accumulator, current) => {
+    accumulator + current.effort
+  }, 0)
+}
 
 export default function uiState(state = data, action) {
   switch (action.type) {
@@ -36,6 +64,7 @@ export default function uiState(state = data, action) {
           ? items[items.length - 1].timeEnd
           : new Date().toLocaleTimeString(),
         workItem: items[0] ? items[0] : {}
+        //daysOfEffort: getDaysOfEffort(items)
       }
     default:
       return state
