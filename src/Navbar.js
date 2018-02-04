@@ -121,8 +121,10 @@ class SidebarLeftOverlay extends Component {
                   <Route
                     exact
                     path="/calendar"
-                    render={routeProps => <MyCalendar {...routeProps} {...{
-                      daysOfEffort: this.props.daysOfEffort
+                    render={routeProps => 
+                    <MyCalendar {...routeProps} {...{
+                      daysOfEffort: this.props.daysOfEffort,
+                      monthlyAmountOfEffort: this.props.monthlyAmountOfEffort,
                     }}/>}
                   />
                   <Route
@@ -132,8 +134,8 @@ class SidebarLeftOverlay extends Component {
                       <MyTable
                         {...routeProps}
                         {...{
-                          items: this.props.items ? this.props.items : [],
                           handleRemove: this.props.handleRemove,
+                          items: this.props.items ? this.props.items : [],
                           user: this.props.user
                         }}
                       />
@@ -159,6 +161,7 @@ const mapStateToProps = state => {
     daysOfEffort: state.data.daysOfEffort,
     items: state.data.items,
     hMenuActiveItem: state.ui.hMenuActiveItem,
+    monthlyAmountOfEffort: state.data.monthlyAmountOfEffort,
     projects: state.data.projects,
     projectsLoading: state.data.projectsLoading,
     user: state.ui.user,

@@ -18,7 +18,7 @@ function getDaysOfEffort(workItems) {
 
   for (var i = 0; i < todayDaysCount; i++) {
     date = monthDate.format('DD.MM.YYYY')
-    dailyEffort = calculateDailyEffort(workItems, date)
+    dailyEffort = calculateEffort(workItems, date, 'day')
     daysOfEffort.push({ id: i, date: date, effort: dailyEffort})
 
     monthDate.add(1, 'day')
@@ -27,10 +27,10 @@ function getDaysOfEffort(workItems) {
   return daysOfEffort
 }
 
-function calculateDailyEffort(workItems, date) {
+function calculateEffort(workItems, date, granularity) {
   let duration
   let filteredItems = workItems.filter(workItem => {
-    return isSameDate(workItem.date, date)
+    return isSameDate(workItem.date, date, granularity)
   })
 
   let sum  =  filteredItems.reduce((accumulator, current) => {
@@ -38,24 +38,21 @@ function calculateDailyEffort(workItems, date) {
     return accumulator.add(duration)
   }, moment.duration("00:00:00"))
 
-  let sumFormatted = moment.utc(sum.asMilliseconds()).format("HH:mm:ss")
-
+  // Show accumulated hours + mm:ss 
+  let sumFormatted = Math.floor(sum.asHours()) + moment.utc(sum.asMilliseconds()).format(":mm:ss")
   return sumFormatted
 }
 
-function isSameDate(date1, date2){
-  const moment1 = moment(date1, 'MM.DD.YYYY')
-  const moment2 = moment(date2, 'MM.DD.YYYY')
-  const isSameDate = moment1.isSame(moment2, 'day')
+function isSameDate(date1, date2, granularity){
+  const moment1 = moment(date1, 'DD.MM.YYYY')
+  const moment2 = moment(date2, 'DD.MM.YYYY')
+  const isSameDate = moment1.isSame(moment2, granularity)
   return isSameDate
 }
 
-function accumulateTimespans(timespans) {
-  timespans.map(timespan => {
-    return moment.duration(timespan)
-  }).reduce((accumulator, current) => {
-    return accumulator.add(current)
-  }, moment.duration("00:00:00"))
+function getMonthlyAmountOfEffort(workItems, dateInMonth){
+  const actualMonthlyAmountOfEffort = calculateEffort(workItems, dateInMonth, 'month')
+  return actualMonthlyAmountOfEffort
 }
 
 export default function uiState(state = data, action) {
@@ -84,6 +81,7 @@ export default function uiState(state = data, action) {
       return {
         ...state,
         daysOfEffort: getDaysOfEffort(items),
+        monthlyAmountOfEffort: getMonthlyAmountOfEffort(items, moment().startOf('month')),
         items: items,
         nextStartTime: items[items.length - 1]
           ? items[items.length - 1].timeEnd

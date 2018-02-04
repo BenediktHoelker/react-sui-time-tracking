@@ -48,7 +48,7 @@ const DaysTable = props => (
     <Table.Footer>
       <Table.Row>
         <Table.HeaderCell />
-        <Table.HeaderCell>23</Table.HeaderCell>
+        <Table.HeaderCell>{props.monthlyAmountOfEffort}</Table.HeaderCell>
         <Table.HeaderCell />
         <Table.HeaderCell />
       </Table.Row>
