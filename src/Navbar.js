@@ -10,9 +10,11 @@ import firebase from "./firebase.js";
 
 import { connect } from "react-redux";
 import {
+  editField,
   handleRemoveItem,
   loadProjects,
-  requestWorkItems
+  requestWorkItems,
+  submitItem
 } from "./actions/dataActions";
 
 import {
@@ -111,6 +113,8 @@ class SidebarLeftOverlay extends Component {
                         {...{
                           companies: this.props.projects,
                           companiesLoading: this.props.projectsLoading,
+                          handleSubmit: this.props.handleSubmit,
+                          handleChange: this.props.editField,
                           nextStartTime: this.props.nextStartTime,
                           user: this.props.user,
                           workItem: this.props.workItem
@@ -173,23 +177,29 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    editField: (event) => {
+      dispatch(editField(event))
+    },
     toggleVisibility: () => {
-      dispatch(toggleNavbar());
+      dispatch(toggleNavbar())
     },
     login: () => {
-      dispatch(triggerLogin());
+      dispatch(triggerLogin())
     },
     logout: () => {
-      dispatch(triggerLogout());
+      dispatch(triggerLogout())
+    },
+    handleSubmit: event => {
+      dispatch(submitItem(event))
     },
     handleVMenuItemClick: id => {
-      dispatch(handleVMenuItemClick(id));
+      dispatch(handleVMenuItemClick(id))
     },
     handleHMenuItemClick: (e, { name }) => {
-      dispatch(handleHMenuItemClick(name));
+      dispatch(handleHMenuItemClick(name))
     },
     handleRemove: id => {
-      dispatch(handleRemoveItem(id));
+      dispatch(handleRemoveItem(id))
     }
   };
 };

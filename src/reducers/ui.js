@@ -7,7 +7,7 @@ import {
   SET_ACTIVE_MENU_ITEM_H
 } from "../actions/actionTypes";
 
-export default function uiState(state = ui, action) {
+export default function uiReducer(state = ui, action) {
   switch (action.type) {
     case TOGGLE_NAVBAR:
       return {
