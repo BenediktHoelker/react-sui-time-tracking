@@ -17,9 +17,10 @@ function getDaysOfEffort(workItems) {
   let date
 
   for (var i = 0; i < todayDaysCount; i++) {
-    date = monthDate.format('D.M.YYYY')
+    date = monthDate.format('DD.MM.YYYY')
     dailyEffort = calculateDailyEffort(workItems, date)
-    daysOfEffort.push({ id: i, date: date, effort: dailyEffort })
+    daysOfEffort.push({ id: i, date: date, effort: dailyEffort})
+
     monthDate.add(1, 'day')
   }
 
@@ -29,14 +30,24 @@ function getDaysOfEffort(workItems) {
 function calculateDailyEffort(workItems, date) {
   let duration
   let filteredItems = workItems.filter(workItem => {
-    return workItem.date === date
+    return isSameDate(workItem.date, date)
   })
 
   let sum  =  filteredItems.reduce((accumulator, current) => {
-    duration = moment.duration(current.effort)
+    duration = moment.duration(current.timeSpent)
     return accumulator.add(duration)
   }, moment.duration("00:00:00"))
 
+  let sumFormatted = moment.utc(sum.asMilliseconds()).format("HH:mm:ss")
+
+  return sumFormatted
+}
+
+function isSameDate(date1, date2){
+  const moment1 = moment(date1, 'MM.DD.YYYY')
+  const moment2 = moment(date2, 'MM.DD.YYYY')
+  const isSameDate = moment1.isSame(moment2, 'day')
+  return isSameDate
 }
 
 function accumulateTimespans(timespans) {
