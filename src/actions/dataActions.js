@@ -121,7 +121,6 @@ export function editField(event) {
     value: event.target.value
   };
 }
-
 export function receiveProjects(projects) {
   return { type: types.RECEIVE_PROJECTS, projects: projects };
 }

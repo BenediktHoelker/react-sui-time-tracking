@@ -48,7 +48,7 @@ class SidebarLeftOverlay extends Component {
         <Sidebar.Pushable as={Segment}>
           {this.props.user ? (
             <MySidebar
-              visible={this.props.visible}
+              visible={this.props.sidebarIsVisible}
               items={this.props.items}
               handleItemClick={this.props.handleVMenuItemClick}
               activeItem={this.props.vMenuActiveItem}
@@ -111,8 +111,8 @@ class SidebarLeftOverlay extends Component {
                       <MyForm
                         {...routeProps}
                         {...{
-                          companies: this.props.projects,
-                          companiesLoading: this.props.projectsLoading,
+                          projects: this.props.projects,
+                          projectsLoading: this.props.projectsLoading,
                           handleSubmit: this.props.handleSubmit,
                           handleChange: this.props.editField,
                           nextStartTime: this.props.nextStartTime,
@@ -169,7 +169,7 @@ const mapStateToProps = state => {
     projects: state.data.projects,
     projectsLoading: state.data.projectsLoading,
     user: state.ui.user,
-    visible: state.ui.isNavbarVisible,
+    sidebarIsVisible: state.ui.sidebarIsVisible,
     vMenuActiveItem: state.ui.vMenuActiveItem,
     workItem: state.data.workItem
   };

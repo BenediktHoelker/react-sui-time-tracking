@@ -4,8 +4,7 @@ import {
   REQUEST_PROJECTS,
   RECEIVE_PROJECTS,
   SET_ITEMS,
-  REMOVE_FROM_STATE,
-  SUBMIT_ITEM
+  REMOVE_FROM_STATE
 } from "../actions/actionTypes";
 import moment from "moment";
 
@@ -69,9 +68,7 @@ export default function dataReducer(state = data, action) {
         ...state,
         workItem: {
           ...state.workItem,
-          ...{
-            [action.name]: action.value
-          }
+          [action.name]: action.value
         }
       };
     }
@@ -96,7 +93,6 @@ export default function dataReducer(state = data, action) {
       };
     case SET_ITEMS:
       const items = action.items;
-      const now = new Date();
       return {
         ...state,
         daysOfEffort: getDaysOfEffort(items),
@@ -107,19 +103,7 @@ export default function dataReducer(state = data, action) {
         items: items,
         nextStartTime: items[items.length - 1]
           ? items[items.length - 1].timeEnd
-          : new Date().toLocaleTimeString(),
-        workItem: items[0]
-          ? items[0]
-          : {
-              project: "",
-              subproject: "Logistik",
-              scope: "Frontend",
-              task: "Programmierung",
-              description: "React-Entwicklung",
-              date: now.toLocaleDateString(),
-              timeStart: now.toLocaleTimeString(),
-              timeEnd: now.toLocaleTimeString()
-            }
+          : new Date().toLocaleTimeString()
       };
     default:
       return state;

@@ -12,7 +12,7 @@ export default function uiReducer(state = ui, action) {
     case TOGGLE_NAVBAR:
       return {
         ...state,
-        isNavbarVisible: !state.isNavbarVisible
+        sidebarIsVisible: !state.sidebarIsVisible
       }
     case RECEIVE_LOGIN:
       return {
