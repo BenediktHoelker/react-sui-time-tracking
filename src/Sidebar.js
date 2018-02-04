@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Header, Icon, Menu, Sidebar } from 'semantic-ui-react'
+import { Header, Menu, Sidebar } from 'semantic-ui-react'
 
 class SidebarLeftOverlay extends Component {
 

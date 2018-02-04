@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import MyNavbar from './Navbar';
 import { Container } from 'semantic-ui-react'
@@ -8,7 +7,7 @@ import { createStore, applyMiddleware } from 'redux'
 import rootReducer from './reducers/rootReducer.js'
 import thunk from 'redux-thunk';
 
-import firebase, { auth, database, provider } from './firebase.js';
+import { auth, database, provider } from './firebase.js';
 
 const store = createStore(
   rootReducer,

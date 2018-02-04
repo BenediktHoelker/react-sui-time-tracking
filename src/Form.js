@@ -1,18 +1,11 @@
 import React, { Component } from "react";
-import { Form, Dropdown, Header, Segment } from "semantic-ui-react";
+import { Form, Header, Segment } from "semantic-ui-react";
 import firebase from "./firebase.js";
 import moment from "moment";
-
-const style = {
-  form: {
-    margin: "0.5em"
-  }
-};
 
 class FormExampleWidthField extends Component {
   constructor(props) {
     super(props);
-    var now = new Date();
     this.state = this.createNewWorkItem();
     this.handleChange = this.handleChange.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
@@ -39,7 +32,6 @@ class FormExampleWidthField extends Component {
   };
 
   componentWillReceiveProps(props) {
-    var now = new Date();
     this.setState({
       companies: props.companies,
       companiesLoading: props.companiesLoading,
@@ -78,7 +70,6 @@ class FormExampleWidthField extends Component {
     e.preventDefault();
     let workItem = this.state.workItem;
     const itemsRef = firebase.database().ref("items/" + this.props.user.uid);
-    const now = new Date();
     const dateStart = moment(
       workItem.date + " " + workItem.timeStart,
       "DD.MM.YYYY HH:mm:ss"

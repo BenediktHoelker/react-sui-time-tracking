@@ -1,19 +1,12 @@
 import React from "react"
 import {
-  Button,
-  Container,
-  Grid,
-  Header,
   Icon,
-  Responsive,
-  Segment,
   Table
 } from "semantic-ui-react"
 import moment from "moment"
 
 const daysOfEffort = []
 const monthDate = moment().startOf('month') // change to a date in the month of interest
-const daysInMonthCount = monthDate.daysInMonth()
 const todayDaysCount = moment().date()
 
 for (var i = 0; i < todayDaysCount; i++) {

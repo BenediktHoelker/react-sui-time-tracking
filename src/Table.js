@@ -1,11 +1,7 @@
 import React from "react";
 import {
   Button,
-  Container,
-  Grid,
-  Header,
   Responsive,
-  Segment,
   Table
 } from "semantic-ui-react";
 import moment from "moment";

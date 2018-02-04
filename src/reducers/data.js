@@ -10,7 +10,6 @@ import moment from "moment"
 function getDaysOfEffort(workItems) {
   const daysOfEffort = []
   const monthDate = moment().startOf('month') // change to a date in the month of interest
-  const daysInMonthCount = monthDate.daysInMonth()
   const todayDaysCount = moment().date()
 
   let dailyEffort
@@ -74,7 +73,7 @@ export default function uiState(state = data, action) {
         .map((item, index) => index)
       return {
         ...state,
-        items: items.splice(index, 1)
+        items: state.items.splice(index, 1)
       }
     case SET_ITEMS:
       const items = action.items;
