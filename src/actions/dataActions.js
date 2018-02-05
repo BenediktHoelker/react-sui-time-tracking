@@ -1,5 +1,6 @@
 import * as types from "./actionTypes";
 import moment from "moment";
+import { setActiveHMenuItem } from "./uiActions";
 
 export function loadProjects() {
   return (dispatch, getState, firebase) => {
@@ -38,7 +39,7 @@ export function handleRemoveItem(itemId) {
 
 export function loadItems() {
   return (dispatch, getState, firebase) => {
-    const user = getState().ui.user
+    const user = getState().ui.user;
     const itemsRef = firebase.database.ref("items/" + user.uid);
 
     itemsRef.on("value", snapshot => {
@@ -126,15 +127,17 @@ export function selectProject(event, value) {
   event.preventDefault();
   return {
     type: types.EDIT_ITEM_FIELD,
-    name: 'project',
+    name: "project",
     value: value
   };
 }
 
-export function registerDailyWork(date){
-  return {
-    type: types.REGISTER_DAILY_WORK,
-    date: date
-  }
+export function registerDailyWork(date) {
+  return dispatch => {
+    dispatch(setActiveHMenuItem("erfassung"));
+    return {
+      type: types.REGISTER_DAILY_WORK,
+      date: date
+    };
+  };
 }
-

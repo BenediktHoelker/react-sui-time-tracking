@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import { connect } from "react-redux";
+import { Provider, connect } from "react-redux";
 
 import firebase from "./firebase.js";
 
@@ -32,6 +32,7 @@ import {
 class SidebarLeftOverlay extends Component {
   componentDidMount() {
     const store = this.props.store;
+    console.log(this.props);
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -46,57 +47,59 @@ class SidebarLeftOverlay extends Component {
     const props = this.props;
 
     return (
-      <Router>
-        <Sidebar.Pushable as={Segment}>
-          {props.user ? (
-            <MySidebar
-              visible={props.sidebarIsVisible}
-              items={props.items}
-              handleItemClick={props.handleVMenuItemClick}
-              activeItem={props.vMenuActiveItem}
-            />
-          ) : (
-            ""
-          )}
-          <Sidebar.Pusher>
-            <Segment basic loading={props.loginIsLoading}>
-              <MyMenu
-                hMenuActiveItem={props.hMenuActiveItem}
-                user={props.user}
-                handleHMenuItemClick={props.handleHMenuItemClick}
-                login={props.login}
-                logout={props.logout}
-                toggleVisibility={props.toggleVisibility}
+      <Provider store={this.props.store}>
+        <Router>
+          <Sidebar.Pushable as={Segment}>
+            {props.user ? (
+              <MySidebar
+                visible={props.sidebarIsVisible}
+                items={props.items}
+                handleItemClick={props.handleVMenuItemClick}
+                activeItem={props.vMenuActiveItem}
               />
-              {props.user ? (
-                <MyRoutes
-                  daysOfEffort={props.daysOfEffort}
-                  items={props.items}
-                  projects={props.projects}
-                  projectsLoading={props.projectsLoading}
-                  handleSubmit={props.handleSubmit}
-                  handleChange={props.editField}
-                  handleSelect={props.selectProject}
-                  handleRemove={props.handleRemove}
-                  handleRegisterDailyWork={props.handleRegisterDailyWork}
-                  nextStartTime={props.nextStartTime}
+            ) : (
+              ""
+            )}
+            <Sidebar.Pusher>
+              <Segment basic loading={props.loginIsLoading}>
+                <MyMenu
+                  hMenuActiveItem={props.hMenuActiveItem}
                   user={props.user}
-                  workItem={props.workItem}
+                  handleHMenuItemClick={props.handleHMenuItemClick}
+                  login={props.login}
+                  logout={props.logout}
+                  toggleVisibility={props.toggleVisibility}
                 />
-              ) : (
-                <div>
-                  <Message>
-                    <Message.Header>Nicht eingeloggt</Message.Header>
-                    <p>
-                      Sie müssen eingeloggt sein, um die Anwendung zu nutzen
-                    </p>
-                  </Message>
-                </div>
-              )}
-            </Segment>
-          </Sidebar.Pusher>
-        </Sidebar.Pushable>
-      </Router>
+                {props.user ? (
+                  <MyRoutes
+                    daysOfEffort={props.daysOfEffort}
+                    items={props.items}
+                    projects={props.projects}
+                    projectsLoading={props.projectsLoading}
+                    handleSubmit={props.handleSubmit}
+                    handleChange={props.editField}
+                    handleSelect={props.selectProject}
+                    handleRemove={props.handleRemove}
+                    handleRegisterDailyWork={props.handleRegisterDailyWork}
+                    nextStartTime={props.nextStartTime}
+                    user={props.user}
+                    workItem={props.workItem}
+                  />
+                ) : (
+                  <div>
+                    <Message>
+                      <Message.Header>Nicht eingeloggt</Message.Header>
+                      <p>
+                        Sie müssen eingeloggt sein, um die Anwendung zu nutzen
+                      </p>
+                    </Message>
+                  </div>
+                )}
+              </Segment>
+            </Sidebar.Pusher>
+          </Sidebar.Pushable>
+        </Router>
+      </Provider>
     );
   }
 }
@@ -146,7 +149,7 @@ const mapDispatchToProps = dispatch => {
     handleRemove: id => {
       dispatch(handleRemoveItem(id));
     },
-    handleRegisterDailyWork: (date) => {
+    handleRegisterDailyWork: date => {
       dispatch(registerDailyWork(date));
     }
   };

@@ -6,7 +6,7 @@ export const data = {
   projects: [],
   projectsLoading: false,
   workItem: {
-    project: "",
+    project: "CUBICIDE",
     subproject: "Logistik",
     scope: "Frontend",
     task: "Programmierung",
