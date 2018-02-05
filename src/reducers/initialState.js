@@ -19,7 +19,7 @@ export const data = {
 };
 
 export const ui = {
-  hMenuActiveItem: "erfassung",
+  hMenuActiveItem: "index",
   vMenuActiveItem: "",
   user: null,
   sidebarIsVisible: false

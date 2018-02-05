@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { connect } from "react-redux";
 
 import firebase from "./firebase.js";
 import MyForm from "./Form";
+import MyMenu from "./HorizontalMenu";
 import MyTable from "./Table";
 import MySidebar from "./Sidebar";
 import MyCalendar from "./Calendar";
@@ -11,7 +12,6 @@ import MyCalendar from "./Calendar";
 import {
   Dimmer,
   Loader,
-  Menu,
   Message,
   Sidebar,
   Segment
@@ -69,50 +69,13 @@ class SidebarLeftOverlay extends Component {
           )}
           <Sidebar.Pusher>
             <Segment basic>
-              <Menu stackable>
-                <Menu.Item
-                  icon="sidebar"
-                  onClick={props.toggleVisibility}
-                />
-                <Menu.Item
-                  icon="external"
-                  onClick={props.handleVMenuItemClick.bind(this, "")}
-                />
-                <Menu.Item header as="h3">
-                  Arbeit
-                </Menu.Item>
-                <Menu.Item
-                  as={Link}
-                  to="/create"
-                  name="erfassung"
-                  active={props.hMenuActiveItem === "erfassung"}
-                  onClick={props.handleHMenuItemClick}
-                />
-                <Menu.Item
-                  as={Link}
-                  to="/"
-                  name="auswertung"
-                  active={props.hMenuActiveItem === "auswertung"}
-                  onClick={props.handleHMenuItemClick}
-                />
-                <Menu.Item
-                  as={Link}
-                  to="/calendar"
-                  name="tage"
-                  active={props.hMenuActiveItem === "tage"}
-                  onClick={props.handleHMenuItemClick}
-                />
-                {props.user ? (
-                  <Menu.Item onClick={props.logout} position="right">
-                    {props.user.displayName}
-                    - Logout
-                  </Menu.Item>
-                ) : (
-                  <Menu.Item onClick={props.login} position="right">
-                    Login
-                  </Menu.Item>
-                )}
-              </Menu>
+              <MyMenu
+                hMenuActiveItem={props.hMenuActiveItem}
+                user={props.user}
+                handleHMenuItemClick={props.handleHMenuItemClick}
+                login={props.login}
+                toggleVisibility={props.toggleVisibility}
+              />
               {props.user ? (
                 <div>
                   <Route
@@ -142,8 +105,7 @@ class SidebarLeftOverlay extends Component {
                         {...routeProps}
                         {...{
                           daysOfEffort: props.daysOfEffort,
-                          monthlyAmountOfEffort: props
-                            .monthlyAmountOfEffort
+                          monthlyAmountOfEffort: props.monthlyAmountOfEffort
                         }}
                       />
                     )}
@@ -205,7 +167,7 @@ const mapDispatchToProps = dispatch => {
     editField: event => {
       dispatch(editField(event));
     },
-    selectProject: (event, {value}) => {
+    selectProject: (event, { value }) => {
       dispatch(selectProject(event, value));
     },
     toggleVisibility: () => {
