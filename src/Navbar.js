@@ -1,4 +1,13 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { connect } from "react-redux";
+
+import firebase from "./firebase.js";
+import MyForm from "./Form";
+import MyTable from "./Table";
+import MySidebar from "./Sidebar";
+import MyCalendar from "./Calendar";
+
 import {
   Dimmer,
   Loader,
@@ -7,15 +16,7 @@ import {
   Sidebar,
   Segment
 } from "semantic-ui-react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import MyForm from "./Form";
-import MyTable from "./Table";
-import MySidebar from "./Sidebar";
-import MyCalendar from "./Calendar";
-import firebase from "./firebase.js";
-
-import { connect } from "react-redux";
 import {
   editField,
   handleRemoveItem,
@@ -51,15 +52,17 @@ class SidebarLeftOverlay extends Component {
   }
 
   render() {
+    const props = this.props;
+
     return (
       <Router>
         <Sidebar.Pushable as={Segment}>
-          {this.props.user ? (
+          {props.user ? (
             <MySidebar
-              visible={this.props.sidebarIsVisible}
-              items={this.props.items}
-              handleItemClick={this.props.handleVMenuItemClick}
-              activeItem={this.props.vMenuActiveItem}
+              visible={props.sidebarIsVisible}
+              items={props.items}
+              handleItemClick={props.handleVMenuItemClick}
+              activeItem={props.vMenuActiveItem}
             />
           ) : (
             ""
@@ -69,11 +72,11 @@ class SidebarLeftOverlay extends Component {
               <Menu stackable>
                 <Menu.Item
                   icon="sidebar"
-                  onClick={this.props.toggleVisibility}
+                  onClick={props.toggleVisibility}
                 />
                 <Menu.Item
                   icon="external"
-                  onClick={this.props.handleVMenuItemClick.bind(this, "")}
+                  onClick={props.handleVMenuItemClick.bind(this, "")}
                 />
                 <Menu.Item header as="h3">
                   Arbeit
@@ -82,35 +85,35 @@ class SidebarLeftOverlay extends Component {
                   as={Link}
                   to="/create"
                   name="erfassung"
-                  active={this.props.hMenuActiveItem === "erfassung"}
-                  onClick={this.props.handleHMenuItemClick}
+                  active={props.hMenuActiveItem === "erfassung"}
+                  onClick={props.handleHMenuItemClick}
                 />
                 <Menu.Item
                   as={Link}
                   to="/"
                   name="auswertung"
-                  active={this.props.hMenuActiveItem === "auswertung"}
-                  onClick={this.props.handleHMenuItemClick}
+                  active={props.hMenuActiveItem === "auswertung"}
+                  onClick={props.handleHMenuItemClick}
                 />
                 <Menu.Item
                   as={Link}
                   to="/calendar"
                   name="tage"
-                  active={this.props.hMenuActiveItem === "tage"}
-                  onClick={this.props.handleHMenuItemClick}
+                  active={props.hMenuActiveItem === "tage"}
+                  onClick={props.handleHMenuItemClick}
                 />
-                {this.props.user ? (
-                  <Menu.Item onClick={this.props.logout} position="right">
-                    {this.props.user.displayName}
+                {props.user ? (
+                  <Menu.Item onClick={props.logout} position="right">
+                    {props.user.displayName}
                     - Logout
                   </Menu.Item>
                 ) : (
-                  <Menu.Item onClick={this.props.login} position="right">
+                  <Menu.Item onClick={props.login} position="right">
                     Login
                   </Menu.Item>
                 )}
               </Menu>
-              {this.props.user ? (
+              {props.user ? (
                 <div>
                   <Route
                     exact
@@ -119,14 +122,14 @@ class SidebarLeftOverlay extends Component {
                       <MyForm
                         {...routeProps}
                         {...{
-                          projects: this.props.projects,
-                          projectsLoading: this.props.projectsLoading,
-                          handleSubmit: this.props.handleSubmit,
-                          handleChange: this.props.editField,
-                          handleSelect: this.props.selectProject,
-                          nextStartTime: this.props.nextStartTime,
-                          user: this.props.user,
-                          workItem: this.props.workItem
+                          projects: props.projects,
+                          projectsLoading: props.projectsLoading,
+                          handleSubmit: props.handleSubmit,
+                          handleChange: props.editField,
+                          handleSelect: props.selectProject,
+                          nextStartTime: props.nextStartTime,
+                          user: props.user,
+                          workItem: props.workItem
                         }}
                       />
                     )}
@@ -138,8 +141,8 @@ class SidebarLeftOverlay extends Component {
                       <MyCalendar
                         {...routeProps}
                         {...{
-                          daysOfEffort: this.props.daysOfEffort,
-                          monthlyAmountOfEffort: this.props
+                          daysOfEffort: props.daysOfEffort,
+                          monthlyAmountOfEffort: props
                             .monthlyAmountOfEffort
                         }}
                       />
@@ -152,9 +155,9 @@ class SidebarLeftOverlay extends Component {
                       <MyTable
                         {...routeProps}
                         {...{
-                          handleRemove: this.props.handleRemove,
-                          items: this.props.items ? this.props.items : [],
-                          user: this.props.user
+                          handleRemove: props.handleRemove,
+                          items: props.items ? props.items : [],
+                          user: props.user
                         }}
                       />
                     )}
@@ -168,7 +171,7 @@ class SidebarLeftOverlay extends Component {
                       Sie müssen eingeloggt sein, um die Anwendung zu nutzen
                     </p>
                   </Message>
-                  <Dimmer active={this.props.loginIsLoading}>
+                  <Dimmer active={props.loginIsLoading}>
                     <Loader />
                   </Dimmer>
                 </div>
