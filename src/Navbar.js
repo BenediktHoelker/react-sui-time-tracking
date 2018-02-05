@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Menu, Message, Sidebar, Segment } from "semantic-ui-react";
+import {
+  Dimmer,
+  Loader,
+  Menu,
+  Message,
+  Sidebar,
+  Segment
+} from "semantic-ui-react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import MyForm from "./Form";
@@ -13,16 +20,17 @@ import {
   editField,
   handleRemoveItem,
   loadProjects,
-  requestWorkItems,
-  submitItem
+  loadItems,
+  submitItem,
+  selectProject
 } from "./actions/dataActions";
 
 import {
   getUser,
-  handleVMenuItemClick,
-  handleHMenuItemClick,
-  triggerLogin,
-  triggerLogout,
+  setActiveVMenuItem,
+  setActiveHMenuItem,
+  login,
+  logout,
   toggleNavbar,
   receiveLogin
 } from "./actions/uiActions";
@@ -34,7 +42,7 @@ class SidebarLeftOverlay extends Component {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         store.dispatch(receiveLogin(user));
-        store.dispatch(requestWorkItems(user));
+        store.dispatch(loadItems());
         store.dispatch(loadProjects());
       }
     });
@@ -94,7 +102,7 @@ class SidebarLeftOverlay extends Component {
                 {this.props.user ? (
                   <Menu.Item onClick={this.props.logout} position="right">
                     {this.props.user.displayName}
-                     - Logout
+                    - Logout
                   </Menu.Item>
                 ) : (
                   <Menu.Item onClick={this.props.login} position="right">
@@ -115,6 +123,7 @@ class SidebarLeftOverlay extends Component {
                           projectsLoading: this.props.projectsLoading,
                           handleSubmit: this.props.handleSubmit,
                           handleChange: this.props.editField,
+                          handleSelect: this.props.selectProject,
                           nextStartTime: this.props.nextStartTime,
                           user: this.props.user,
                           workItem: this.props.workItem
@@ -125,11 +134,16 @@ class SidebarLeftOverlay extends Component {
                   <Route
                     exact
                     path="/calendar"
-                    render={routeProps => 
-                    <MyCalendar {...routeProps} {...{
-                      daysOfEffort: this.props.daysOfEffort,
-                      monthlyAmountOfEffort: this.props.monthlyAmountOfEffort,
-                    }}/>}
+                    render={routeProps => (
+                      <MyCalendar
+                        {...routeProps}
+                        {...{
+                          daysOfEffort: this.props.daysOfEffort,
+                          monthlyAmountOfEffort: this.props
+                            .monthlyAmountOfEffort
+                        }}
+                      />
+                    )}
                   />
                   <Route
                     exact
@@ -147,10 +161,17 @@ class SidebarLeftOverlay extends Component {
                   />
                 </div>
               ) : (
-                <Message>
-                  <Message.Header>Nicht eingeloggt</Message.Header>
-                  <p>Sie müssen eingeloggt sein, um die Anwendung zu nutzen</p>
-                </Message>
+                <div>
+                  <Message>
+                    <Message.Header>Nicht eingeloggt</Message.Header>
+                    <p>
+                      Sie müssen eingeloggt sein, um die Anwendung zu nutzen
+                    </p>
+                  </Message>
+                  <Dimmer active={this.props.loginIsLoading}>
+                    <Loader />
+                  </Dimmer>
+                </div>
               )}
             </Segment>
           </Sidebar.Pusher>
@@ -164,12 +185,13 @@ const mapStateToProps = state => {
   return {
     daysOfEffort: state.data.daysOfEffort,
     items: state.data.items,
-    hMenuActiveItem: state.ui.hMenuActiveItem,
+    loginIsLoading: state.ui.loginIsLoading,
     monthlyAmountOfEffort: state.data.monthlyAmountOfEffort,
     projects: state.data.projects,
     projectsLoading: state.data.projectsLoading,
     user: state.ui.user,
     sidebarIsVisible: state.ui.sidebarIsVisible,
+    hMenuActiveItem: state.ui.hMenuActiveItem,
     vMenuActiveItem: state.ui.vMenuActiveItem,
     workItem: state.data.workItem
   };
@@ -177,29 +199,32 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    editField: (event) => {
-      dispatch(editField(event))
+    editField: event => {
+      dispatch(editField(event));
+    },
+    selectProject: (event, {value}) => {
+      dispatch(selectProject(event, value));
     },
     toggleVisibility: () => {
-      dispatch(toggleNavbar())
+      dispatch(toggleNavbar());
     },
     login: () => {
-      dispatch(triggerLogin())
+      dispatch(login());
     },
     logout: () => {
-      dispatch(triggerLogout())
+      dispatch(logout());
     },
     handleSubmit: event => {
-      dispatch(submitItem(event))
+      dispatch(submitItem(event));
     },
     handleVMenuItemClick: id => {
-      dispatch(handleVMenuItemClick(id))
+      dispatch(setActiveVMenuItem(id));
     },
     handleHMenuItemClick: (e, { name }) => {
-      dispatch(handleHMenuItemClick(name))
+      dispatch(setActiveHMenuItem(name));
     },
     handleRemove: id => {
-      dispatch(handleRemoveItem(id))
+      dispatch(handleRemoveItem(id));
     }
   };
 };

@@ -1,10 +1,10 @@
 import * as types from "./actionTypes"
 
-export function handleVMenuItemClick(id) {
+export function setActiveVMenuItem(id) {
   return { type: types.SET_ACTIVE_MENU_ITEM_V, id }
 }
 
-export function handleHMenuItemClick(name) {
+export function setActiveHMenuItem(name) {
   return { type: types.SET_ACTIVE_MENU_ITEM_H, name }
 }
 
@@ -12,19 +12,24 @@ export function toggleNavbar() {
   return { type: types.TOGGLE_NAVBAR }
 }
 
-export function triggerLogin() {
+export function login() {
   return (dispatch, getState, firebase) => {
+    dispatch(requestLogin)
     return firebase.auth
       .signInWithRedirect(firebase.provider)
       .then(result => dispatch(receiveLogin(result)))
   }
 }
 
+export function requestLogin(user) {
+  return { type: types.REQUEST_LOGIN }
+}
+
 export function receiveLogin(user) {
   return { type: types.RECEIVE_LOGIN, user: user }
 }
 
-export function triggerLogout() {
+export function logout() {
   return (dispatch, getState, firebase) => {
     return firebase.auth
       .signOut()

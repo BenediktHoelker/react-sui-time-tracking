@@ -14,14 +14,14 @@ const FormExampleWidthField = props => (
             name="project"
             search
             selection
-            defaultValue={1}
+            value={props.workItem.project}
             options={props.projects}
-            onChange={props.handleChange}
+            onChange={props.handleSelect}
             loading={props.projectsLoading}
           />
           <Form.Input
             label="Teilprojekt"
-            name="subproject"
+            key="subproject"
             onChange={props.handleChange}
             value={props.workItem.subproject}
           />

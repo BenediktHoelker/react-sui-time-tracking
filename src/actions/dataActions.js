@@ -1,10 +1,6 @@
 import * as types from "./actionTypes";
 import moment from "moment";
 
-export function requestProjects(projects) {
-  return { type: types.REQUEST_PROJECTS };
-}
-
 export function loadProjects() {
   return (dispatch, getState, firebase) => {
     dispatch(requestProjects());
@@ -23,18 +19,26 @@ export function loadProjects() {
   };
 }
 
+export function requestProjects(projects) {
+  return { type: types.REQUEST_PROJECTS };
+}
+
+export function receiveProjects(projects) {
+  return { type: types.RECEIVE_PROJECTS, projects: projects };
+}
+
 export function handleRemoveItem(itemId) {
   return (dispatch, getState, firebase) => {
     const itemsRef = firebase.database.ref(
       "/items/" + getState().ui.user.uid + "/" + itemId
     );
     itemsRef.remove();
-    //dispatch(removeFromState(itemId)) // Does not need to be triggered due to firebase realtime
   };
 }
 
-export function requestWorkItems(user) {
+export function loadItems() {
   return (dispatch, getState, firebase) => {
+    const user = getState().ui.user
     const itemsRef = firebase.database.ref("items/" + user.uid);
 
     itemsRef.on("value", snapshot => {
@@ -117,6 +121,13 @@ export function editField(event) {
     value: event.target.value
   };
 }
-export function receiveProjects(projects) {
-  return { type: types.RECEIVE_PROJECTS, projects: projects };
+
+export function selectProject(event, value) {
+  event.preventDefault();
+  return {
+    type: types.EDIT_ITEM_FIELD,
+    name: 'project',
+    value: value
+  };
 }
+
