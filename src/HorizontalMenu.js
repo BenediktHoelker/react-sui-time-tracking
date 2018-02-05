@@ -36,7 +36,7 @@ const HorizontalMenu = props => (
     {props.user ? (
       <Menu.Item onClick={props.logout} position="right">
         {props.user.displayName}
-        - Logout
+         - Logout
       </Menu.Item>
     ) : (
       <Menu.Item onClick={props.login} position="right">

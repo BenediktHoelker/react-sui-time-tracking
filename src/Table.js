@@ -4,11 +4,10 @@ import {
   Responsive,
   Table
 } from "semantic-ui-react";
-import moment from "moment";
 
-const TableExampleColumnCount = props => (
+const WorkItemTable = props => (
   <div>
-    <Table  unstackable>
+    <Table unstackable>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Projekt</Table.HeaderCell>
@@ -44,30 +43,8 @@ const TableExampleColumnCount = props => (
           );
         })}
       </Table.Body>
-      <Table.Footer>
-        <Table.Row>
-          <Table.HeaderCell />
-          <Responsive as={Table.HeaderCell} {...Responsive.onlyComputer} />
-          <Table.HeaderCell />
-          <Table.HeaderCell />
-          <Table.HeaderCell />
-          <Table.HeaderCell>
-            {props.items
-              .reduce((acc, curr) => {
-                let totalTimeSpent = moment(acc, "HH:mm:ss");
-                let timeSpent = moment.duration(curr.timeSpent);
-                totalTimeSpent = totalTimeSpent
-                  .add(timeSpent)
-                  .format("HH:mm:ss");
-                return totalTimeSpent;
-              }, 0)
-              .toString()}
-          </Table.HeaderCell>
-          <Table.HeaderCell />
-        </Table.Row>
-      </Table.Footer>
     </Table>
   </div>
 );
 
-export default TableExampleColumnCount;
+export default WorkItemTable;
