@@ -5,7 +5,7 @@ import { Provider, connect } from "react-redux";
 import firebase from "./firebase.js";
 
 import MyMenu from "./HorizontalMenu";
-import MySidebar from "./Sidebar";
+import WorkItemSidebar from "./WorkItemSidebar";
 import MyRoutes from "./Routes";
 
 import { Message, Sidebar, Segment } from "semantic-ui-react";
@@ -50,12 +50,7 @@ class SidebarLeftOverlay extends Component {
         <Router>
           <Sidebar.Pushable as={Segment}>
             {props.user ? (
-              <MySidebar
-                visible={props.sidebarIsVisible}
-                items={props.items}
-                handleItemClick={props.handleVMenuItemClick}
-                activeItem={props.vMenuActiveItem}
-              />
+              <WorkItemSidebar/>
             ) : (
               ""
             )}

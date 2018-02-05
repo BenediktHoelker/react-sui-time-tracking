@@ -5,10 +5,6 @@ import { Link } from "react-router-dom";
 const HorizontalMenu = props => (
   <Menu stackable>
     <Menu.Item icon="sidebar" onClick={props.toggleVisibility} />
-    <Menu.Item
-      icon="external"
-      onClick={props.handleVMenuItemClick}
-    />
     <Menu.Item header as="h3">
       Arbeit
     </Menu.Item>
@@ -36,7 +32,7 @@ const HorizontalMenu = props => (
     {props.user ? (
       <Menu.Item onClick={props.logout} position="right">
         {props.user.displayName}
-         - Logout
+        - Logout
       </Menu.Item>
     ) : (
       <Menu.Item onClick={props.login} position="right">
