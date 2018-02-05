@@ -5,7 +5,7 @@ import { Provider, connect } from "react-redux";
 import firebase from "./firebase.js";
 
 import MyMenu from "./HorizontalMenu";
-import WorkItemSidebar from "./WorkItemSidebar";
+import WorkItemSidebar from "./containers/workItemSidebar";
 import MyRoutes from "./Routes";
 
 import { Message, Sidebar, Segment } from "semantic-ui-react";

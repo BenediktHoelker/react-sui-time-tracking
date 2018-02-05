@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import Sidebar from "./Sidebar";
-import { setActiveVMenuItem } from "./actions/uiActions";
+import Sidebar from "../Sidebar";
+import { setActiveVMenuItem } from "../actions/uiActions";
 
 class WorkItemSidebar extends Component {
   render() {
