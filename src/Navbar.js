@@ -8,7 +8,7 @@ import MyMenu from "./HorizontalMenu";
 import MySidebar from "./Sidebar";
 import MyRoutes from "./Routes";
 
-import { Dimmer, Loader, Message, Sidebar, Segment } from "semantic-ui-react";
+import { Message, Sidebar, Segment } from "semantic-ui-react";
 
 import {
   editField,
@@ -20,7 +20,6 @@ import {
 } from "./actions/dataActions";
 
 import {
-  getUser,
   setActiveVMenuItem,
   setActiveHMenuItem,
   login,
@@ -40,8 +39,6 @@ class SidebarLeftOverlay extends Component {
         store.dispatch(loadProjects());
       }
     });
-
-    store.dispatch(getUser());
   }
 
   render() {
@@ -61,21 +58,25 @@ class SidebarLeftOverlay extends Component {
             ""
           )}
           <Sidebar.Pusher>
-            <Segment basic>
+            <Segment basic loading={props.loginIsLoading}>
               <MyMenu
                 hMenuActiveItem={props.hMenuActiveItem}
                 user={props.user}
                 handleHMenuItemClick={props.handleHMenuItemClick}
                 login={props.login}
+                logout={props.logout}
                 toggleVisibility={props.toggleVisibility}
               />
               {props.user ? (
                 <MyRoutes
+                  daysOfEffort={props.daysOfEffort}
+                  items={props.items}
                   projects={props.projects}
                   projectsLoading={props.projectsLoading}
                   handleSubmit={props.handleSubmit}
                   handleChange={props.editField}
                   handleSelect={props.selectProject}
+                  handleRemove={props.handleRemove}
                   nextStartTime={props.nextStartTime}
                   user={props.user}
                   workItem={props.workItem}
@@ -88,9 +89,6 @@ class SidebarLeftOverlay extends Component {
                       Sie müssen eingeloggt sein, um die Anwendung zu nutzen
                     </p>
                   </Message>
-                  <Dimmer active={props.loginIsLoading}>
-                    <Loader />
-                  </Dimmer>
                 </div>
               )}
             </Segment>

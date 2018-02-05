@@ -20,6 +20,7 @@ export const data = {
 
 export const ui = {
   hMenuActiveItem: "index",
+  loginIsLoading: false,
   vMenuActiveItem: "",
   user: null,
   sidebarIsVisible: false

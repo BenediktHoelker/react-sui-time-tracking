@@ -14,10 +14,11 @@ export function toggleNavbar() {
 
 export function login() {
   return (dispatch, getState, firebase) => {
-    dispatch(requestLogin)
+    dispatch(requestLogin())
     return firebase.auth
-      .signInWithRedirect(firebase.provider)
+      .signInWithPopup(firebase.provider)
       .then(result => dispatch(receiveLogin(result)))
+      .catch(error => dispatch(loginError(error)))
   }
 }
 
@@ -27,6 +28,10 @@ export function requestLogin(user) {
 
 export function receiveLogin(user) {
   return { type: types.RECEIVE_LOGIN, user: user }
+}
+
+export function loginError(error){
+  return { type: types.LOGIN_ERROR, error: error }
 }
 
 export function logout() {
@@ -39,16 +44,4 @@ export function logout() {
 
 export function receiveLogout() {
   return { type: types.RECEIVE_LOGOUT }
-}
-
-export function getUser() {
-  return (dispatch, getState, firebase) => {
-    return firebase.auth.getRedirectResult().then(result => {
-      if (result.user) {
-        return Promise.resolve(result.user)
-      } else {
-        return Promise.reject()
-      }
-    });
-  };
 }

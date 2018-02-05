@@ -47,7 +47,7 @@ const Routes = props => (
           {...routeProps}
           {...{
             handleRemove: props.handleRemove,
-            items: props.items ? props.items : [],
+            items: props.items,
             user: props.user
           }}
         />
