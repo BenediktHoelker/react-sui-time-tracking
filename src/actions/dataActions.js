@@ -33,10 +33,6 @@ export function handleRemoveItem(itemId) {
   };
 }
 
-export function removeFromState(itemId) {
-  return { type: types.REMOVE_FROM_STATE, itemId: itemId };
-}
-
 export function requestWorkItems(user) {
   return (dispatch, getState, firebase) => {
     const itemsRef = firebase.database.ref("items/" + user.uid);
@@ -116,7 +112,7 @@ export function addItem(item) {
 export function editField(event) {
   event.preventDefault();
   return {
-    type: types.EDIT_FIELD,
+    type: types.EDIT_ITEM_FIELD,
     name: event.target.name,
     value: event.target.value
   };

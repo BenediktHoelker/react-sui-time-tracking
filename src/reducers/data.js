@@ -1,10 +1,9 @@
 import { data } from "./initialState";
 import {
-  EDIT_FIELD,
+  EDIT_ITEM_FIELD,
   REQUEST_PROJECTS,
   RECEIVE_PROJECTS,
-  SET_ITEMS,
-  REMOVE_FROM_STATE
+  SET_ITEMS
 } from "../actions/actionTypes";
 import moment from "moment";
 
@@ -63,7 +62,7 @@ function getMonthlyAmountOfEffort(workItems, dateInMonth) {
 
 export default function dataReducer(state = data, action) {
   switch (action.type) {
-    case EDIT_FIELD: {
+    case EDIT_ITEM_FIELD: {
       return {
         ...state,
         workItem: {
@@ -82,14 +81,6 @@ export default function dataReducer(state = data, action) {
         ...state,
         projects: action.projects,
         projectsLoading: false
-      };
-    case REMOVE_FROM_STATE:
-      const index = state.items
-        .find(item => action.itemId === item.id)
-        .map((item, index) => index);
-      return {
-        ...state,
-        items: state.items.splice(index, 1)
       };
     case SET_ITEMS:
       const items = action.items;
