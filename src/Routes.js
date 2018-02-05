@@ -17,8 +17,8 @@ const Routes = props => (
             projects: props.projects,
             projectsLoading: props.projectsLoading,
             handleSubmit: props.handleSubmit,
-            handleChange: props.editField,
-            handleSelect: props.selectProject,
+            handleChange: props.handleChange,
+            handleSelect: props.handleSelect,
             nextStartTime: props.nextStartTime,
             user: props.user,
             workItem: props.workItem

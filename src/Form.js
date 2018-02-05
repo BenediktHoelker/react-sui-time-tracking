@@ -21,7 +21,7 @@ const FormExampleWidthField = props => (
           />
           <Form.Input
             label="Teilprojekt"
-            key="subproject"
+            name="subproject"
             onChange={props.handleChange}
             value={props.workItem.subproject}
           />
