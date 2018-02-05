@@ -1,21 +1,14 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { connect } from "react-redux";
 
 import firebase from "./firebase.js";
-import MyForm from "./Form";
-import MyMenu from "./HorizontalMenu";
-import MyTable from "./Table";
-import MySidebar from "./Sidebar";
-import MyCalendar from "./Calendar";
 
-import {
-  Dimmer,
-  Loader,
-  Message,
-  Sidebar,
-  Segment
-} from "semantic-ui-react";
+import MyMenu from "./HorizontalMenu";
+import MySidebar from "./Sidebar";
+import MyRoutes from "./Routes";
+
+import { Dimmer, Loader, Message, Sidebar, Segment } from "semantic-ui-react";
 
 import {
   editField,
@@ -77,54 +70,16 @@ class SidebarLeftOverlay extends Component {
                 toggleVisibility={props.toggleVisibility}
               />
               {props.user ? (
-                <div>
-                  <Route
-                    exact
-                    path="/create"
-                    render={routeProps => (
-                      <MyForm
-                        {...routeProps}
-                        {...{
-                          projects: props.projects,
-                          projectsLoading: props.projectsLoading,
-                          handleSubmit: props.handleSubmit,
-                          handleChange: props.editField,
-                          handleSelect: props.selectProject,
-                          nextStartTime: props.nextStartTime,
-                          user: props.user,
-                          workItem: props.workItem
-                        }}
-                      />
-                    )}
-                  />
-                  <Route
-                    exact
-                    path="/calendar"
-                    render={routeProps => (
-                      <MyCalendar
-                        {...routeProps}
-                        {...{
-                          daysOfEffort: props.daysOfEffort,
-                          monthlyAmountOfEffort: props.monthlyAmountOfEffort
-                        }}
-                      />
-                    )}
-                  />
-                  <Route
-                    exact
-                    path="/"
-                    render={routeProps => (
-                      <MyTable
-                        {...routeProps}
-                        {...{
-                          handleRemove: props.handleRemove,
-                          items: props.items ? props.items : [],
-                          user: props.user
-                        }}
-                      />
-                    )}
-                  />
-                </div>
+                <MyRoutes
+                  projects={props.projects}
+                  projectsLoading={props.projectsLoading}
+                  handleSubmit={props.handleSubmit}
+                  handleChange={props.editField}
+                  handleSelect={props.selectProject}
+                  nextStartTime={props.nextStartTime}
+                  user={props.user}
+                  workItem={props.workItem}
+                />
               ) : (
                 <div>
                   <Message>
