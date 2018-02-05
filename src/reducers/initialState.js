@@ -1,4 +1,6 @@
-const now = new Date();
+import moment from "moment";
+
+const now = moment();
 
 export const data = {
   items: [],
@@ -11,9 +13,9 @@ export const data = {
     scope: "Frontend",
     task: "Programmierung",
     description: "React-Entwicklung",
-    date: now.toLocaleDateString(),
-    timeStart: now.toLocaleTimeString(),
-    timeEnd: now.toLocaleTimeString()
+    date: now.format("DD.MM.YYYY"),
+    timeStart: now.format("HH:mm"),
+    timeEnd: now.format("HH:mm")
   },
   daysOfEffort: []
 };

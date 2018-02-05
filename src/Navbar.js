@@ -32,7 +32,6 @@ import {
 class SidebarLeftOverlay extends Component {
   componentDidMount() {
     const store = this.props.store;
-    console.log(this.props);
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {

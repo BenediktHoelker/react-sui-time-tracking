@@ -135,9 +135,10 @@ export function selectProject(event, value) {
 export function registerDailyWork(date) {
   return dispatch => {
     dispatch(setActiveHMenuItem("erfassung"));
-    return {
-      type: types.REGISTER_DAILY_WORK,
-      date: date
-    };
+    return dispatch(setWorkItemDate(date));
   };
+}
+
+export function setWorkItemDate(date) {
+  return { type: types.REGISTER_DAILY_WORK, date: date };
 }
