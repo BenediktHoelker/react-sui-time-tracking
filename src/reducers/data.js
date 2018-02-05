@@ -3,7 +3,8 @@ import {
   EDIT_ITEM_FIELD,
   REQUEST_PROJECTS,
   RECEIVE_PROJECTS,
-  SET_ITEMS
+  SET_ITEMS,
+  REGISTER_DAILY_WORK
 } from "../actions/actionTypes";
 import moment from "moment";
 
@@ -81,6 +82,14 @@ export default function dataReducer(state = data, action) {
         ...state,
         projects: action.projects,
         projectsLoading: false
+      };
+    case REGISTER_DAILY_WORK:
+      return {
+        ...state,
+        workItem: {
+          ...state.workItem,
+          date: action.date
+        }
       };
     case SET_ITEMS:
       const items = action.items;

@@ -16,7 +16,8 @@ import {
   loadProjects,
   loadItems,
   submitItem,
-  selectProject
+  selectProject,
+  registerDailyWork
 } from "./actions/dataActions";
 
 import {
@@ -77,6 +78,7 @@ class SidebarLeftOverlay extends Component {
                   handleChange={props.editField}
                   handleSelect={props.selectProject}
                   handleRemove={props.handleRemove}
+                  handleRegisterDailyWork={props.handleRegisterDailyWork}
                   nextStartTime={props.nextStartTime}
                   user={props.user}
                   workItem={props.workItem}
@@ -143,6 +145,9 @@ const mapDispatchToProps = dispatch => {
     },
     handleRemove: id => {
       dispatch(handleRemoveItem(id));
+    },
+    handleRegisterDailyWork: (date) => {
+      dispatch(registerDailyWork(date));
     }
   };
 };

@@ -131,3 +131,10 @@ export function selectProject(event, value) {
   };
 }
 
+export function registerDailyWork(date){
+  return {
+    type: types.REGISTER_DAILY_WORK,
+    date: date
+  }
+}
+

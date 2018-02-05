@@ -13,6 +13,6 @@ export const SET_ACTIVE_MENU_ITEM_H = "SET_ACTIVE_MENU_ITEM_H";
 export const SET_ITEMS = "SET_ITEMS";
 export const ADD_ITEM = "ADD_ITEM";
 export const EDIT_ITEM_FIELD = "EDIT_ITEM_FIELD";
+export const REGISTER_DAILY_WORK = "REGISTER_DAILY_WORK";
 
 export const TOGGLE_NAVBAR = "TOGGLE_NAVBAR";
-

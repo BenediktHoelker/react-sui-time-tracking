@@ -34,7 +34,8 @@ const Routes = props => (
           {...routeProps}
           {...{
             daysOfEffort: props.daysOfEffort,
-            monthlyAmountOfEffort: props.monthlyAmountOfEffort
+            monthlyAmountOfEffort: props.monthlyAmountOfEffort,
+            handleRegisterDailyWork: props.handleRegisterDailyWork
           }}
         />
       )}

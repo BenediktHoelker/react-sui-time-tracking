@@ -1,19 +1,6 @@
-import React from "react"
-import {
-  Icon,
-  Table
-} from "semantic-ui-react"
-import moment from "moment"
-
-const daysOfEffort = []
-const monthDate = moment().startOf('month') // change to a date in the month of interest
-const todayDaysCount = moment().date()
-
-for (var i = 0; i < todayDaysCount; i++) {
-  daysOfEffort.push({ id: i, date: monthDate.format('DD.MM.YYYY'), effort: "9:06" })
-  monthDate.add(1, 'day')
-}
-
+import React from "react";
+import { Button, Icon, Table } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 const DaysTable = props => (
   <Table compact="very" unstackable>
     <Table.Header>
@@ -33,7 +20,11 @@ const DaysTable = props => (
             <Table.Cell>
               <Icon name="checkmark" size="large" />
             </Table.Cell>
-            <Table.Cell />
+            <Table.Cell>
+              <Button icon as={Link} to="/create" onClick={props.handleRegisterDailyWork.bind(this, day.date)}>
+                <Icon name="add" />
+              </Button>
+            </Table.Cell>
           </Table.Row>
         );
       })}
