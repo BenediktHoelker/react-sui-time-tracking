@@ -41,7 +41,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(submitRecord(event));
     },
     handleChange: event => {
-      dispatch(editField(event));
+      dispatch(editField  (event));
     },
     handleSelect: event => {
       dispatch(selectProject(event));
