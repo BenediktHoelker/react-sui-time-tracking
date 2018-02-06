@@ -5,23 +5,23 @@ import { Provider, connect } from "react-redux";
 import firebase from "./firebase.js";
 
 import ActionMenu from "./containers/ActionMenu";
-import WorkItemSidebar from "./containers/RecordSidebar";
+import RecordSidebar from "./containers/RecordSidebar";
 import MyRoutes from "./Routes";
 
 import { Message, Sidebar, Segment } from "semantic-ui-react";
 
 import {
-  handleRemoveRecord,
   loadProjects,
   loadRecords,
-  submitRecord,
-  registerDailyWork
+  registerDailyWork,
+  removeRecord,
+  submitRecord
 } from "./actions/dataActions";
 
 import {
+  receiveLogin,
   setActiveVMenuItem,
-  setActiveHMenuItem,
-  receiveLogin
+  setActiveHMenuItem
 } from "./actions/uiActions";
 
 class SidebarLeftOverlay extends Component {
@@ -44,7 +44,7 @@ class SidebarLeftOverlay extends Component {
       <Provider store={this.props.store}>
         <Router>
           <Sidebar.Pushable as={Segment}>
-            {props.user ? <WorkItemSidebar /> : ""}
+            {props.user ? <RecordSidebar /> : ""}
             <Sidebar.Pusher>
               <Segment basic loading={props.loginIsLoading}>
                 <ActionMenu />
@@ -56,7 +56,8 @@ class SidebarLeftOverlay extends Component {
                     projectsLoading={props.projectsLoading}
                     records={props.records}
                     user={props.user}
-                    workItem={props.workItem}handleSubmit={props.handleSubmit}
+                    workItem={props.workItem}
+                    handleSubmit={props.handleSubmit}
                     handleChange={props.editField}
                     handleSelect={props.selectProject}
                     handleRemove={props.handleRemove}
@@ -105,7 +106,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(setActiveHMenuItem(name));
     },
     handleRemove: id => {
-      dispatch(handleRemoveRecord(id));
+      dispatch(removeRecord(id));
     },
     handleRegisterDailyWork: date => {
       dispatch(registerDailyWork(date));

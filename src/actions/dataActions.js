@@ -28,7 +28,7 @@ export function receiveProjects(projects) {
   return { type: types.RECEIVE_PROJECTS, projects: projects };
 }
 
-export function handleRemoveRecord(recordId) {
+export function removeRecord(recordId) {
   return (dispatch, getState, firebase) => {
     const recordsRef = firebase.database.ref(
       "/items/" + getState().ui.user.uid + "/" + recordId
@@ -138,5 +138,5 @@ export function registerDailyWork(date) {
 }
 
 export function setWorkItemDate(date) {
-  return { type: types.REGISTER_DAILY_WORK, date: date };
+  return { type: types.SET_WORKITEM_DATE, date: date };
 }

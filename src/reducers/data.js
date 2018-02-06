@@ -4,7 +4,7 @@ import {
   REQUEST_PROJECTS,
   RECEIVE_PROJECTS,
   SET_RECORDS,
-  REGISTER_DAILY_WORK
+  SET_WORKITEM_DATE
 } from "../actions/actionTypes";
 import moment from "moment";
 
@@ -83,7 +83,7 @@ export default function dataReducer(state = data, action) {
         projects: action.projects,
         projectsLoading: false
       };
-    case REGISTER_DAILY_WORK:
+    case SET_WORKITEM_DATE:
       return {
         ...state,
         workItem: {
