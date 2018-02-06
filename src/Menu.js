@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const HorizontalMenu = props => (
   <Menu stackable>
-    <Menu.Item icon="sidebar" onClick={props.toggleVisibility} />
+    <Menu.Item icon="sidebar" onClick={props.handleSidebarIconClick} />
     <Menu.Item header as="h3">
       Arbeit
     </Menu.Item>
@@ -12,22 +12,22 @@ const HorizontalMenu = props => (
       as={Link}
       to="/create"
       name="erfassung"
-      active={props.hMenuActiveItem === "erfassung"}
-      onClick={props.handleHMenuItemClick}
+      active={props.activeItem === "erfassung"}
+      onClick={props.handleItemClick}
     />
     <Menu.Item
       as={Link}
       to="/"
       name="auswertung"
-      active={props.hMenuActiveItem === "auswertung"}
-      onClick={props.handleHMenuItemClick}
+      active={props.activeItem === "auswertung"}
+      onClick={props.handleItemClick}
     />
     <Menu.Item
       as={Link}
       to="/calendar"
       name="tage"
-      active={props.hMenuActiveItem === "tage"}
-      onClick={props.handleHMenuItemClick}
+      active={props.activeItem === "tage"}
+      onClick={props.handleItemClick}
     />
     {props.user ? (
       <Menu.Item onClick={props.logout} position="right">

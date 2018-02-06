@@ -4,8 +4,8 @@ import { Provider, connect } from "react-redux";
 
 import firebase from "./firebase.js";
 
-import MyMenu from "./HorizontalMenu";
-import WorkItemSidebar from "./containers/workItemSidebar";
+import ActionMenu from "./containers/ActionMenu";
+import WorkItemSidebar from "./containers/WorkItemSidebar";
 import MyRoutes from "./Routes";
 
 import { Message, Sidebar, Segment } from "semantic-ui-react";
@@ -49,21 +49,10 @@ class SidebarLeftOverlay extends Component {
       <Provider store={this.props.store}>
         <Router>
           <Sidebar.Pushable as={Segment}>
-            {props.user ? (
-              <WorkItemSidebar/>
-            ) : (
-              ""
-            )}
+            {props.user ? <WorkItemSidebar /> : ""}
             <Sidebar.Pusher>
               <Segment basic loading={props.loginIsLoading}>
-                <MyMenu
-                  hMenuActiveItem={props.hMenuActiveItem}
-                  user={props.user}
-                  handleHMenuItemClick={props.handleHMenuItemClick}
-                  login={props.login}
-                  logout={props.logout}
-                  toggleVisibility={props.toggleVisibility}
-                />
+                <ActionMenu />
                 {props.user ? (
                   <MyRoutes
                     daysOfEffort={props.daysOfEffort}
