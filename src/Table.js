@@ -22,21 +22,21 @@ const WorkItemTable = props => (
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {props.items.map(item => {
+        {props.records.map(record => {
           return (
-            <Table.Row key={item.id}>
-              <Table.Cell>{item.project}</Table.Cell>
+            <Table.Row key={record.id}>
+              <Table.Cell>{record.project}</Table.Cell>
               <Responsive as={Table.Cell} {...Responsive.onlyComputer}>
-                {item.subproject}
+                {record.subproject}
               </Responsive>
-              <Table.Cell>{item.scope}</Table.Cell>
-              <Table.Cell>{item.task}</Table.Cell>
-              <Table.Cell>{item.description}</Table.Cell>
-              <Table.Cell>{item.timeSpent}</Table.Cell>
+              <Table.Cell>{record.scope}</Table.Cell>
+              <Table.Cell>{record.task}</Table.Cell>
+              <Table.Cell>{record.description}</Table.Cell>
+              <Table.Cell>{record.timeSpent}</Table.Cell>
               <Table.Cell>
                 <Button
                   icon="delete"
-                  onClick={props.handleRemove.bind(this, item.id)}
+                  onClick={props.handleRemove.bind(this, record.id)}
                 />
               </Table.Cell>
             </Table.Row>

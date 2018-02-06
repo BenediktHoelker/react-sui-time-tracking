@@ -8,7 +8,7 @@ import {
 } from "../actions/actionTypes";
 import moment from "moment";
 
-function getDaysOfEffort(workItems) {
+function getDaysOfEffort(records) {
   const daysOfEffort = [];
   const monthDate = moment().startOf("month"); // change to a date in the month of interest
   const todayDaysCount = moment().date();
@@ -18,7 +18,7 @@ function getDaysOfEffort(workItems) {
 
   for (var i = 0; i < todayDaysCount; i++) {
     date = monthDate.format("DD.MM.YYYY");
-    dailyEffort = calculateEffort(workItems, date, "day");
+    dailyEffort = calculateEffort(records, date, "day");
     daysOfEffort.push({ id: i, date: date, effort: dailyEffort });
 
     monthDate.add(1, "day");
@@ -27,13 +27,13 @@ function getDaysOfEffort(workItems) {
   return daysOfEffort;
 }
 
-function calculateEffort(workItems, date, granularity) {
+function calculateEffort(records, date, granularity) {
   let duration;
-  const filteredItems = workItems.filter(workItem => {
-    return isSameDate(workItem.date, date, granularity);
+  const filteredRecords = records.filter(record => {
+    return isSameDate(record.date, date, granularity);
   });
 
-  const sum = filteredItems.reduce((accumulator, current) => {
+  const sum = filteredRecords.reduce((accumulator, current) => {
     duration = moment.duration(current.timeSpent);
     return accumulator.add(duration);
   }, moment.duration("00:00:00"));
@@ -52,9 +52,9 @@ function isSameDate(date1, date2, granularity) {
   return isSameDate;
 }
 
-function getMonthlyAmountOfEffort(workItems, dateInMonth) {
+function getMonthlyAmountOfEffort(records, dateInMonth) {
   const actualMonthlyAmountOfEffort = calculateEffort(
-    workItems,
+    records,
     dateInMonth,
     "month"
   );
@@ -92,17 +92,17 @@ export default function dataReducer(state = data, action) {
         }
       };
     case SET_ITEMS:
-      const items = action.items;
+      const records = action.records;
       return {
         ...state,
-        daysOfEffort: getDaysOfEffort(items),
+        daysOfEffort: getDaysOfEffort(records),
         monthlyAmountOfEffort: getMonthlyAmountOfEffort(
-          items,
+          records,
           moment().startOf("month")
         ),
-        items: items,
-        nextStartTime: items[items.length - 1]
-          ? items[items.length - 1].timeEnd
+        records: records,
+        nextStartTime: records[records.length - 1]
+          ? records[records.length - 1].timeEnd
           : new Date().toLocaleTimeString()
       };
     default:

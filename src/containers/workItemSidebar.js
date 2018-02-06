@@ -9,7 +9,7 @@ class WorkItemSidebar extends Component {
     return (
       <Sidebar
         activeItem={this.props.vMenuActiveItem}
-        items={this.props.items}
+        records={this.props.records}
         visible={this.props.sidebarIsVisible}
         handleItemClick={this.props.handleVMenuItemClick}
       />
@@ -19,7 +19,7 @@ class WorkItemSidebar extends Component {
 
 const mapStateToProps = state => {
   return {
-    items: state.data.items,
+    records: state.data.records,
     sidebarIsVisible: state.ui.sidebarIsVisible,
     vMenuActiveItem: state.ui.vMenuActiveItem
   };

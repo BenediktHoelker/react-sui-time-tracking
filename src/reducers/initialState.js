@@ -3,7 +3,7 @@ import moment from "moment";
 const now = moment();
 
 export const data = {
-  items: [],
+  records: [],
   nextStartTime: "08:00:00",
   projects: [],
   projectsLoading: false,

@@ -14,8 +14,8 @@ import {
   editField,
   handleRemoveItem,
   loadProjects,
-  loadItems,
-  submitItem,
+  loadRecords,
+  submitRecord,
   selectProject,
   registerDailyWork
 } from "./actions/dataActions";
@@ -36,7 +36,7 @@ class SidebarLeftOverlay extends Component {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         store.dispatch(receiveLogin(user));
-        store.dispatch(loadItems());
+        store.dispatch(loadRecords());
         store.dispatch(loadProjects());
       }
     });
@@ -56,7 +56,7 @@ class SidebarLeftOverlay extends Component {
                 {props.user ? (
                   <MyRoutes
                     daysOfEffort={props.daysOfEffort}
-                    items={props.items}
+                    records={props.records}
                     projects={props.projects}
                     projectsLoading={props.projectsLoading}
                     handleSubmit={props.handleSubmit}
@@ -90,7 +90,7 @@ class SidebarLeftOverlay extends Component {
 const mapStateToProps = state => {
   return {
     daysOfEffort: state.data.daysOfEffort,
-    items: state.data.items,
+    records: state.data.records,
     loginIsLoading: state.ui.loginIsLoading,
     monthlyAmountOfEffort: state.data.monthlyAmountOfEffort,
     projects: state.data.projects,
@@ -121,7 +121,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(logout());
     },
     handleSubmit: event => {
-      dispatch(submitItem(event));
+      dispatch(submitRecord(event));
     },
     handleVMenuItemClick: id => {
       dispatch(setActiveVMenuItem(id));

@@ -30,46 +30,46 @@ export function receiveProjects(projects) {
 
 export function handleRemoveItem(itemId) {
   return (dispatch, getState, firebase) => {
-    const itemsRef = firebase.database.ref(
+    const recordsRef = firebase.database.ref(
       "/items/" + getState().ui.user.uid + "/" + itemId
     );
-    itemsRef.remove();
+    recordsRef.remove();
   };
 }
 
-export function loadItems() {
+export function loadRecords() {
   return (dispatch, getState, firebase) => {
     const user = getState().ui.user;
-    const itemsRef = firebase.database.ref("items/" + user.uid);
+    const recordsRef = firebase.database.ref("items/" + user.uid);
 
-    itemsRef.on("value", snapshot => {
-      let items = snapshot.val();
+    recordsRef.on("value", snapshot => {
+      let records = snapshot.val();
       let newState = [];
-      for (let item in items) {
+      for (let record in records) {
         newState.push({
-          id: item,
-          project: items[item].project,
-          subproject: items[item].subproject,
-          scope: items[item].scope,
-          task: items[item].task,
-          description: items[item].description,
-          date: items[item].date,
-          timeStart: items[item].timeStart,
-          timeEnd: items[item].timeEnd,
-          timeSpent: items[item].timeSpent
+          id: record,
+          project: records[record].project,
+          subproject: records[record].subproject,
+          scope: records[record].scope,
+          task: records[record].task,
+          description: records[record].description,
+          date: records[record].date,
+          timeStart: records[record].timeStart,
+          timeEnd: records[record].timeEnd,
+          timeSpent: records[record].timeSpent
         });
       }
 
-      dispatch(setItems(newState));
+      dispatch(setRecords(newState));
     });
   };
 }
 
-export function setItems(items) {
-  return { type: types.SET_ITEMS, items: items };
+export function setRecords(records) {
+  return { type: types.SET_ITEMS, records: records };
 }
 
-export function submitItem(event) {
+export function submitRecord(event) {
   return (dispatch, getState, firebase) => {
     event.preventDefault();
 
@@ -77,7 +77,7 @@ export function submitItem(event) {
     const userId = state.ui.user.uid;
     const workItem = state.data.workItem;
 
-    const itemsRef = firebase.database.ref("items/" + userId);
+    const recordsRef = firebase.database.ref("items/" + userId);
 
     const dateStart = moment(
       workItem.date + " " + workItem.timeStart,
@@ -90,28 +90,28 @@ export function submitItem(event) {
 
     const dateDiff = dateEnd.diff(dateStart);
     const timeSpent = moment.utc(dateDiff).format("HH:mm:ss");
-    const item = {
+    const record = {
       ...workItem,
       ...{
         timeSpent: timeSpent
       }
     };
 
-    if (item.id) {
+    if (record.id) {
       // Edit
-      const key = "/items/" + userId + "/" + item.id;
-      firebase.database.ref(key).set(item);
+      const key = "/items/" + userId + "/" + record.id;
+      firebase.database.ref(key).set(record);
     } else {
       // Create
-      itemsRef.push(item);
+      recordsRef.push(record);
     }
 
     //dispatch(addItem(item));
   };
 }
 
-export function addItem(item) {
-  return { type: types.ADD_ITEM, item: item };
+export function addRecord(record) {
+  return { type: types.ADD_ITEM, record: record };
 }
 
 export function editField(event) {

@@ -10,16 +10,16 @@ const SidebarLeftOverlay = props => (
     icon="labeled"
     vertical
   >
-    {props.items.map(item => {
+    {props.records.map(record => {
       return (
         <Menu.Item
-          key={item.id}
-          name={item.project}
-          active={props.activeItem === item.id}
-          onClick={props.handleItemClick.bind(this, item.id)}
+          key={record.id}
+          name={record.project}
+          active={props.activeItem === record.id}
+          onClick={props.handleItemClick.bind(this, record.id)}
         >
-          <Header as="h4">{item.project}</Header>
-          <p>{item.description}</p>
+          <Header as="h4">{record.project}</Header>
+          <p>{record.description}</p>
         </Menu.Item>
       );
     })}
