@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Sidebar from "../Sidebar";
 import { setActiveVMenuItem } from "../actions/uiActions";
 
-class WorkItemSidebar extends Component {
+class RecordSidebar extends Component {
   render() {
     return (
       <Sidebar
@@ -33,6 +33,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default (WorkItemSidebar = connect(mapStateToProps, mapDispatchToProps)(
-  WorkItemSidebar
+export default (RecordSidebar = connect(mapStateToProps, mapDispatchToProps)(
+  RecordSidebar
 ));

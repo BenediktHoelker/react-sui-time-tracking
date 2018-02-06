@@ -1,9 +1,9 @@
 import { data } from "./initialState";
 import {
-  EDIT_ITEM_FIELD,
+  EDIT_RECORD_FIELD,
   REQUEST_PROJECTS,
   RECEIVE_PROJECTS,
-  SET_ITEMS,
+  SET_RECORDS,
   REGISTER_DAILY_WORK
 } from "../actions/actionTypes";
 import moment from "moment";
@@ -63,7 +63,7 @@ function getMonthlyAmountOfEffort(records, dateInMonth) {
 
 export default function dataReducer(state = data, action) {
   switch (action.type) {
-    case EDIT_ITEM_FIELD: {
+    case EDIT_RECORD_FIELD: {
       return {
         ...state,
         workItem: {
@@ -91,7 +91,7 @@ export default function dataReducer(state = data, action) {
           date: action.date
         }
       };
-    case SET_ITEMS:
+    case SET_RECORDS:
       const records = action.records;
       return {
         ...state,

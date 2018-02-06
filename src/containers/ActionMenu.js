@@ -9,7 +9,7 @@ class ActionMenu extends Component {
     return (
       <Menu
         activeItem={this.props.activeItem}
-        items={this.props.items}
+        records={this.props.records}
         user={this.props.user}
         logout={this.props.logout}
         login={this.props.login}
@@ -23,7 +23,7 @@ class ActionMenu extends Component {
 const mapStateToProps = state => {
   return {
     activeItem: state.ui.hMenuActiveItem,
-    items: state.data.items,
+    records: state.data.records,
     user: state.ui.user
   };
 };

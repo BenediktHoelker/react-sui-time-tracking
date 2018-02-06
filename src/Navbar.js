@@ -5,14 +5,14 @@ import { Provider, connect } from "react-redux";
 import firebase from "./firebase.js";
 
 import ActionMenu from "./containers/ActionMenu";
-import WorkItemSidebar from "./containers/WorkItemSidebar";
+import WorkItemSidebar from "./containers/RecordSidebar";
 import MyRoutes from "./Routes";
 
 import { Message, Sidebar, Segment } from "semantic-ui-react";
 
 import {
   editField,
-  handleRemoveItem,
+  handleRemoveRecord,
   loadProjects,
   loadRecords,
   submitRecord,
@@ -130,7 +130,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(setActiveHMenuItem(name));
     },
     handleRemove: id => {
-      dispatch(handleRemoveItem(id));
+      dispatch(handleRemoveRecord(id));
     },
     handleRegisterDailyWork: date => {
       dispatch(registerDailyWork(date));

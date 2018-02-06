@@ -23,8 +23,8 @@ export default class SearchExampleStandard extends Component {
 
             this.setState({
                 isLoading: false,
-                results: this.props.items.filter(isMatch).map(item =>
-                    ({ title: item.project, description: item.description, key: item.id }))
+                results: this.props.records.filter(isMatch).map(record =>
+                    ({ title: record.project, description: record.description, key: record.id }))
             })
         }, 500)
     }

@@ -28,10 +28,10 @@ export function receiveProjects(projects) {
   return { type: types.RECEIVE_PROJECTS, projects: projects };
 }
 
-export function handleRemoveItem(itemId) {
+export function handleRemoveRecord(recordId) {
   return (dispatch, getState, firebase) => {
     const recordsRef = firebase.database.ref(
-      "/items/" + getState().ui.user.uid + "/" + itemId
+      "/items/" + getState().ui.user.uid + "/" + recordId
     );
     recordsRef.remove();
   };
@@ -66,7 +66,7 @@ export function loadRecords() {
 }
 
 export function setRecords(records) {
-  return { type: types.SET_ITEMS, records: records };
+  return { type: types.SET_RECORDS, records: records };
 }
 
 export function submitRecord(event) {
@@ -105,19 +105,17 @@ export function submitRecord(event) {
       // Create
       recordsRef.push(record);
     }
-
-    //dispatch(addItem(item));
   };
 }
 
 export function addRecord(record) {
-  return { type: types.ADD_ITEM, record: record };
+  return { type: types.ADD_RECORD, record: record };
 }
 
 export function editField(event) {
   event.preventDefault();
   return {
-    type: types.EDIT_ITEM_FIELD,
+    type: types.EDIT_RECORD_FIELD,
     name: event.target.name,
     value: event.target.value
   };
@@ -126,7 +124,7 @@ export function editField(event) {
 export function selectProject(event, value) {
   event.preventDefault();
   return {
-    type: types.EDIT_ITEM_FIELD,
+    type: types.EDIT_RECORD_FIELD,
     name: "project",
     value: value
   };

@@ -39,11 +39,9 @@ export default function uiReducer(state = ui, action) {
         user: null
       };
     case SET_ACTIVE_MENU_ITEM_V:
-      //const selectedItem = state.data.items.find(item => item.id === action.Id);
       return {
         ...state,
         vMenuActiveItem: action.Id
-        //workItem: selectedItem ? selectedItem : {}
       };
     case SET_ACTIVE_MENU_ITEM_H:
       return {
