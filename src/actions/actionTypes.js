@@ -1,5 +1,5 @@
-export const RECEIVE_LOGIN = "RECEIVE_LOGIN";
 export const REQUEST_LOGIN = "REQUEST_LOGIN";
+export const RECEIVE_LOGIN = "RECEIVE_LOGIN";
 export const LOGIN_ERROR = "LOGIN_ERROR";
 
 export const RECEIVE_LOGOUT = "RECEIVE_LOGOUT";

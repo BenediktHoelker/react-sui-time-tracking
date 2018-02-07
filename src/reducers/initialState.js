@@ -20,10 +20,20 @@ export const data = {
   daysOfEffort: []
 };
 
+export const records = {
+  byId: {},
+  allIds: [],
+}
+
+export const projects = {  
+  projects: [],
+  projectsLoading: false,
+}
+
 export const ui = {
-  hMenuActiveItem: "index",
+  hMenuActiveItem: "",
   loginIsLoading: false,
-  vMenuActiveItem: "",
   user: null,
-  sidebarIsVisible: false
+  sidebarIsVisible: false,          
+  vMenuActiveItem: ""
 };
