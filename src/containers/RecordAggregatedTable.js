@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import Table from "../Calendar";
+import Table from "../components/Calendar";
 import { registerDailyWork } from "../actions/dataActions";
 
 class RecordsAggregatedTable extends Component {

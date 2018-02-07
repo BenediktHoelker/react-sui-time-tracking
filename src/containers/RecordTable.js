@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import Table from "../Table";
+import Table from "../components/Table";
 import { removeRecord } from "../actions/dataActions";
 
 class RecordTable extends Component {

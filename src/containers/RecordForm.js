@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import Form from "../Form";
+import Form from "../components/Form";
 import { setActiveVMenuItem} from "../actions/uiActions";
 import { submitRecord, selectProject, editField  } from "../actions/dataActions";
 

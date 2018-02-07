@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import Sidebar from "../Sidebar";
+import Sidebar from "../components/Sidebar";
 import { setActiveVMenuItem } from "../actions/uiActions";
 
 class RecordSidebar extends Component {

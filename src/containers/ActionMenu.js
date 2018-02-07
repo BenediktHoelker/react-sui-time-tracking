@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import Menu from "../Menu";
+import Menu from "../components/Menu";
 import { login, logout, setActiveVMenuItem, toggleNavbar } from "../actions/uiActions";
 
 class ActionMenu extends Component {
