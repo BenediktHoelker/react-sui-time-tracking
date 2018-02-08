@@ -75,23 +75,23 @@ export function submitRecord(event) {
 
     const state = getState();
     const userId = state.ui.user.uid;
-    const workItem = state.data.workItem;
+    const newRecord = state.data.newRecord;
 
     const recordsRef = firebase.database.ref("items/" + userId);
 
     const dateStart = moment(
-      workItem.date + " " + workItem.timeStart,
+      newRecord.date + " " + newRecord.timeStart,
       "DD.MM.YYYY HH:mm:ss"
     );
     const dateEnd = moment(
-      workItem.date + " " + workItem.timeEnd,
+      newRecord.date + " " + newRecord.timeEnd,
       "DD.MM.YYYY HH:mm:ss"
     );
 
     const dateDiff = dateEnd.diff(dateStart);
     const timeSpent = moment.utc(dateDiff).format("HH:mm:ss");
     const record = {
-      ...workItem,
+      ...newRecord,
       ...{
         timeSpent: timeSpent
       }

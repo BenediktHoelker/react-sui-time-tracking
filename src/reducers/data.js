@@ -12,8 +12,8 @@ export default function dataReducer(state = data, action) {
     case EDIT_RECORD_FIELD: {
       return {
         ...state,
-        workItem: {
-          ...state.workItem,
+        newRecord: {
+          ...state.newRecord,
           [action.name]: action.value
         }
       };
@@ -32,8 +32,8 @@ export default function dataReducer(state = data, action) {
     case SET_WORKITEM_DATE:
       return {
         ...state,
-        workItem: {
-          ...state.workItem,
+        newRecord: {
+          ...state.newRecord,
           date: action.date
         }
       };

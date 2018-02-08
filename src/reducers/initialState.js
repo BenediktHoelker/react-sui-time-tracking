@@ -7,7 +7,7 @@ export const data = {
   nextStartTime: "08:00:00",
   projects: [],
   projectsLoading: false,
-  workItem: {
+  newRecord: {
     project: "CUBICIDE",
     subproject: "Logistik",
     scope: "Frontend",

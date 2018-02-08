@@ -14,7 +14,7 @@ const FormExampleWidthField = props => (
             name="project"
             search
             selection
-            value={props.workItem.project}
+            value={props.newRecord.project}
             options={props.projects}
             onChange={props.handleSelect}
             loading={props.projectsLoading}
@@ -23,13 +23,13 @@ const FormExampleWidthField = props => (
             label="Teilprojekt"
             name="subproject"
             onChange={props.handleChange}
-            value={props.workItem.subproject}
+            value={props.newRecord.subproject}
           />
           <Form.Input
             label="Arbeitspaket"
             name="scope"
             onChange={props.handleChange}
-            value={props.workItem.scope}
+            value={props.newRecord.scope}
           />
         </Form.Group>
         <Form.Group widths="equal">
@@ -37,13 +37,13 @@ const FormExampleWidthField = props => (
             label="Tätigkeit"
             name="task"
             onChange={props.handleChange}
-            value={props.workItem.task}
+            value={props.newRecord.task}
           />
           <Form.Input
             label="Beschreibung"
             name="description"
             onChange={props.handleChange}
-            value={props.workItem.description}
+            value={props.newRecord.description}
           />
         </Form.Group>
         <Form.Group widths="equal">
@@ -51,19 +51,19 @@ const FormExampleWidthField = props => (
             label="Datum"
             name="date"
             onChange={props.handleChange}
-            value={props.workItem.date}
+            value={props.newRecord.date}
           />
           <Form.Input
             label="Beginn"
             name="timeStart"
             onChange={props.handleChange}
-            value={props.workItem.timeStart}
+            value={props.newRecord.timeStart}
           />
           <Form.Input
             label="Ende"
             name="timeEnd"
             onChange={props.handleChange}
-            value={props.workItem.timeEnd}
+            value={props.newRecord.timeEnd}
           />
         </Form.Group>
         <Form.Button>Abschicken</Form.Button>

@@ -13,7 +13,7 @@ class RecordForm extends Component {
         projects={this.props.projects}
         projectsLoading={this.props.projectsLoading}
         user={this.props.user}
-        workItem={this.props.workItem}
+        newRecord={this.props.newRecord}
         handleSubmit={this.props.handleSubmit}
         handleChange={this.props.handleChange}
         handleSelect={this.props.handleSelect}
@@ -28,7 +28,7 @@ const mapStateToProps = state => {
     projects: state.data.projects,
     projectsLoading: state.ui.projectsLoading,
     user: state.ui.user,
-    workItem: state.data.workItem
+    newRecord: state.data.newRecord
   };
 };
 
