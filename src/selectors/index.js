@@ -3,7 +3,7 @@ import moment from "moment";
 
 const getRecords = state => state.data.records;
 
-function getDaysOfEffort(records) {
+const getDaysOfEffort = records => {
   const daysOfEffort = [];
   const monthDate = moment().startOf("month"); // change to a date in the month of interest
   const todayDaysCount = moment().date();
@@ -20,9 +20,9 @@ function getDaysOfEffort(records) {
   }
 
   return daysOfEffort;
-}
+};
 
-function calculateEffort(records, date, granularity) {
+const calculateEffort = (records, date, granularity) => {
   let duration;
   const filteredRecords = records.filter(record => {
     return isSameDate(record.date, date, granularity);
@@ -38,14 +38,14 @@ function calculateEffort(records, date, granularity) {
     Math.floor(sum.asHours()) +
     moment.utc(sum.asMilliseconds()).format(":mm:ss");
   return sumFormatted;
-}
+};
 
-function isSameDate(date1, date2, granularity) {
+const isSameDate = (date1, date2, granularity) => {
   const moment1 = moment(date1, "DD.MM.YYYY");
   const moment2 = moment(date2, "DD.MM.YYYY");
   const isSameDate = moment1.isSame(moment2, granularity);
   return isSameDate;
-}
+};
 
 const getMonthlyAmountOfEffort = (records, dateInMonth) => {
   const actualMonthlyAmountOfEffort = calculateEffort(
@@ -54,7 +54,39 @@ const getMonthlyAmountOfEffort = (records, dateInMonth) => {
     "month"
   );
   return actualMonthlyAmountOfEffort;
-}
+};
+
+const getRecordsOfDate = (records, date) => {
+  const filteredRecords = records.filter(record => {
+    return isSameDate(record.date, date, "day");
+  });
+  return filteredRecords;
+};
+
+export const getNewRecordStartTime = createSelector([getRecords], records => {
+  const recordsOfDate = getRecordsOfDate(records, moment());
+  const recordsOfDateCount = recordsOfDate.length;
+  return recordsOfDate && recordsOfDateCount > 0
+    ? recordsOfDate[recordsOfDateCount - 1].timeStart
+    : moment().format("HH:mm");
+});
+
+export const getNewRecord = createSelector(
+  [getNewRecordStartTime],
+  newRecordStartTime => {
+    const now = moment()
+    return {
+      project: "CUBICIDE",
+      subproject: "Logistik",
+      scope: "Frontend",
+      task: "Programmierung",
+      description: "React-Entwicklung",
+      date: now.format("DD.MM.YYYY"),
+      timeStart: newRecordStartTime,
+      timeEnd: now.format("HH:mm")
+    };
+  }
+);
 
 export const getEffortAggregatedByDate = createSelector(
   [getRecords],

@@ -104,8 +104,13 @@ export function submitRecord(event) {
     } else {
       // Create
       recordsRef.push(record);
+      dispatch(setNewRecordStartTime(state.data.records));
     }
   };
+}
+
+export function setNewRecordStartTime(records) {
+  return { type: types.SET_NEW_RECORD_START_TIME, records: records };
 }
 
 export function addRecord(record) {

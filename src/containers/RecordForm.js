@@ -4,8 +4,10 @@ import { connect } from "react-redux";
 import Form from "../components/Form";
 import { setActiveVMenuItem } from "../actions/uiActions";
 import { submitRecord, selectProject, editField } from "../actions/dataActions";
+import { getNewRecordStartTime } from "../selectors";
 
 class RecordForm extends Component {
+
   render() {
     return (
       <Form
@@ -24,11 +26,11 @@ class RecordForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    nextStartTime: state.ui.nextStartTime,
     projects: state.data.projects,
     projectsLoading: state.ui.projectsLoading,
     user: state.ui.user,
-    newRecord: state.data.newRecord
+    newRecord: state.data.newRecord,
+    nextStartTime: getNewRecordStartTime(state)
   };
 };
 
