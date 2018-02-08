@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Form from "../components/Form";
-import { setActiveVMenuItem} from "../actions/uiActions";
-import { submitRecord, selectProject, editField  } from "../actions/dataActions";
+import { setActiveVMenuItem } from "../actions/uiActions";
+import { submitRecord, selectProject, editField } from "../actions/dataActions";
 
 class RecordForm extends Component {
   render() {
@@ -41,11 +41,11 @@ const mapDispatchToProps = dispatch => {
       dispatch(submitRecord(event));
     },
     handleChange: event => {
-      dispatch(editField  (event));
+      dispatch(editField(event));
     },
-    handleSelect: event => {
-      dispatch(selectProject(event));
-    },
+    handleSelect: (event, { value }) => {
+      dispatch(selectProject(event, value));
+    }
   };
 };
 

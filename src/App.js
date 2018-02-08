@@ -30,7 +30,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(store.getState().ui.user);
     return (
       <div>
         <Container style={{ margin: "1em", padding: "1em" }}>

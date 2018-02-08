@@ -16,8 +16,7 @@ export const data = {
     date: now.format("DD.MM.YYYY"),
     timeStart: now.format("HH:mm"),
     timeEnd: now.format("HH:mm")
-  },
-  daysOfEffort: []
+  }
 };
 
 export const records = {
