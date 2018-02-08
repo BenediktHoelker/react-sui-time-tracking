@@ -3,6 +3,10 @@ import { connect } from "react-redux";
 
 import Table from "../components/Calendar";
 import { registerDailyWork } from "../actions/dataActions";
+import {
+  getEffortAggregatedByDate,
+  getEffortAggregatedByMonth
+} from "../selectors";
 
 class RecordsAggregatedTable extends Component {
   render() {
@@ -18,8 +22,8 @@ class RecordsAggregatedTable extends Component {
 
 const mapStateToProps = state => {
   return {
-    daysOfEffort: state.data.daysOfEffort,
-    monthlyAmountOfEffort: state.data.monthlyAmountOfEffort
+    daysOfEffort: getEffortAggregatedByDate(state),
+    monthlyAmountOfEffort: getEffortAggregatedByMonth(state)
   };
 };
 
