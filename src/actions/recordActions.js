@@ -2,6 +2,32 @@ import * as types from "./actionTypes";
 import moment from "moment";
 import { menuSetActiveItem } from "./uiActions";
 
+export function loadProjects() {
+  return (dispatch, getState, firebase) => {
+    dispatch(requestProjects());
+
+    const samplesRef = firebase.database.ref("samples");
+
+    samplesRef.on("value", snapshot => {
+      let samples = snapshot.val();
+      let companies = samples.map(sample => ({
+        key: sample.company,
+        value: sample.company,
+        text: sample.company
+      }));
+      dispatch(receiveProjects(companies));
+    });
+  };
+}
+
+export function requestProjects(projects) {
+  return { type: types.REQUEST_PROJECTS };
+}
+
+export function receiveProjects(projects) {
+  return { type: types.RECEIVE_PROJECTS, projects: projects };
+}
+
 export function removeRecord(recordId) {
   return (dispatch, getState, firebase) => {
     const recordsRef = firebase.database.ref(

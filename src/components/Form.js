@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Header, Segment } from "semantic-ui-react";
 
-const FormExampleWidthField = props => (
+const NewRecordForm = props => (
   <div>
     <Header as="h4" attached="top" block>
       Tätigkeiten erfassen
@@ -15,7 +15,11 @@ const FormExampleWidthField = props => (
             search
             selection
             value={props.newRecord.project}
-            options={props.projects}
+            options={props.projects.map(project => ({
+              key: project.company,
+              value: project.company,
+              text: project.company
+            }))}
             onChange={props.handleSelect}
             loading={props.projectsLoading}
           />
@@ -72,4 +76,4 @@ const FormExampleWidthField = props => (
   </div>
 );
 
-export default FormExampleWidthField;
+export default NewRecordForm;

@@ -23,8 +23,8 @@ class RecordForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    projects: state.data.projects,
-    projectsLoading: state.ui.projectsLoading,
+    projects: state.projects.collection,
+    projectsLoading: state.projects.projectsLoading,
     user: state.ui.user,
     newRecord: state.data.newRecord
   };

@@ -21,17 +21,31 @@ export const data = {
 export const records = {
   byId: {},
   allIds: [],
+  records: [],
+  newRecord: {
+    project: "CUBICIDE",
+    subproject: "Logistik",
+    scope: "Frontend",
+    task: "Programmierung",
+    description: "React-Entwicklung",
+    date: now.format("DD.MM.YYYY"),
+    timeStart: now.format("HH:mm"),
+    timeEnd: now.format("HH:mm")
+  }
 }
 
 export const projects = {  
-  projects: [],
-  projectsLoading: false,
+  collection: [],
+  projectsLoading: false
 }
 
 export const ui = {
   menuActiveItem: "",
-  loginIsLoading: false,
-  user: null,
-  sidebarIsVisible: false,          
-  sidebarActiveItem: ""
+  sidebarActiveItem: "",
+  sidebarIsVisible: false
 };
+
+export const auth = {
+  loginIsLoading: false,
+  user: null
+}

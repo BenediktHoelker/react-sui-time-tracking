@@ -1,6 +1,8 @@
 import { data } from "./initialState";
 import {
   EDIT_RECORD_FIELD,
+  REQUEST_PROJECTS,
+  RECEIVE_PROJECTS,
   SET_RECORDS,
   SET_WORKITEM_DATE,
   SET_NEW_RECORD_START_TIME
@@ -33,6 +35,17 @@ export default function dataReducer(state = data, action) {
         }
       };
     }
+    case REQUEST_PROJECTS:
+      return {
+        ...state,
+        projectsLoading: true
+      };
+    case RECEIVE_PROJECTS:
+      return {
+        ...state,
+        projects: action.projects,
+        projectsLoading: false
+      };
     case SET_WORKITEM_DATE:
       return {
         ...state,
