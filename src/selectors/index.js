@@ -49,44 +49,12 @@ const getMonthlyAmountOfEffort = (records, dateInMonth) => {
   return actualMonthlyAmountOfEffort;
 };
 
-const getRecordsOfDate = (records, date) => {
-  const filteredRecords = records.filter(record => {
-    return isSameDate(record.date, date, "day");
-  });
-  return filteredRecords;
-};
-
 const isSameDate = (date1, date2, granularity) => {
   const moment1 = moment(date1, "DD.MM.YYYY");
   const moment2 = moment(date2, "DD.MM.YYYY");
   const isSameDate = moment1.isSame(moment2, granularity);
   return isSameDate;
 };
-
-export const getNewRecordStartTime = createSelector([getRecords], records => {
-  const recordsOfDate = getRecordsOfDate(records, moment());
-  const recordsOfDateCount = recordsOfDate.length;
-  return recordsOfDate && recordsOfDateCount > 0
-    ? recordsOfDate[recordsOfDateCount - 1].timeStart
-    : moment().format("HH:mm");
-});
-
-export const getNewRecord = createSelector(
-  [getNewRecordStartTime],
-  newRecordStartTime => {
-    const now = moment()
-    return {
-      project: "CUBICIDE",
-      subproject: "Logistik",
-      scope: "Frontend",
-      task: "Programmierung",
-      description: "React-Entwicklung",
-      date: now.format("DD.MM.YYYY"),
-      timeStart: newRecordStartTime,
-      timeEnd: now.format("HH:mm")
-    };
-  }
-);
 
 export const getEffortAggregatedByDate = createSelector(
   [getRecords],

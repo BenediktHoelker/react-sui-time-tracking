@@ -72,10 +72,7 @@ export default function dataReducer(state = data, action) {
       const records = action.records;
       return {
         ...state,
-        records: records,
-        nextStartTime: records[records.length - 1]
-          ? records[records.length - 1].timeEnd
-          : new Date().toLocaleTimeString()
+        records: records
       };
     default:
       return state;

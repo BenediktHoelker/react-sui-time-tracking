@@ -4,7 +4,6 @@ const now = moment();
 
 export const data = {
   records: [],
-  nextStartTime: "08:00:00",
   projects: [],
   projectsLoading: false,
   newRecord: {

@@ -2,16 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Form from "../components/Form";
-import { setActiveVMenuItem } from "../actions/uiActions";
 import { submitRecord, selectProject, editField } from "../actions/dataActions";
-import { getNewRecordStartTime } from "../selectors";
 
 class RecordForm extends Component {
 
   render() {
     return (
       <Form
-        nextStartTime={this.props.nextStartTime}
         projects={this.props.projects}
         projectsLoading={this.props.projectsLoading}
         user={this.props.user}
@@ -29,16 +26,12 @@ const mapStateToProps = state => {
     projects: state.data.projects,
     projectsLoading: state.ui.projectsLoading,
     user: state.ui.user,
-    newRecord: state.data.newRecord,
-    nextStartTime: getNewRecordStartTime(state)
+    newRecord: state.data.newRecord
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleVMenuItemClick: id => {
-      dispatch(setActiveVMenuItem(id));
-    },
     handleSubmit: event => {
       dispatch(submitRecord(event));
     },
