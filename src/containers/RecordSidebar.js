@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Sidebar from "../components/Sidebar";
-import { setActiveVMenuItem } from "../actions/uiActions";
+import { sidebarSetActiveItem } from "../actions/uiActions";
 
 class RecordSidebar extends Component {
   render() {
     return (
       <Sidebar
-        activeItem={this.props.vMenuActiveItem}
+        activeItem={this.props.sidebarActiveItem}
         records={this.props.records}
         visible={this.props.sidebarIsVisible}
-        handleItemClick={this.props.handleVMenuItemClick}
+        handleItemClick={this.props.handleSidebarItemClick}
       />
     );
   }
@@ -21,14 +21,14 @@ const mapStateToProps = state => {
   return {
     records: state.data.records,
     sidebarIsVisible: state.ui.sidebarIsVisible,
-    vMenuActiveItem: state.ui.vMenuActiveItem
+    sidebarActiveItem: state.ui.sidebarActiveItem
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleVMenuItemClick: (event, { id }) => {
-      dispatch(setActiveVMenuItem(id));
+    handleSidebarItemClick: (event, { id }) => {
+      dispatch(sidebarSetActiveItem(id));
     }
   };
 };

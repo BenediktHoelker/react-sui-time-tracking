@@ -29,9 +29,9 @@ export const projects = {
 }
 
 export const ui = {
-  hMenuActiveItem: "",
+  menuActiveItem: "",
   loginIsLoading: false,
   user: null,
   sidebarIsVisible: false,          
-  vMenuActiveItem: ""
+  sidebarActiveItem: ""
 };

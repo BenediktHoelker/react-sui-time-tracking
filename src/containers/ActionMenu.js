@@ -5,7 +5,7 @@ import Menu from "../components/Menu";
 import {
   login,
   logout,
-  setActiveHMenuItem,
+  menuSetActiveItem,
   toggleNavbar
 } from "../actions/uiActions";
 
@@ -27,7 +27,7 @@ class ActionMenu extends Component {
 
 const mapStateToProps = state => {
   return {
-    activeItem: state.ui.hMenuActiveItem,
+    activeItem: state.ui.menuActiveItem,
     records: state.data.records,
     user: state.ui.user
   };
@@ -36,7 +36,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     handleItemClick: (event, { name }) => {
-      dispatch(setActiveHMenuItem(name));
+      dispatch(menuSetActiveItem(name));
     },
     handleSidebarIconClick: () => {
       dispatch(toggleNavbar());

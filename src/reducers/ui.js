@@ -4,8 +4,8 @@ import {
   RECEIVE_LOGIN,
   REQUEST_LOGIN,
   RECEIVE_LOGOUT,
-  SET_ACTIVE_MENU_ITEM_V,
-  SET_ACTIVE_MENU_ITEM_H,
+  SIDEBAR_SET_ACTIVE_ITEM,
+  MENU_SET_ACTIVE_ITEM,
   LOGIN_ERROR
 } from "../actions/actionTypes";
 
@@ -38,15 +38,15 @@ export default function uiReducer(state = ui, action) {
         loginIsLoading: false,
         user: null
       };
-    case SET_ACTIVE_MENU_ITEM_V:
+    case SIDEBAR_SET_ACTIVE_ITEM:
       return {
         ...state,
-        vMenuActiveItem: action.id
+        sidebarActiveItem: action.id
       };
-    case SET_ACTIVE_MENU_ITEM_H:
+    case MENU_SET_ACTIVE_ITEM:
       return {
         ...state,
-        hMenuActiveItem: action.name
+        menuActiveItem: action.name
       };
     default:
       return state;

@@ -1,11 +1,11 @@
 import * as types from "./actionTypes"
 
-export function setActiveVMenuItem(id) {
-  return { type: types.SET_ACTIVE_MENU_ITEM_V, id }
+export function sidebarSetActiveItem(id) {
+  return { type: types.SIDEBAR_SET_ACTIVE_ITEM, id }
 }
 
-export function setActiveHMenuItem(name) {
-  return { type: types.SET_ACTIVE_MENU_ITEM_H, name }
+export function menuSetActiveItem(name) {
+  return { type: types.MENU_SET_ACTIVE_ITEM, name }
 }
 
 export function toggleNavbar() {

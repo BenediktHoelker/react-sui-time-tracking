@@ -1,6 +1,6 @@
 import * as types from "./actionTypes";
 import moment from "moment";
-import { setActiveHMenuItem } from "./uiActions";
+import { menuSetActiveItem } from "./uiActions";
 
 export function loadProjects() {
   return (dispatch, getState, firebase) => {
@@ -137,7 +137,7 @@ export function selectProject(event, value) {
 
 export function registerDailyWork(date) {
   return dispatch => {
-    dispatch(setActiveHMenuItem("erfassung"));
+    dispatch(menuSetActiveItem("erfassung"));
     return dispatch(setWorkItemDate(date));
   };
 }
