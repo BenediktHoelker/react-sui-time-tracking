@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Menu from "../components/Menu";
-import { login, logout, setActiveVMenuItem, toggleNavbar } from "../actions/uiActions";
+import {
+  login,
+  logout,
+  setActiveHMenuItem,
+  toggleNavbar
+} from "../actions/uiActions";
 
 class ActionMenu extends Component {
   render() {
@@ -30,8 +35,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleItemClick: id => {
-      dispatch(setActiveVMenuItem(id));
+    handleItemClick: (event, { name }) => {
+      dispatch(setActiveHMenuItem(name));
     },
     handleSidebarIconClick: () => {
       dispatch(toggleNavbar());

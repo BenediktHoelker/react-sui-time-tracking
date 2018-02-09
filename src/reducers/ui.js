@@ -41,7 +41,7 @@ export default function uiReducer(state = ui, action) {
     case SET_ACTIVE_MENU_ITEM_V:
       return {
         ...state,
-        vMenuActiveItem: action.Id
+        vMenuActiveItem: action.id
       };
     case SET_ACTIVE_MENU_ITEM_H:
       return {

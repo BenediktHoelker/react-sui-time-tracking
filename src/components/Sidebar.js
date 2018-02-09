@@ -13,10 +13,11 @@ const SidebarLeftOverlay = props => (
     {props.records.map(record => {
       return (
         <Menu.Item
+          id={record.id}
           key={record.id}
           name={record.project}
           active={props.activeItem === record.id}
-          onClick={props.handleItemClick.bind(this, record.id)}
+          onClick={props.handleItemClick}
         >
           <Header as="h4">{record.project}</Header>
           <p>{record.description}</p>

@@ -27,7 +27,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleVMenuItemClick: id => {
+    handleVMenuItemClick: (event, { id }) => {
       dispatch(setActiveVMenuItem(id));
     }
   };
