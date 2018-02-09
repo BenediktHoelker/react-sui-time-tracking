@@ -104,7 +104,7 @@ export function submitRecord(event) {
     } else {
       // Create
       recordsRef.push(record);
-      dispatch(setNewRecordStartTime(state.data.records));
+      dispatch(setNewRecordStartTime([record]));
     }
   };
 }

@@ -40,13 +40,6 @@ const calculateEffort = (records, date, granularity) => {
   return sumFormatted;
 };
 
-const isSameDate = (date1, date2, granularity) => {
-  const moment1 = moment(date1, "DD.MM.YYYY");
-  const moment2 = moment(date2, "DD.MM.YYYY");
-  const isSameDate = moment1.isSame(moment2, granularity);
-  return isSameDate;
-};
-
 const getMonthlyAmountOfEffort = (records, dateInMonth) => {
   const actualMonthlyAmountOfEffort = calculateEffort(
     records,
@@ -61,6 +54,13 @@ const getRecordsOfDate = (records, date) => {
     return isSameDate(record.date, date, "day");
   });
   return filteredRecords;
+};
+
+const isSameDate = (date1, date2, granularity) => {
+  const moment1 = moment(date1, "DD.MM.YYYY");
+  const moment2 = moment(date2, "DD.MM.YYYY");
+  const isSameDate = moment1.isSame(moment2, granularity);
+  return isSameDate;
 };
 
 export const getNewRecordStartTime = createSelector([getRecords], records => {

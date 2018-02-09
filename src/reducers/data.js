@@ -65,7 +65,7 @@ export default function dataReducer(state = data, action) {
         ...state,
         newRecord: {
           ...state.newRecord,
-          startTime: newRecordStartTime
+          timeStart: newRecordStartTime
         }
       };
     case SET_RECORDS:
