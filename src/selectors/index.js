@@ -2,6 +2,9 @@ import { createSelector } from "reselect";
 import moment from "moment";
 
 const getRecords = state => state.records.collection;
+const getSubProjects = state => state.categorization.subProjects;
+const getProjects = state => state.categorization.projects;
+const getSelectedProject = state => state.records.newRecord.project;
 
 const getDaysOfEffort = records => {
   const daysOfEffort = [];
@@ -69,3 +72,18 @@ export const getEffortAggregatedByMonth = createSelector(
     return getMonthlyAmountOfEffort(records, moment().startOf("month"));
   }
 );
+
+export const getSubProjectsByProject = createSelector([getProjects, getSelectedProject, getSubProjects], (projects, selectedProject, subProjects) => {
+  return subProjects.filter((subProject, index) => {
+    return projects
+      .find(project => {
+        return project.name === selectedProject;
+      })
+      .subProjects.includes(index);
+  })
+  .map(subProject => ({
+    key: subProject.name,
+    value: subProject.name,
+    text: subProject.name
+  }))
+})

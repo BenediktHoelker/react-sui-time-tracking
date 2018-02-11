@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 
 import Form from "../components/Form";
 import { submitRecord, editField } from "../actions/recordActions";
+import { getSubProjectsByProject } from "../selectors";
 
 class RecordForm extends Component {
-
   render() {
     return (
       <Form
@@ -26,7 +26,7 @@ const mapStateToProps = state => {
   return {
     projects: state.categorization.projects,
     projectsLoading: state.categorization.projectsLoading,
-    subProjects: state.categorization.subProjects,
+    subProjects: getSubProjectsByProject(state),
     subProjectsLoading: state.categorization.subProjectsLoading,
     user: state.auth.user,
     newRecord: state.records.newRecord
