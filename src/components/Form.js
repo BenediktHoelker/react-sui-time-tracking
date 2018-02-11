@@ -29,11 +29,19 @@ const NewRecordForm = props => (
             search
             selection
             value={props.newRecord.subProject}
-            options={props.subProjects.map(subProject => ({
-              key: subProject.name,
-              value: subProject.name,
-              text: subProject.name
-            }))}
+            options={props.subProjects
+              .filter((subProject, index) => {
+                return props.projects
+                  .find(project => {
+                    return project.name === props.newRecord.project;
+                  })
+                  .subProjects.includes(index);
+              })
+              .map(subProject => ({
+                key: subProject.name,
+                value: subProject.name,
+                text: subProject.name
+              }))}
             onChange={props.handleChange}
             loading={props.subProjectsLoading}
           />
