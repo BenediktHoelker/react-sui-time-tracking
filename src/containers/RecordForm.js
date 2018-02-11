@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Form from "../components/Form";
-import { submitRecord, selectProject, editField } from "../actions/recordActions";
+import { submitRecord, editField } from "../actions/recordActions";
 
 class RecordForm extends Component {
 
@@ -11,11 +11,12 @@ class RecordForm extends Component {
       <Form
         projects={this.props.projects}
         projectsLoading={this.props.projectsLoading}
+        subProjects={this.props.subProjects}
+        subProjectsLoading={this.props.subProjectsLoading}
         user={this.props.user}
         newRecord={this.props.newRecord}
         handleSubmit={this.props.handleSubmit}
         handleChange={this.props.handleChange}
-        handleSelect={this.props.handleSelect}
       />
     );
   }
@@ -25,6 +26,8 @@ const mapStateToProps = state => {
   return {
     projects: state.categorization.projects,
     projectsLoading: state.categorization.projectsLoading,
+    subProjects: state.categorization.subProjects,
+    subProjectsLoading: state.categorization.subProjectsLoading,
     user: state.auth.user,
     newRecord: state.records.newRecord
   };
@@ -35,11 +38,8 @@ const mapDispatchToProps = dispatch => {
     handleSubmit: event => {
       dispatch(submitRecord(event));
     },
-    handleChange: event => {
-      dispatch(editField(event));
-    },
-    handleSelect: (event, { value }) => {
-      dispatch(selectProject(event, value));
+    handleChange: (event, { name, value }) => {
+      dispatch(editField(event, name, value));
     }
   };
 };

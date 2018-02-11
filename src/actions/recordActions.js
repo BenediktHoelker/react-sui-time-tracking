@@ -23,7 +23,7 @@ export function loadRecords() {
         newState.push({
           id: record,
           project: records[record].project,
-          subproject: records[record].subproject,
+          subProject: records[record].subProject,
           scope: records[record].scope,
           task: records[record].task,
           description: records[record].description,
@@ -91,20 +91,11 @@ export function addRecord(record) {
   return { type: types.ADD_RECORD, record: record };
 }
 
-export function editField(event) {
+export function editField(event, name, value) {
   event.preventDefault();
   return {
     type: types.EDIT_RECORD_FIELD,
-    name: event.target.name,
-    value: event.target.value
-  };
-}
-
-export function selectProject(event, value) {
-  event.preventDefault();
-  return {
-    type: types.EDIT_RECORD_FIELD,
-    name: "project",
+    name: name,
     value: value
   };
 }

@@ -27,7 +27,7 @@ const RecordTable = props => (
             <Table.Row key={record.id}>
               <Table.Cell>{record.project}</Table.Cell>
               <Responsive as={Table.Cell} {...Responsive.onlyComputer}>
-                {record.subproject}
+                {record.subProject}
               </Responsive>
               <Table.Cell>{record.scope}</Table.Cell>
               <Table.Cell>{record.task}</Table.Cell>

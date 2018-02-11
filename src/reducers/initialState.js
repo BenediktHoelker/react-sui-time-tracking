@@ -18,7 +18,7 @@ export const records = {
   collection: [],
   newRecord: {
     project: "XANIDE",
-    subproject: "Logistik",
+    subProject: "Hull",
     scope: "Frontend",
     task: "Programmierung",
     description: "React-Entwicklung",

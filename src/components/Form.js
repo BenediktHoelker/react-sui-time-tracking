@@ -20,14 +20,22 @@ const NewRecordForm = props => (
               value: project.name,
               text: project.name
             }))}
-            onChange={props.handleSelect}
+            onChange={props.handleChange}
             loading={props.projectsLoading}
           />
-          <Form.Input
+          <Form.Dropdown
             label="Teilprojekt"
-            name="subproject"
+            name="subProject"
+            search
+            selection
+            value={props.newRecord.subProject}
+            options={props.subProjects.map(subProject => ({
+              key: subProject.name,
+              value: subProject.name,
+              text: subProject.name
+            }))}
             onChange={props.handleChange}
-            value={props.newRecord.subproject}
+            loading={props.subProjectsLoading}
           />
           <Form.Input
             label="Arbeitspaket"
