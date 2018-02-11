@@ -15,7 +15,7 @@ export const projects = {
 export const records = {
   collection: [],
   newRecord: {
-    project: "CUBICIDE",
+    project: "XANIDE",
     subproject: "Logistik",
     scope: "Frontend",
     task: "Programmierung",

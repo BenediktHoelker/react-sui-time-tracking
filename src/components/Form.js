@@ -16,9 +16,9 @@ const NewRecordForm = props => (
             selection
             value={props.newRecord.project}
             options={props.projects.map(project => ({
-              key: project.company,
-              value: project.company,
-              text: project.company
+              key: project.name,
+              value: project.name,
+              text: project.name
             }))}
             onChange={props.handleSelect}
             loading={props.projectsLoading}

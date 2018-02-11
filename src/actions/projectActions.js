@@ -2,11 +2,11 @@ import * as types from "./actionTypes";
 
 export function loadProjects() {
   return (dispatch, getState, firebase) => {
-    const samplesRef = firebase.database.ref("samples");
+    const projectsRef = firebase.database.ref("projects");
 
     dispatch(requestProjects());
 
-    samplesRef.on("value", snapshot => {
+    projectsRef.on("value", snapshot => {
       dispatch(receiveProjects(snapshot.val()));
     });
   };

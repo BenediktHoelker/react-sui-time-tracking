@@ -2,36 +2,10 @@ import * as types from "./actionTypes";
 import moment from "moment";
 import { menuSetActiveItem } from "./uiActions";
 
-export function loadProjects() {
-  return (dispatch, getState, firebase) => {
-    dispatch(requestProjects());
-
-    const samplesRef = firebase.database.ref("samples");
-
-    samplesRef.on("value", snapshot => {
-      let samples = snapshot.val();
-      let companies = samples.map(sample => ({
-        key: sample.company,
-        value: sample.company,
-        text: sample.company
-      }));
-      dispatch(receiveProjects(companies));
-    });
-  };
-}
-
-export function requestProjects(projects) {
-  return { type: types.REQUEST_PROJECTS };
-}
-
-export function receiveProjects(projects) {
-  return { type: types.RECEIVE_PROJECTS, projects: projects };
-}
-
 export function removeRecord(recordId) {
   return (dispatch, getState, firebase) => {
     const recordsRef = firebase.database.ref(
-      "/items/" + getState().auth.user.uid + "/" + recordId
+      "/records/" + getState().auth.user.uid + "/" + recordId
     );
     recordsRef.remove();
   };
@@ -40,7 +14,7 @@ export function removeRecord(recordId) {
 export function loadRecords() {
   return (dispatch, getState, firebase) => {
     const user = getState().auth.user;
-    const recordsRef = firebase.database.ref("items/" + user.uid);
+    const recordsRef = firebase.database.ref("records/" + user.uid);
 
     recordsRef.on("value", snapshot => {
       let records = snapshot.val();
@@ -77,7 +51,7 @@ export function submitRecord(event) {
     const userId = state.auth.user.uid;
     const newRecord = state.records.newRecord;
 
-    const recordsRef = firebase.database.ref("items/" + userId);
+    const recordsRef = firebase.database.ref("records/" + userId);
 
     const dateStart = moment(
       newRecord.date + " " + newRecord.timeStart,
@@ -99,7 +73,7 @@ export function submitRecord(event) {
 
     if (record.id) {
       // Edit
-      const key = "/items/" + userId + "/" + record.id;
+      const key = "/records/" + userId + "/" + record.id;
       firebase.database.ref(key).set(record);
     } else {
       // Create
