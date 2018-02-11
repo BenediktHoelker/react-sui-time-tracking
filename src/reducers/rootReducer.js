@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import auth from './auth';
-import projects from './project';
+import projects from './projects';
 import records from './records';
 import ui from './ui';
 
