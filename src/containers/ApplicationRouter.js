@@ -49,8 +49,8 @@ class ApplicationRouter extends Component {
 
 const mapStateToProps = state => {
   return {
-    loginIsLoading: state.ui.loginIsLoading,
-    user: state.ui.user
+    loginIsLoading: state.auth.loginIsLoading,
+    user: state.auth.user
   };
 };
 

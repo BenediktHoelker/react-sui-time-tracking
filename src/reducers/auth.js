@@ -1,21 +1,13 @@
-import { ui } from "./initialState";
+import { auth } from "./initialState";
 import {
-  TOGGLE_NAVBAR,
   RECEIVE_LOGIN,
   REQUEST_LOGIN,
   RECEIVE_LOGOUT,
-  SIDEBAR_SET_ACTIVE_ITEM,
-  MENU_SET_ACTIVE_ITEM,
   LOGIN_ERROR
 } from "../actions/actionTypes";
 
-export default function uiReducer(state = ui, action) {
+export default function authReducer(state = auth, action) {
   switch (action.type) {
-    case TOGGLE_NAVBAR:
-      return {
-        ...state,
-        sidebarIsVisible: !state.sidebarIsVisible
-      };
     case RECEIVE_LOGIN:
       return {
         ...state,
@@ -37,16 +29,6 @@ export default function uiReducer(state = ui, action) {
         ...state,
         loginIsLoading: false,
         user: null
-      };
-    case SIDEBAR_SET_ACTIVE_ITEM:
-      return {
-        ...state,
-        sidebarActiveItem: action.id
-      };
-    case MENU_SET_ACTIVE_ITEM:
-      return {
-        ...state,
-        menuActiveItem: action.name
       };
     default:
       return state;

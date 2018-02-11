@@ -1,13 +1,14 @@
 import { combineReducers } from 'redux';
-import ui from './ui';
-//import data from './data';
-import records from './records';
+import auth from './auth';
 import projects from './project';
+import records from './records';
+import ui from './ui';
 
 const rootReducer = combineReducers({
-  ui,
+  auth,
+  projects,
   records,
-  projects
+  ui
 });
 
 export default rootReducer;

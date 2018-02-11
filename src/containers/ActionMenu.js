@@ -2,12 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Menu from "../components/Menu";
-import {
-  login,
-  logout,
-  menuSetActiveItem,
-  toggleNavbar
-} from "../actions/uiActions";
+import { login, logout } from "../actions/authActions";
+import { menuSetActiveItem, toggleNavbar } from "../actions/uiActions";
 
 class ActionMenu extends Component {
   render() {
@@ -29,7 +25,7 @@ const mapStateToProps = state => {
   return {
     activeItem: state.ui.menuActiveItem,
     records: state.records.collection,
-    user: state.ui.user
+    user: state.auth.user
   };
 };
 

@@ -11,7 +11,7 @@ import ApplicationRouter from "./containers/ApplicationRouter";
 import rootReducer from "./reducers/rootReducer.js";
 import { loadProjects } from "./actions/projectActions";
 import { loadRecords } from "./actions/recordActions";
-import { receiveLogin } from "./actions/uiActions";
+import { receiveLogin } from "./actions/authActions";
 
 const store = createStore(
   rootReducer,

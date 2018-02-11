@@ -1,12 +1,8 @@
 import { ui } from "./initialState";
 import {
   TOGGLE_NAVBAR,
-  RECEIVE_LOGIN,
-  REQUEST_LOGIN,
-  RECEIVE_LOGOUT,
   SIDEBAR_SET_ACTIVE_ITEM,
-  MENU_SET_ACTIVE_ITEM,
-  LOGIN_ERROR
+  MENU_SET_ACTIVE_ITEM
 } from "../actions/actionTypes";
 
 export default function uiReducer(state = ui, action) {
@@ -15,28 +11,6 @@ export default function uiReducer(state = ui, action) {
       return {
         ...state,
         sidebarIsVisible: !state.sidebarIsVisible
-      };
-    case RECEIVE_LOGIN:
-      return {
-        ...state,
-        loginIsLoading: false,
-        user: action.user
-      };
-    case REQUEST_LOGIN:
-      return {
-        ...state,
-        loginIsLoading: true
-      };
-    case RECEIVE_LOGOUT:
-      return {
-        ...state,
-        user: null
-      };
-    case LOGIN_ERROR:
-      return {
-        ...state,
-        loginIsLoading: false,
-        user: null
       };
     case SIDEBAR_SET_ACTIVE_ITEM:
       return {
