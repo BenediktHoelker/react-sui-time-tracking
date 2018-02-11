@@ -19,9 +19,7 @@ export const data = {
 };
 
 export const records = {
-  byId: {},
-  allIds: [],
-  records: [],
+  collection: [],
   newRecord: {
     project: "CUBICIDE",
     subproject: "Logistik",

@@ -26,7 +26,7 @@ const mapStateToProps = state => {
     projects: state.projects.collection,
     projectsLoading: state.projects.projectsLoading,
     user: state.ui.user,
-    newRecord: state.data.newRecord
+    newRecord: state.records.newRecord
   };
 };
 

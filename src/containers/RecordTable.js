@@ -20,7 +20,7 @@ class RecordTable extends Component {
 
 const mapStateToProps = state => {
   return {
-    records: state.data.records,
+    records: state.records.collection,
     user: state.ui.user
   };
 };

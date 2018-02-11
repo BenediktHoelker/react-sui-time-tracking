@@ -19,7 +19,7 @@ class RecordSidebar extends Component {
 
 const mapStateToProps = state => {
   return {
-    records: state.data.records,
+    records: state.records.collection,
     sidebarIsVisible: state.ui.sidebarIsVisible,
     sidebarActiveItem: state.ui.sidebarActiveItem
   };

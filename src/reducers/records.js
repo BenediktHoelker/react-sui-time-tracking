@@ -1,8 +1,6 @@
-import { data } from "./initialState";
+import { records } from "./initialState";
 import {
   EDIT_RECORD_FIELD,
-  REQUEST_PROJECTS,
-  RECEIVE_PROJECTS,
   SET_RECORDS,
   SET_WORKITEM_DATE,
   SET_NEW_RECORD_START_TIME
@@ -24,7 +22,7 @@ const isSameDate = (date1, date2, granularity) => {
   return isSameDate;
 };
 
-export default function dataReducer(state = data, action) {
+export default function recordsReducer(state = records, action) {
   switch (action.type) {
     case EDIT_RECORD_FIELD: {
       return {
@@ -35,17 +33,6 @@ export default function dataReducer(state = data, action) {
         }
       };
     }
-    case REQUEST_PROJECTS:
-      return {
-        ...state,
-        projectsLoading: true
-      };
-    case RECEIVE_PROJECTS:
-      return {
-        ...state,
-        projects: action.projects,
-        projectsLoading: false
-      };
     case SET_WORKITEM_DATE:
       return {
         ...state,
@@ -72,7 +59,7 @@ export default function dataReducer(state = data, action) {
       const records = action.records;
       return {
         ...state,
-        records: records
+        collection: records
       };
     default:
       return state;

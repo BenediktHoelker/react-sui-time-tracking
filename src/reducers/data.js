@@ -59,7 +59,7 @@ export default function dataReducer(state = data, action) {
       const records = action.records;
       return {
         ...state,
-        records: records
+        collection: records
       };
     default:
       return state;

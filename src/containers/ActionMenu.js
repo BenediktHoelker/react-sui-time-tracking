@@ -28,7 +28,7 @@ class ActionMenu extends Component {
 const mapStateToProps = state => {
   return {
     activeItem: state.ui.menuActiveItem,
-    records: state.data.records,
+    records: state.records.collection,
     user: state.ui.user
   };
 };

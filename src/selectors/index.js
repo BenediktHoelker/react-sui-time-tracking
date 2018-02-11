@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
 import moment from "moment";
 
-const getRecords = state => state.data.records;
+const getRecords = state => state.records.collection;
 
 const getDaysOfEffort = records => {
   const daysOfEffort = [];
