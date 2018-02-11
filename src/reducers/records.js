@@ -22,7 +22,7 @@ const isSameDate = (date1, date2, granularity) => {
   return isSameDate;
 };
 
-export default function recordsReducer(state = records, action) {
+export default function recordReducer(state = records, action) {
   switch (action.type) {
     case EDIT_RECORD_FIELD: {
       return {

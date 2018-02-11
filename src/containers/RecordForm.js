@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Form from "../components/Form";
-import { submitRecord, selectProject, editField } from "../actions/dataActions";
+import { submitRecord, selectProject, editField } from "../actions/recordActions";
 
 class RecordForm extends Component {
 

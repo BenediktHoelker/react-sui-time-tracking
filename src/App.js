@@ -10,7 +10,7 @@ import { Container } from "semantic-ui-react";
 import ApplicationRouter from "./containers/ApplicationRouter";
 import rootReducer from "./reducers/rootReducer.js";
 import { loadProjects } from "./actions/projectActions";
-import { loadRecords } from "./actions/dataActions";
+import { loadRecords } from "./actions/recordActions";
 import { receiveLogin } from "./actions/uiActions";
 
 const store = createStore(

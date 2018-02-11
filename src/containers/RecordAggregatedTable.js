@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Table from "../components/Calendar";
-import { registerDailyWork } from "../actions/dataActions";
+import { registerDailyWork } from "../actions/recordActions";
 import {
   getEffortAggregatedByDate,
   getEffortAggregatedByMonth
