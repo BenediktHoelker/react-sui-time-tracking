@@ -75,7 +75,7 @@ export function submitRecord(event) {
 
     const state = getState();
     const userId = state.auth.user.uid;
-    const newRecord = state.data.newRecord;
+    const newRecord = state.records.newRecord;
 
     const recordsRef = firebase.database.ref("items/" + userId);
 
