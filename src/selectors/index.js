@@ -74,6 +74,7 @@ export const getEffortAggregatedByMonth = createSelector(
 );
 
 export const getSubProjectsByProject = createSelector([getProjects, getSelectedProject, getSubProjects], (projects, selectedProject, subProjects) => {
+  // only show children of selected project
   return subProjects.filter((subProject, index) => {
     return projects
       .find(project => {

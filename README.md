@@ -1192,7 +1192,7 @@ Jest is a Node-based runner. This means that the tests always run in a Node envi
 
 While Jest provides browser globals such as `window` thanks to [jsdom](https://github.com/tmpvar/jsdom), they are only approximations of the real browser behavior. Jest is intended to be used for unit tests of your logic and your components rather than the DOM quirks.
 
-We recommend that you use a separate tool for browser end-to-end tests if you need them. They are beyond the scope of Create React App.
+We recommend that you use a separate tool for browser end-to-end tests if you need them. They are beyond the task of Create React App.
 
 ### Filename Conventions
 

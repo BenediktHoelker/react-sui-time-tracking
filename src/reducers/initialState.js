@@ -19,8 +19,8 @@ export const records = {
   newRecord: {
     project: "XANIDE",
     subProject: "Hull",
-    scope: "Frontend",
-    task: "Programmierung",
+    task: "Frontend",
+    activity: "Programmierung",
     description: "React-Entwicklung",
     date: now.format("DD.MM.YYYY"),
     timeStart: now.format("HH:mm"),

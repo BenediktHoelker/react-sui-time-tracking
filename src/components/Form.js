@@ -35,17 +35,17 @@ const NewRecordForm = props => (
           />
           <Form.Input
             label="Arbeitspaket"
-            name="scope"
+            name="task"
             onChange={props.handleChange}
-            value={props.newRecord.scope}
+            value={props.newRecord.task}
           />
         </Form.Group>
         <Form.Group widths="equal">
           <Form.Input
             label="Tätigkeit"
-            name="task"
+            name="activity"
             onChange={props.handleChange}
-            value={props.newRecord.task}
+            value={props.newRecord.activity}
           />
           <Form.Input
             label="Beschreibung"
