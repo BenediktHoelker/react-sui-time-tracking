@@ -9,7 +9,14 @@ export const auth = {
 
 export const projects = {  
   collection: [],
-  projectsLoading: false
+  projectsLoading: false,
+  subProjects: [],
+  subProjectsLoading: false
+}
+
+export const subProjects = {  
+  collection: [],
+  subProjectsLoading: false
 }
 
 export const records = {
