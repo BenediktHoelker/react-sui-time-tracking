@@ -2,7 +2,7 @@ import { records } from "./initialState";
 import {
   EDIT_RECORD_FIELD,
   SET_RECORDS,
-  SET_WORKITEM_DATE,
+  SET_NEW_RECORD_DATE,
   SET_NEW_RECORD_START_TIME
 } from "../actions/actionTypes";
 
@@ -33,7 +33,7 @@ export default function recordReducer(state = records, action) {
         }
       };
     }
-    case SET_WORKITEM_DATE:
+    case SET_NEW_RECORD_DATE:
       return {
         ...state,
         newRecord: {

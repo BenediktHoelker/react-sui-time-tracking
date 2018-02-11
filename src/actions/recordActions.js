@@ -31,7 +31,7 @@ export function receiveProjects(projects) {
 export function removeRecord(recordId) {
   return (dispatch, getState, firebase) => {
     const recordsRef = firebase.database.ref(
-      "/items/" + getState().ui.user.uid + "/" + recordId
+      "/items/" + getState().auth.user.uid + "/" + recordId
     );
     recordsRef.remove();
   };
@@ -39,7 +39,7 @@ export function removeRecord(recordId) {
 
 export function loadRecords() {
   return (dispatch, getState, firebase) => {
-    const user = getState().ui.user;
+    const user = getState().auth.user;
     const recordsRef = firebase.database.ref("items/" + user.uid);
 
     recordsRef.on("value", snapshot => {
@@ -138,10 +138,10 @@ export function selectProject(event, value) {
 export function registerDailyWork(date) {
   return dispatch => {
     dispatch(menuSetActiveItem("erfassung"));
-    return dispatch(setWorkItemDate(date));
+    return dispatch(setNewRecordDate(date));
   };
 }
 
-export function setWorkItemDate(date) {
-  return { type: types.SET_WORKITEM_DATE, date: date };
+export function setNewRecordDate(date) {
+  return { type: types.SET_NEW_RECORD_DATE, date: date };
 }

@@ -5,7 +5,7 @@ import {
   Table
 } from "semantic-ui-react";
 
-const WorkItemTable = props => (
+const RecordTable = props => (
   <div>
     <Table unstackable>
       <Table.Header>
@@ -47,4 +47,4 @@ const WorkItemTable = props => (
   </div>
 );
 
-export default WorkItemTable;
+export default RecordTable;
