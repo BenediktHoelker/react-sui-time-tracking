@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import auth from './auth';
-import projects from './projects';
+import categorization from './categorization';
 import records from './records';
 import ui from './ui';
 
 const rootReducer = combineReducers({
   auth,
-  projects,
+  categorization,
   records,
   ui
 });

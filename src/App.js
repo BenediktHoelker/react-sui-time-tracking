@@ -9,7 +9,7 @@ import { Container } from "semantic-ui-react";
 
 import ApplicationRouter from "./containers/ApplicationRouter";
 import rootReducer from "./reducers/rootReducer.js";
-import { loadProjects } from "./actions/projectActions";
+import { loadProjects } from "./actions/categorizationActions";
 import { loadRecords } from "./actions/recordActions";
 import { receiveLogin } from "./actions/authActions";
 

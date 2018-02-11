@@ -7,15 +7,10 @@ export const auth = {
   user: null
 }
 
-export const projects = {  
-  collection: [],
+export const categorization = {  
+  projects: [],
   projectsLoading: false,
   subProjects: [],
-  subProjectsLoading: false
-}
-
-export const subProjects = {  
-  collection: [],
   subProjectsLoading: false
 }
 

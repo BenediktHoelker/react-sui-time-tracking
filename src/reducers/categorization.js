@@ -1,7 +1,7 @@
-import { projects } from "./initialState";
+import { categorization } from "./initialState";
 import { REQUEST_PROJECTS, RECEIVE_PROJECTS, RECEIVE_SUB_PROJECTS, REQUEST_SUB_PROJECTS } from "../actions/actionTypes";
 
-export default function projectReducer(state = projects, action) {
+export default function categorizationReducer(state = categorization, action) {
   switch (action.type) {
     case REQUEST_PROJECTS:
       return {
@@ -11,7 +11,7 @@ export default function projectReducer(state = projects, action) {
     case RECEIVE_PROJECTS:
       return {
         ...state,
-        collection: action.projects,
+        projects: action.projects,
         projectsLoading: false
       };
     case REQUEST_SUB_PROJECTS:
