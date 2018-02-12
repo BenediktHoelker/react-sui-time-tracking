@@ -105,16 +105,22 @@ const getSelectedSubProject = createSelector(
   }
 );
 
-export const getTasksBySubProject = createSelector(
+const getSubProjectTasks = createSelector(
   [getSelectedSubProject, getTasks],
-  (selectedSubProject = {}, tasks = [{}]) => {
-    // only show children of selected subproject
-    return (selectedSubProject.tasks
-      ? selectedSubProject.tasks.map((task, index) => {
+  (subProject = {}, tasks) => {
+    return subProject.tasks
+      ? subProject.tasks.map((task, index) => {
           return tasks[index];
         })
-      : tasks
-    ).map(task => ({
+      : tasks;
+  }
+);
+
+export const getTasksBySubProject = createSelector(
+  [getSubProjectTasks, getTasks],
+  (subProjectTasks, tasks) => {
+    // only show children of selected subproject
+    return (subProjectTasks ? subProjectTasks : tasks).map(task => ({
       key: task.name,
       value: task.name,
       text: task.name
