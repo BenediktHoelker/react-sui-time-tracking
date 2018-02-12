@@ -45,11 +45,19 @@ const NewRecordForm = props => (
           />
         </Form.Group>
         <Form.Group widths="equal">
-          <Form.Input
+          <Form.Dropdown
             label="Tätigkeit"
             name="activity"
-            onChange={props.handleChange}
+            search
+            selection
             value={props.newRecord.activity}
+            options={props.activities.map(activity => ({
+              key: activity.name,
+              value: activity.name,
+              text: activity.name
+            }))}
+            onChange={props.handleChange}
+            loading={props.tasksLoading}
           />
           <Form.Input
             label="Beschreibung"

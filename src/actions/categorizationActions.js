@@ -2,6 +2,7 @@ import * as types from "./actionTypes";
 
 export function loadProjects() {
   return (dispatch, getState, firebase) => {
+    const activitiesRef = firebase.database.ref("activities");
     const projectsRef = firebase.database.ref("projects");
     const subProjectsRef = firebase.database.ref("subProjects");
     const tasksRef = firebase.database.ref("tasks");
@@ -9,6 +10,11 @@ export function loadProjects() {
     dispatch(requestProjects());
     dispatch(requestSubProjects());
     dispatch(requestTasks());
+    dispatch(requestActivities());
+
+    activitiesRef.on("value", snapshot => {
+      dispatch(receiveActivities(snapshot.val()));
+    });
 
     projectsRef.on("value", snapshot => {
       dispatch(receiveProjects(snapshot.val()));
@@ -22,6 +28,14 @@ export function loadProjects() {
       dispatch(receiveTasks(snapshot.val()));
     });
   };
+}
+
+export function requestActivities() {
+  return { type: types.REQUEST_ACTIVITIES };
+}
+
+export function receiveActivities(activities) {
+  return { type: types.RECEIVE_ACTIVITIES, activities: activities };
 }
 
 export function requestProjects() {

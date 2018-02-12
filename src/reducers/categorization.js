@@ -5,11 +5,24 @@ import {
   REQUEST_SUB_PROJECTS,
   RECEIVE_SUB_PROJECTS,
   REQUEST_TASKS,
-  RECEIVE_TASKS
+  RECEIVE_TASKS,
+  REQUEST_ACTIVITIES,
+  RECEIVE_ACTIVITIES
 } from "../actions/actionTypes";
 
 export default function categorizationReducer(state = categorization, action) {
   switch (action.type) {
+    case REQUEST_ACTIVITIES:
+      return {
+        ...state,
+        activitiesLoading: true
+      };
+    case RECEIVE_ACTIVITIES:
+      return {
+        ...state,
+        activities: action.activities,
+        activitiesLoading: false
+      };
     case REQUEST_PROJECTS:
       return {
         ...state,

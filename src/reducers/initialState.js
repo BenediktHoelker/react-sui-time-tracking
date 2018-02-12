@@ -8,6 +8,8 @@ export const auth = {
 }
 
 export const categorization = {  
+  activities: [],
+  activitiesLoading: false,
   projects: [],
   projectsLoading: false,
   subProjects: [],
