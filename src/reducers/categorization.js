@@ -1,5 +1,12 @@
 import { categorization } from "./initialState";
-import { REQUEST_PROJECTS, RECEIVE_PROJECTS, RECEIVE_SUB_PROJECTS, REQUEST_SUB_PROJECTS } from "../actions/actionTypes";
+import {
+  REQUEST_PROJECTS,
+  RECEIVE_PROJECTS,
+  REQUEST_SUB_PROJECTS,
+  RECEIVE_SUB_PROJECTS,
+  REQUEST_TASKS,
+  RECEIVE_TASKS
+} from "../actions/actionTypes";
 
 export default function categorizationReducer(state = categorization, action) {
   switch (action.type) {
@@ -24,6 +31,17 @@ export default function categorizationReducer(state = categorization, action) {
         ...state,
         subProjects: action.subProjects,
         subProjectsLoading: false
+      };
+    case REQUEST_TASKS:
+      return {
+        ...state,
+        tasksLoading: true
+      };
+    case RECEIVE_TASKS:
+      return {
+        ...state,
+        tasks: action.tasks,
+        tasksLoading: false
       };
     default:
       return state;

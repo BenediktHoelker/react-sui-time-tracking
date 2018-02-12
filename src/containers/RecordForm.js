@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import Form from "../components/Form";
 import { submitRecord, editField } from "../actions/recordActions";
-import { getSubProjectsByProject } from "../selectors";
+import { getSubProjectsByProject, getTasksBySubProject } from "../selectors";
 
 class RecordForm extends Component {
   render() {
@@ -13,6 +13,8 @@ class RecordForm extends Component {
         projectsLoading={this.props.projectsLoading}
         subProjects={this.props.subProjects}
         subProjectsLoading={this.props.subProjectsLoading}
+        tasks={this.props.tasks}
+        tasksLoading={this.props.tasksLoading}
         user={this.props.user}
         newRecord={this.props.newRecord}
         handleSubmit={this.props.handleSubmit}
@@ -28,6 +30,8 @@ const mapStateToProps = state => {
     projectsLoading: state.categorization.projectsLoading,
     subProjects: getSubProjectsByProject(state),
     subProjectsLoading: state.categorization.subProjectsLoading,
+    tasks: getTasksBySubProject(state),
+    tasksLoading: state.categorization.tasksLoading,
     user: state.auth.user,
     newRecord: state.records.newRecord
   };

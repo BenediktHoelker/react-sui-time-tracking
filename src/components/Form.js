@@ -33,11 +33,15 @@ const NewRecordForm = props => (
             onChange={props.handleChange}
             loading={props.subProjectsLoading}
           />
-          <Form.Input
+          <Form.Dropdown
             label="Arbeitspaket"
             name="task"
-            onChange={props.handleChange}
+            search
+            selection
             value={props.newRecord.task}
+            options={props.tasks}
+            onChange={props.handleChange}
+            loading={props.tasksLoading}
           />
         </Form.Group>
         <Form.Group widths="equal">

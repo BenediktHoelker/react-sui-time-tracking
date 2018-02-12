@@ -11,7 +11,9 @@ export const categorization = {
   projects: [],
   projectsLoading: false,
   subProjects: [],
-  subProjectsLoading: false
+  subProjectsLoading: false,
+  tasks: [],
+  tasksLoading: false
 }
 
 export const records = {
