@@ -1,5 +1,7 @@
 import React from "react";
 import { Form, Header, Segment } from "semantic-ui-react";
+import { Field, reduxForm } from 'redux-form';
+import { InputField } from 'react-semantic-redux-form';
 
 const NewRecordForm = props => (
   <div>
@@ -59,7 +61,8 @@ const NewRecordForm = props => (
             onChange={props.handleChange}
             loading={props.tasksLoading}
           />
-          <Form.Input
+          <Field 
+            component={InputField}
             label="Beschreibung"
             name="description"
             onChange={props.handleChange}
@@ -92,4 +95,9 @@ const NewRecordForm = props => (
   </div>
 );
 
-export default NewRecordForm;
+//export default NewRecordForm;
+
+export default reduxForm({
+	form: 'newRecordForm',	// a unique identifier for this form
+
+})(NewRecordForm)
