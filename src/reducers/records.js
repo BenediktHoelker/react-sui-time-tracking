@@ -1,6 +1,5 @@
 import { records } from "./initialState";
 import {
-  EDIT_RECORD_FIELD,
   SET_RECORDS,
   SET_NEW_RECORD_DATE,
   SET_NEW_RECORD_START_TIME
@@ -24,15 +23,6 @@ const isSameDate = (date1, date2, granularity) => {
 
 export default function recordReducer(state = records, action) {
   switch (action.type) {
-    case EDIT_RECORD_FIELD: {
-      return {
-        ...state,
-        newRecord: {
-          ...state.newRecord,
-          [action.name]: action.value
-        }
-      };
-    }
     case SET_NEW_RECORD_DATE:
       return {
         ...state,

@@ -91,15 +91,6 @@ export function addRecord(record) {
   return { type: types.ADD_RECORD, record: record };
 }
 
-export function editField(event, name, value) {
-  event.preventDefault();
-  return {
-    type: types.EDIT_RECORD_FIELD,
-    name: name,
-    value: value
-  };
-}
-
 export function registerDailyWork(date) {
   return dispatch => {
     dispatch(menuSetActiveItem("erfassung"));
