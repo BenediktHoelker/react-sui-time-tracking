@@ -4,6 +4,12 @@ import { Form, Header, Segment } from "semantic-ui-react";
 import { Field, reduxForm } from "redux-form";
 import { InputField, SelectField } from "react-semantic-redux-form";
 
+const timeString = string => {
+  const timeRegex = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/;
+  const isTimeString = timeRegex.test(string);
+  return !isTimeString ? 'Falsches Format' : undefined;
+};
+
 let NewRecordForm = props => (
   <div>
     <Header as="h4" attached="top" block>
@@ -58,8 +64,18 @@ let NewRecordForm = props => (
         </Form.Group>
         <Form.Group widths="equal">
           <Field component={InputField} label="Datum" name="date" />
-          <Field component={InputField} label="Beginn" name="timeStart" />
-          <Field component={InputField} label="Ende" name="timeEnd" />
+          <Field
+            component={InputField}
+            label="Beginn"
+            name="timeStart"
+            validate={[timeString]}
+          />
+          <Field
+            component={InputField}
+            label="Ende"
+            name="timeEnd"
+            validate={[timeString]}
+          />
         </Form.Group>
         <Form.Button>Abschicken</Form.Button>
       </Form>
