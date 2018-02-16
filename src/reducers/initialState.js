@@ -24,7 +24,7 @@ export const records = {
     project: "XANIDE",
     subProject: "Hull",
     task: "Frontend",
-    activity: "Programmierung",
+    activity: "Small",
     description: "React-Entwicklung",
     date: now.format("DD.MM.YYYY"),
     timeStart: now.format("HH:mm"),
