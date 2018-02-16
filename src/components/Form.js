@@ -7,7 +7,13 @@ import { InputField, SelectField } from "react-semantic-redux-form";
 const timeString = string => {
   const timeRegex = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/;
   const isTimeString = timeRegex.test(string);
-  return !isTimeString ? 'Falsches Format' : undefined;
+  return !isTimeString ? "Falsches Format" : undefined;
+};
+
+const dateString = string => {
+  const dateRegex = /^\d{2}[./-]\d{2}[./-]\d{4}$/;
+  const isDateString = dateRegex.test(string);
+  return !isDateString ? "Falsches Format" : undefined;
 };
 
 let NewRecordForm = props => (
@@ -63,7 +69,12 @@ let NewRecordForm = props => (
           />
         </Form.Group>
         <Form.Group widths="equal">
-          <Field component={InputField} label="Datum" name="date" />
+          <Field
+            component={InputField}
+            label="Datum"
+            name="date"
+            validate={[dateString]}
+          />
           <Field
             component={InputField}
             label="Beginn"
