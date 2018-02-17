@@ -1,7 +1,7 @@
-import { travels } from "./initialState";
+import { dailyAdditions } from "./initialState";
 import { TOGGLE_TRAVEL } from "../actions/actionTypes";
 
-export default function travelReducer(state = travels, action) {
+export default function dailyAdditionsReducer(state = dailyAdditions, action) {
   switch (action.type) {
     case TOGGLE_TRAVEL:
       const dateId = action.date;

@@ -32,11 +32,11 @@ export const records = {
   }
 };
 
-export const travels = {
+export const dailyAdditions = {
   byId: {
-    "01.02.2018": { travel: true },
-    "02.02.2018": { travel: false },
-    "06.02.2018": { travel: true }
+    "01.02.2018": { travel: true, leave: true },
+    "02.02.2018": { travel: false, leave: true },
+    "06.02.2018": { travel: true, leave: true }
   },
   allIds: ["01.02.2018", "02.02.2018", "06.02.2018"]
 };

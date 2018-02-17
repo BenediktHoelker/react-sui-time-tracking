@@ -3,7 +3,7 @@ import { reducer as form } from "redux-form";
 import auth from "./auth";
 import categorization from "./categorization";
 import records from "./records";
-import travels from "./travels";
+import dailyAdditions from "./dailyAdditions";
 import ui from "./ui";
 
 const rootReducer = combineReducers({
@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   categorization,
   form,
   records,
-  travels,
+  dailyAdditions,
   ui
 });
 

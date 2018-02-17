@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import Table from "../components/Calendar";
 import { registerDailyWork } from "../actions/recordActions";
-import { toggleTravel } from "../actions/travelActions";
+import { toggleTravel } from "../actions/dailyAdditionActions";
 import {
   getEffortAggregatedByDate,
   getEffortAggregatedByMonth
@@ -27,8 +27,8 @@ const mapStateToProps = state => {
   return {
     daysOfEffort: getEffortAggregatedByDate(state),
     monthlyAmountOfEffort: getEffortAggregatedByMonth(state),
-    travelDates: state.travels.allIds.map(id => {
-      return state.travels.byId[id].travel ? id : undefined;
+    travelDates: state.dailyAdditions.allIds.map(id => {
+      return state.dailyAdditions.byId[id].travel ? id : undefined;
     })
   };
 };
