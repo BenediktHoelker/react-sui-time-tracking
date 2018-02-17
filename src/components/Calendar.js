@@ -46,15 +46,27 @@ const DaysTable = props => (
                       active={props.travelDates.find(travelDate => {
                         return travelDate === day.date;
                       })}
-                      onClick={props.handleToggleTravel.bind(
-                        this,
-                        day.date
-                      )}
+                      onClick={props.handleToggleTravel.bind(this, day.date)}
                     >
                       <Icon name="travel" />
                     </Button>
                   }
                   content="Geschäftsreise"
+                />
+                <Popup
+                  trigger={
+                    <Button
+                      toggle
+                      icon
+                      active={props.leaveDates.find(leaveDate => {
+                        return leaveDate === day.date;
+                      })}
+                      onClick={props.handleToggleLeave.bind(this, day.date)}
+                    >
+                      <Icon name="plane" />
+                    </Button>
+                  }
+                  content="Urlaubstag"
                 />
               </Button.Group>
             </Table.Cell>

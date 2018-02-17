@@ -36,7 +36,7 @@ export const dailyAdditions = {
   byId: {
     "01.02.2018": { travel: true, leave: true },
     "02.02.2018": { travel: false, leave: true },
-    "06.02.2018": { travel: true, leave: true }
+    "06.02.2018": { travel: true, leave: false }
   },
   allIds: ["01.02.2018", "02.02.2018", "06.02.2018"]
 };
