@@ -32,6 +32,14 @@ export const records = {
   }
 }
 
+export const travel = {
+  travelDates: [
+    "01.02.2018",
+    "02.02.2018",
+    "06.02.2018"
+  ]
+}
+
 export const ui = {
   menuActiveItem: "",
   sidebarActiveItem: "",

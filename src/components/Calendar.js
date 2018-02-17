@@ -18,7 +18,7 @@ const DaysTable = props => (
             <Table.Cell>{day.date}</Table.Cell>
             <Table.Cell>{day.effort}</Table.Cell>
             <Table.Cell>
-              <Icon name="checkmark" size="large" color="green"/>
+              <Icon name="checkmark" size="large" color="green" />
             </Table.Cell>
             <Table.Cell>
               <Button.Group>
@@ -40,7 +40,13 @@ const DaysTable = props => (
                 />
                 <Popup
                   trigger={
-                    <Button toggle icon active={true}>
+                    <Button
+                      toggle
+                      icon
+                      active={props.travelDates.find(travelDate => {
+                        return travelDate === day.date;
+                      })}
+                    >
                       <Icon name="travel" />
                     </Button>
                   }

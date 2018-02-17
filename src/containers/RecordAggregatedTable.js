@@ -14,6 +14,7 @@ class RecordsAggregatedTable extends Component {
       <Table
         daysOfEffort={this.props.daysOfEffort}
         monthlyAmountOfEffort={this.props.monthlyAmountOfEffort}
+        travelDates={this.props.travelDates}
         handleRegisterDailyWork={this.props.handleRegisterDailyWork}
       />
     );
@@ -23,7 +24,8 @@ class RecordsAggregatedTable extends Component {
 const mapStateToProps = state => {
   return {
     daysOfEffort: getEffortAggregatedByDate(state),
-    monthlyAmountOfEffort: getEffortAggregatedByMonth(state)
+    monthlyAmountOfEffort: getEffortAggregatedByMonth(state),
+    travelDates: state.travel.travelDates
   };
 };
 
