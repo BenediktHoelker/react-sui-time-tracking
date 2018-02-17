@@ -3,8 +3,8 @@ import moment from "moment";
 
 const getProjects = state => state.categorization.projects;
 const getRecords = state => state.records.collection;
-const getSelectedProject = state => state.records.newRecord.project;
-const getSelectedSubProjectName = state => state.records.newRecord.subProject;
+const getSelectedProject = state => state.form.newRecordForm ? state.form.newRecordForm.values.project : undefined;
+const getSelectedSubProjectName = state => state.form.newRecordForm ? state.form.newRecordForm.values.subProject : undefined;
 const getSubProjects = state => state.categorization.subProjects;
 const getTasks = state => state.categorization.tasks;
 
