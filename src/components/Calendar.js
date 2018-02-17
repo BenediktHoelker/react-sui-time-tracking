@@ -46,6 +46,10 @@ const DaysTable = props => (
                       active={props.travelDates.find(travelDate => {
                         return travelDate === day.date;
                       })}
+                      onClick={props.handleToggleTravel.bind(
+                        this,
+                        day.date
+                      )}
                     >
                       <Icon name="travel" />
                     </Button>

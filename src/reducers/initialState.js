@@ -5,9 +5,9 @@ const now = moment();
 export const auth = {
   loginIsLoading: false,
   user: null
-}
+};
 
-export const categorization = {  
+export const categorization = {
   activities: [],
   activitiesLoading: false,
   projects: [],
@@ -16,7 +16,7 @@ export const categorization = {
   subProjectsLoading: false,
   tasks: [],
   tasksLoading: false
-}
+};
 
 export const records = {
   collection: [],
@@ -30,15 +30,16 @@ export const records = {
     timeStart: now.format("HH:mm"),
     timeEnd: now.format("HH:mm")
   }
-}
+};
 
-export const travel = {
-  travelDates: [
-    "01.02.2018",
-    "02.02.2018",
-    "06.02.2018"
-  ]
-}
+export const travels = {
+  byId: {
+    "01.02.2018": { travel: true },
+    "02.02.2018": { travel: false },
+    "06.02.2018": { travel: true }
+  },
+  allIds: ["01.02.2018", "02.02.2018", "06.02.2018"]
+};
 
 export const ui = {
   menuActiveItem: "",
