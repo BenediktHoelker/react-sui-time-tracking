@@ -6,7 +6,7 @@ export default function dailyAdditionsReducer(state = dailyAdditions, action) {
   const dateToUpdate = state.byId[action.date]
     ? state.byId[action.date]
     : { travel: false, leave: false };
-    
+
   switch (action.type) {
     case TOGGLE_TRAVEL:
       const isTravel = !dateToUpdate.travel;
@@ -29,7 +29,7 @@ export default function dailyAdditionsReducer(state = dailyAdditions, action) {
           : state.allIds.concat(dateId),
         byId: {
           ...state.byId,
-          [action.date]: { ...state.byId[action.date], leave: isLeave }
+          [action.date]: { ...state.byId[action.date], leave: isLeave, travel: false }
         }
       };
     default:

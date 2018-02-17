@@ -15,8 +15,24 @@ const DaysTable = props => (
       {props.daysOfEffort.map(day => {
         return (
           <Table.Row key={day.id}>
-            <Table.Cell>{day.date}</Table.Cell>
-            <Table.Cell>{day.effort}</Table.Cell>
+            <Table.Cell
+              disabled={
+                !!props.leaveDates.find(leaveDate => {
+                  return leaveDate === day.date;
+                })
+              }
+            >
+              {day.date}
+            </Table.Cell>
+            <Table.Cell
+              disabled={
+                !!props.leaveDates.find(leaveDate => {
+                  return leaveDate === day.date;
+                })
+              }
+            >
+              {day.effort}
+            </Table.Cell>
             <Table.Cell>
               <Icon name="checkmark" size="large" color="green" />
             </Table.Cell>
@@ -32,6 +48,11 @@ const DaysTable = props => (
                         this,
                         day.date
                       )}
+                      disabled={
+                        !!props.leaveDates.find(leaveDate => {
+                          return leaveDate === day.date;
+                        })
+                      }
                     >
                       <Icon name="add" />
                     </Button>
@@ -43,10 +64,17 @@ const DaysTable = props => (
                     <Button
                       toggle
                       icon
-                      active={props.travelDates.find(travelDate => {
-                        return travelDate === day.date;
-                      })}
+                      active={
+                        !!props.travelDates.find(travelDate => {
+                          return travelDate === day.date;
+                        })
+                      }
                       onClick={props.handleToggleTravel.bind(this, day.date)}
+                      disabled={
+                        !!props.leaveDates.find(leaveDate => {
+                          return leaveDate === day.date;
+                        })
+                      }
                     >
                       <Icon name="travel" />
                     </Button>
@@ -58,9 +86,11 @@ const DaysTable = props => (
                     <Button
                       toggle
                       icon
-                      active={props.leaveDates.find(leaveDate => {
-                        return leaveDate === day.date;
-                      })}
+                      active={
+                        !!props.leaveDates.find(leaveDate => {
+                          return leaveDate === day.date;
+                        })
+                      }
                       onClick={props.handleToggleLeave.bind(this, day.date)}
                     >
                       <Icon name="plane" />
