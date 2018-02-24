@@ -1,5 +1,16 @@
 import * as types from "./actionTypes";
 
+function snapshotToArray(snapshot) {
+  const allIds = [];
+
+  snapshot.forEach(function(childSnapshot) {
+    let key = childSnapshot.key;
+    allIds.push(key);
+  });
+
+  return allIds;
+}
+
 export function loadProjects() {
   return (dispatch, getState, firebase) => {
     const activitiesRef = firebase.database.ref("activities");
@@ -21,7 +32,7 @@ export function loadProjects() {
     });
 
     subprojectsRef.on("value", snapshot => {
-      dispatch(receiveSubprojects(snapshot.val()));
+      dispatch(receiveSubprojects(snapshot.val(), snapshotToArray(snapshot)));
     });
 
     tasksRef.on("value", snapshot => {
@@ -50,8 +61,8 @@ export function requestSubprojects() {
   return { type: types.REQUEST_SUB_PROJECTS };
 }
 
-export function receiveSubprojects(subprojects) {
-  return { type: types.RECEIVE_SUB_PROJECTS, subprojects: subprojects };
+export function receiveSubprojects(byId, allIds) {
+  return { type: types.RECEIVE_SUB_PROJECTS, byId: byId, allIds: allIds };
 }
 
 export function requestTasks() {
@@ -61,4 +72,3 @@ export function requestTasks() {
 export function receiveTasks(tasks) {
   return { type: types.RECEIVE_TASKS, tasks: tasks };
 }
-
