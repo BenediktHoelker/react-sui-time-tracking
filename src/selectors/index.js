@@ -4,7 +4,7 @@ import moment from "moment";
 const getProjects = state => state.categorization.projects;
 const getRecords = state => state.records.collection;
 const getSelectedProject = state => state.form.newRecordForm ? state.form.newRecordForm.values.project : undefined;
-const getSelectedSubProjectName = state => state.form.newRecordForm ? state.form.newRecordForm.values.subProject : undefined;
+const getSelectedSubProjectName = state => state.form.newRecordForm ? state.form.newRecordForm.values.subproject : undefined;
 const getSubProjects = state => state.categorization.subProjects;
 const getTasks = state => state.categorization.tasks;
 
@@ -81,17 +81,17 @@ export const getSubProjectsByProject = createSelector(
   (projects, selectedProject, subProjects) => {
     // only show children of selected project
     return subProjects
-      .filter((subProject, index) => {
+      .filter((subproject, index) => {
         return projects
           .find(project => {
             return project.name === selectedProject;
           })
           .subProjects.includes(index);
       })
-      .map(subProject => ({
-        key: subProject.name,
-        value: subProject.name,
-        text: subProject.name
+      .map(subproject => ({
+        key: subproject.name,
+        value: subproject.name,
+        text: subproject.name
       }));
   }
 );
@@ -99,17 +99,17 @@ export const getSubProjectsByProject = createSelector(
 const getSelectedSubProject = createSelector(
   [getSelectedSubProjectName, getSubProjects],
   (selectedSubProjectName, subProjects) => {
-    return subProjects.find(subProject => {
-      return subProject.name === selectedSubProjectName;
+    return subProjects.find(subproject => {
+      return subproject.name === selectedSubProjectName;
     });
   }
 );
 
 const getSubProjectTasks = createSelector(
   [getSelectedSubProject, getTasks],
-  (subProject = {}, tasks) => {
-    return subProject.tasks
-      ? subProject.tasks.map((task, index) => {
+  (subproject = {}, tasks) => {
+    return subproject.tasks
+      ? subproject.tasks.map((task, index) => {
           return tasks[index];
         })
       : tasks;

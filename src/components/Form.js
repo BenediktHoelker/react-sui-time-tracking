@@ -38,7 +38,7 @@ let NewRecordForm = props => (
           <Field
             component={SelectField}
             label="Teilprojekt"
-            name="subProject"
+            name="subproject"
             options={props.subProjects}
             loading={props.subProjectsLoading}
           />

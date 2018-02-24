@@ -12,6 +12,10 @@ export const categorization = {
   activitiesLoading: false,
   projects: [],
   projectsLoading: false,
+  projectSubproject: {
+    byId: {},
+    allIds: []
+  },
   subProjects: [],
   subProjectsLoading: false,
   tasks: [],
@@ -22,7 +26,7 @@ export const records = {
   collection: [],
   newRecord: {
     project: "XANIDE",
-    subProject: "Hull",
+    subproject: "Hull",
     task: "Frontend",
     activity: "Small",
     description: "React-Entwicklung",

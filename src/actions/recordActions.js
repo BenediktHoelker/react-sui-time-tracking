@@ -23,7 +23,7 @@ export function loadRecords() {
         newState.push({
           id: record,
           project: records[record].project,
-          subProject: records[record].subProject,
+          subproject: records[record].subproject,
           task: records[record].task,
           activity: records[record].activity,
           description: records[record].description,
