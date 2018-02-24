@@ -36,10 +36,7 @@ export const getTasksBySubproject = createSelector(
   (subprojects, selectedSubproject, tasks) => {
     const subproject = subprojects.byId[selectedSubproject];
     // only show children of selected project
-    return subproject &&
-      subproject.tasks &&
-      tasks &&
-      tasks.allIds.length > 0
+    return subproject && subproject.tasks && tasks && tasks.allIds.length > 0
       ? subproject.tasks.map(taskId => {
           return tasks.byId[taskId];
         })

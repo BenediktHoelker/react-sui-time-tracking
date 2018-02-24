@@ -34,7 +34,14 @@ const DaysTable = props => (
               {day.effort}
             </Table.Cell>
             <Table.Cell>
-              <Icon name="checkmark" size="large" color="green" />
+              {day.effort !== "0:00:00" ||
+              !!props.leaveDates.find(leaveDate => {
+                return leaveDate === day.date;
+              }) ? (
+                <Icon name="checkmark" size="large" color="green" />
+              ) : (
+                <Icon name="close" size="large" color="red" />
+              )}
             </Table.Cell>
             <Table.Cell>
               <Button.Group>
