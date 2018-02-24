@@ -16,7 +16,7 @@ export const categorization = {
     byId: {},
     allIds: []
   },
-  subProjects: [],
+  subprojects: [],
   subProjectsLoading: false,
   tasks: [],
   tasksLoading: false

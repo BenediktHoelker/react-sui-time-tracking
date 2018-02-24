@@ -4,7 +4,7 @@ export function loadProjects() {
   return (dispatch, getState, firebase) => {
     const activitiesRef = firebase.database.ref("activities");
     const projectsRef = firebase.database.ref("projects");
-    const subProjectsRef = firebase.database.ref("subProjects");
+    const subProjectsRef = firebase.database.ref("subprojects");
     const tasksRef = firebase.database.ref("tasks");
 
     dispatch(requestProjects());
@@ -50,8 +50,8 @@ export function requestSubProjects() {
   return { type: types.REQUEST_SUB_PROJECTS };
 }
 
-export function receiveSubProjects(subProjects) {
-  return { type: types.RECEIVE_SUB_PROJECTS, subProjects: subProjects };
+export function receiveSubProjects(subprojects) {
+  return { type: types.RECEIVE_SUB_PROJECTS, subprojects: subprojects };
 }
 
 export function requestTasks() {

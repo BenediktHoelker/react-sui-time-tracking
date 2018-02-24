@@ -5,7 +5,7 @@ const getProjects = state => state.categorization.projects;
 const getRecords = state => state.records.collection;
 const getSelectedProject = state => state.form.newRecordForm ? state.form.newRecordForm.values.project : undefined;
 const getSelectedSubProjectName = state => state.form.newRecordForm ? state.form.newRecordForm.values.subproject : undefined;
-const getSubProjects = state => state.categorization.subProjects;
+const getSubProjects = state => state.categorization.subprojects;
 const getTasks = state => state.categorization.tasks;
 
 const getDaysOfEffort = records => {
@@ -78,15 +78,15 @@ export const getEffortAggregatedByMonth = createSelector(
 
 export const getSubProjectsByProject = createSelector(
   [getProjects, getSelectedProject, getSubProjects],
-  (projects, selectedProject, subProjects) => {
+  (projects, selectedProject, subprojects) => {
     // only show children of selected project
-    return subProjects
+    return subprojects
       .filter((subproject, index) => {
         return projects
           .find(project => {
             return project.name === selectedProject;
           })
-          .subProjects.includes(index);
+          .subprojects.includes(index);
       })
       .map(subproject => ({
         key: subproject.name,
@@ -98,8 +98,8 @@ export const getSubProjectsByProject = createSelector(
 
 const getSelectedSubProject = createSelector(
   [getSelectedSubProjectName, getSubProjects],
-  (selectedSubProjectName, subProjects) => {
-    return subProjects.find(subproject => {
+  (selectedSubProjectName, subprojects) => {
+    return subprojects.find(subproject => {
       return subproject.name === selectedSubProjectName;
     });
   }

@@ -42,7 +42,7 @@ export default function categorizationReducer(state = categorization, action) {
     case RECEIVE_SUB_PROJECTS:
       return {
         ...state,
-        subProjects: action.subProjects,
+        subprojects: action.subprojects,
         subProjectsLoading: false
       };
     case REQUEST_TASKS:
