@@ -24,7 +24,7 @@ export function loadProjects() {
     dispatch(requestActivities());
 
     activitiesRef.on("value", snapshot => {
-      dispatch(receiveActivities(snapshot.val()));
+      dispatch(receiveActivities(snapshot.val(), snapshotToArray(snapshot)));
     });
 
     projectsRef.on("value", snapshot => {
@@ -36,7 +36,7 @@ export function loadProjects() {
     });
 
     tasksRef.on("value", snapshot => {
-      dispatch(receiveTasks(snapshot.val()));
+      dispatch(receiveTasks(snapshot.val(), snapshotToArray(snapshot)));
     });
   };
 }
@@ -45,8 +45,8 @@ export function requestActivities() {
   return { type: types.REQUEST_ACTIVITIES };
 }
 
-export function receiveActivities(activities) {
-  return { type: types.RECEIVE_ACTIVITIES, activities: activities };
+export function receiveActivities(byId, allIds) {
+  return { type: types.RECEIVE_ACTIVITIES, byId: byId, allIds: allIds };
 }
 
 export function requestProjects() {
@@ -69,6 +69,6 @@ export function requestTasks() {
   return { type: types.REQUEST_TASKS };
 }
 
-export function receiveTasks(tasks) {
-  return { type: types.RECEIVE_TASKS, tasks: tasks };
+export function receiveTasks(byId, allIds) {
+  return { type: types.RECEIVE_TASKS, byId: byId, allIds: allIds };
 }

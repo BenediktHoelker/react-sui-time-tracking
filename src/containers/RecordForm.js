@@ -27,7 +27,9 @@ class RecordForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    activities: state.categorization.activities,
+    activities: state.categorization.activities.allIds.map(id => {
+      return state.categorization.activities.byId[id];
+    }),
     activitiesLoading: state.categorization.activitiesLoading,
     projects: state.categorization.projects.allIds.map(id => {
       return state.categorization.projects.byId[id];

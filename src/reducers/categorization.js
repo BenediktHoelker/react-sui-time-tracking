@@ -20,7 +20,10 @@ export default function categorizationReducer(state = categorization, action) {
     case RECEIVE_ACTIVITIES:
       return {
         ...state,
-        activities: action.activities,
+        activities: {
+          byId: action.byId,
+          allIds: action.allIds
+        },
         activitiesLoading: false
       };
     case REQUEST_PROJECTS:
@@ -59,7 +62,10 @@ export default function categorizationReducer(state = categorization, action) {
     case RECEIVE_TASKS:
       return {
         ...state,
-        tasks: action.tasks,
+        tasks: {
+          byId: action.byId,
+          allIds: action.allIds
+        },
         tasksLoading: false
       };
     default:

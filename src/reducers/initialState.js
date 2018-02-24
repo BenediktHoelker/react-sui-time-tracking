@@ -8,7 +8,10 @@ export const auth = {
 };
 
 export const categorization = {
-  activities: [],
+  activities: {
+    byId: {},
+    allIds: []
+  },
   activitiesLoading: false,
   projects: {
     byId: {},
@@ -20,7 +23,10 @@ export const categorization = {
     allIds: []
   },
   subprojectsLoading: false,
-  tasks: [],
+  tasks: {
+    byId: {},
+    allIds: []
+  },
   tasksLoading: false
 };
 

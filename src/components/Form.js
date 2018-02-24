@@ -39,14 +39,22 @@ let NewRecordForm = props => (
             component={SelectField}
             label="Teilprojekt"
             name="subproject"
-            options={props.subprojects}
+            options={props.subprojects.map(subproject => ({
+              key: subproject.name,
+              value: subproject.name,
+              text: subproject.name
+            }))}
             loading={props.subprojectsLoading}
           />
           <Field
             component={SelectField}
             label="Arbeitspaket"
             name="task"
-            options={props.tasks}
+            options={props.tasks.map(task => ({
+              key: task.name,
+              value: task.name,
+              text: task.name
+            }))}
             loading={props.tasksLoading}
           />
         </Form.Group>
