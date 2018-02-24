@@ -29,7 +29,9 @@ const mapStateToProps = state => {
   return {
     activities: state.categorization.activities,
     activitiesLoading: state.categorization.activitiesLoading,
-    projects: state.categorization.projects,
+    projects: state.categorization.projects.allIds.map(id => {
+      return state.categorization.projects.byId[id];
+    }),
     projectsLoading: state.categorization.projectsLoading,
     subprojects: getSubprojectsByProject(state),
     subprojectsLoading: state.categorization.subprojectsLoading,

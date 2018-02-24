@@ -10,12 +10,11 @@ export const auth = {
 export const categorization = {
   activities: [],
   activitiesLoading: false,
-  projects: [],
-  projectsLoading: false,
-  projectSubproject: {
+  projects: {
     byId: {},
     allIds: []
   },
+  projectsLoading: false,
   subprojects: {
     byId: {},
     allIds: []
@@ -28,7 +27,7 @@ export const categorization = {
 export const records = {
   collection: [],
   newRecord: {
-    project: "XANIDE",
+    project: "ThyssenKrupp",
     subproject: "Hull",
     task: "Frontend",
     activity: "Small",

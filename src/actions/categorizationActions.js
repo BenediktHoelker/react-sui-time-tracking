@@ -28,7 +28,7 @@ export function loadProjects() {
     });
 
     projectsRef.on("value", snapshot => {
-      dispatch(receiveProjects(snapshot.val()));
+      dispatch(receiveProjects(snapshot.val(), snapshotToArray(snapshot)));
     });
 
     subprojectsRef.on("value", snapshot => {
@@ -53,8 +53,8 @@ export function requestProjects() {
   return { type: types.REQUEST_PROJECTS };
 }
 
-export function receiveProjects(projects) {
-  return { type: types.RECEIVE_PROJECTS, projects: projects };
+export function receiveProjects(byId, allIds) {
+  return { type: types.RECEIVE_PROJECTS, byId: byId, allIds: allIds };
 }
 
 export function requestSubprojects() {
