@@ -8,7 +8,7 @@ export function loadProjects() {
     const tasksRef = firebase.database.ref("tasks");
 
     dispatch(requestProjects());
-    dispatch(requestSubProjects());
+    dispatch(requestSubprojects());
     dispatch(requestTasks());
     dispatch(requestActivities());
 
@@ -21,7 +21,7 @@ export function loadProjects() {
     });
 
     subprojectsRef.on("value", snapshot => {
-      dispatch(receiveSubProjects(snapshot.val()));
+      dispatch(receiveSubprojects(snapshot.val()));
     });
 
     tasksRef.on("value", snapshot => {
@@ -46,11 +46,11 @@ export function receiveProjects(projects) {
   return { type: types.RECEIVE_PROJECTS, projects: projects };
 }
 
-export function requestSubProjects() {
+export function requestSubprojects() {
   return { type: types.REQUEST_SUB_PROJECTS };
 }
 
-export function receiveSubProjects(subprojects) {
+export function receiveSubprojects(subprojects) {
   return { type: types.RECEIVE_SUB_PROJECTS, subprojects: subprojects };
 }
 
