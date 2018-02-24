@@ -15,6 +15,52 @@ const getSelectedSubproject = state =>
     ? state.form.newRecordForm.values.subproject
     : undefined;
 
+export const getSubprojectsByProject = createSelector(
+  [getProjects, getSelectedProject, getSubprojects],
+  (projects, selectedProject, subprojects) => {
+    const project = projects.byId[selectedProject];
+    // only show children of selected project
+    return project &&
+      project.subprojects &&
+      subprojects &&
+      subprojects.allIds.length > 0
+      ? project.subprojects.map(subprojectId => {
+          return subprojects.byId[subprojectId];
+        })
+      : [];
+  }
+);
+
+export const getTasksBySubproject = createSelector(
+  [getSubprojects, getSelectedSubproject, getTasks],
+  (subprojects, selectedSubproject, tasks) => {
+    const subproject = subprojects.byId[selectedSubproject];
+    // only show children of selected project
+    return subproject &&
+      subproject.tasks &&
+      tasks &&
+      tasks.allIds.length > 0
+      ? subproject.tasks.map(taskId => {
+          return tasks.byId[taskId];
+        })
+      : [];
+  }
+);
+
+export const getEffortAggregatedByDate = createSelector(
+  [getRecords],
+  records => {
+    return getDaysOfEffort(records);
+  }
+);
+
+export const getEffortAggregatedByMonth = createSelector(
+  [getRecords],
+  records => {
+    return getMonthlyAmountOfEffort(records, moment().startOf("month"));
+  }
+);
+
 const getDaysOfEffort = records => {
   const daysOfEffort = [];
   // change to a date in the month of interest
@@ -68,49 +114,3 @@ const isSameDate = (date1, date2, granularity) => {
   const isSameDate = moment1.isSame(moment2, granularity);
   return isSameDate;
 };
-
-export const getEffortAggregatedByDate = createSelector(
-  [getRecords],
-  records => {
-    return getDaysOfEffort(records);
-  }
-);
-
-export const getEffortAggregatedByMonth = createSelector(
-  [getRecords],
-  records => {
-    return getMonthlyAmountOfEffort(records, moment().startOf("month"));
-  }
-);
-
-export const getSubprojectsByProject = createSelector(
-  [getProjects, getSelectedProject, getSubprojects],
-  (projects, selectedProject, subprojects) => {
-    const project = projects.byId[selectedProject];
-    // only show children of selected project
-    return project &&
-      project.subprojects &&
-      subprojects &&
-      subprojects.allIds.length > 0
-      ? project.subprojects.map(subprojectId => {
-          return subprojects.byId[subprojectId];
-        })
-      : [];
-  }
-);
-
-export const getTasksBySubproject = createSelector(
-  [getSubprojects, getSelectedSubproject, getTasks],
-  (subprojects, selectedSubproject, tasks) => {
-    const subproject = subprojects.byId[selectedSubproject];
-    // only show children of selected project
-    return subproject &&
-      subproject.tasks &&
-      tasks &&
-      tasks.allIds.length > 0
-      ? subproject.tasks.map(taskId => {
-          return tasks.byId[taskId];
-        })
-      : [];
-  }
-);
