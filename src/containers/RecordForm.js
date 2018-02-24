@@ -14,7 +14,7 @@ class RecordForm extends Component {
         projects={this.props.projects}
         projectsLoading={this.props.projectsLoading}
         subprojects={this.props.subprojects}
-        subProjectsLoading={this.props.subProjectsLoading}
+        subprojectsLoading={this.props.subprojectsLoading}
         tasks={this.props.tasks}
         tasksLoading={this.props.tasksLoading}
         user={this.props.user}
@@ -32,7 +32,7 @@ const mapStateToProps = state => {
     projects: state.categorization.projects,
     projectsLoading: state.categorization.projectsLoading,
     subprojects: getSubProjectsByProject(state),
-    subProjectsLoading: state.categorization.subProjectsLoading,
+    subprojectsLoading: state.categorization.subprojectsLoading,
     tasks: getTasksBySubProject(state),
     tasksLoading: state.categorization.tasksLoading,
     user: state.auth.user,

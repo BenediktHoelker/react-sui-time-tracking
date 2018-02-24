@@ -4,7 +4,7 @@ export function loadProjects() {
   return (dispatch, getState, firebase) => {
     const activitiesRef = firebase.database.ref("activities");
     const projectsRef = firebase.database.ref("projects");
-    const subProjectsRef = firebase.database.ref("subprojects");
+    const subprojectsRef = firebase.database.ref("subprojects");
     const tasksRef = firebase.database.ref("tasks");
 
     dispatch(requestProjects());
@@ -20,7 +20,7 @@ export function loadProjects() {
       dispatch(receiveProjects(snapshot.val()));
     });
 
-    subProjectsRef.on("value", snapshot => {
+    subprojectsRef.on("value", snapshot => {
       dispatch(receiveSubProjects(snapshot.val()));
     });
 

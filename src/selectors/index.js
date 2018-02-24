@@ -118,9 +118,9 @@ const getSubProjectTasks = createSelector(
 
 export const getTasksBySubProject = createSelector(
   [getSubProjectTasks, getTasks],
-  (subProjectTasks, tasks) => {
+  (subprojectTasks, tasks) => {
     // only show children of selected subproject
-    return (subProjectTasks ? subProjectTasks : tasks).map(task => ({
+    return (subprojectTasks ? subprojectTasks : tasks).map(task => ({
       key: task.name,
       value: task.name,
       text: task.name

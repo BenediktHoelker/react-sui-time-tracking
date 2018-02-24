@@ -17,7 +17,7 @@ export const categorization = {
     allIds: []
   },
   subprojects: [],
-  subProjectsLoading: false,
+  subprojectsLoading: false,
   tasks: [],
   tasksLoading: false
 };
