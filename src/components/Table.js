@@ -14,11 +14,13 @@ const RecordTable = props => (
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Projekt</Table.HeaderCell>
+          <Table.HeaderCell>Teilprojekt</Table.HeaderCell>
           <Responsive as={Table.HeaderCell} {...Responsive.onlyComputer}>
-            Teilprojekt
+            Arbeitspaket
           </Responsive>
-          <Table.HeaderCell>Arbeitspaket</Table.HeaderCell>
-          <Table.HeaderCell>Tätigkeit</Table.HeaderCell>
+          <Responsive as={Table.HeaderCell} {...Responsive.onlyComputer}>
+            Tätigkeit
+          </Responsive>
           <Table.HeaderCell>Beschreibung</Table.HeaderCell>
           <Table.HeaderCell>Datum</Table.HeaderCell>
           <Table.HeaderCell>Aufwand</Table.HeaderCell>
@@ -30,11 +32,13 @@ const RecordTable = props => (
           return (
             <Table.Row key={record.id}>
               <Table.Cell>{record.project}</Table.Cell>
+              <Table.Cell>{record.subproject}</Table.Cell>
               <Responsive as={Table.Cell} {...Responsive.onlyComputer}>
-                {record.subproject}
+                {record.task}
               </Responsive>
-              <Table.Cell>{record.task}</Table.Cell>
-              <Table.Cell>{record.activity}</Table.Cell>
+              <Responsive as={Table.Cell} {...Responsive.onlyComputer}>
+                {record.activity}
+              </Responsive>
               <Table.Cell>{record.description}</Table.Cell>
               <Table.Cell>{record.date}</Table.Cell>
               <Table.Cell>{record.timeSpent}</Table.Cell>
