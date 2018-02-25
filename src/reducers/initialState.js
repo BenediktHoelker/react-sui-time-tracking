@@ -33,10 +33,6 @@ export const categorization = {
 export const records = {
   collection: [],
   newRecord: {
-    project: "ThyssenKrupp",
-    subproject: "Hull",
-    task: "Frontend",
-    activity: "Small",
     description: "React-Entwicklung",
     date: now.format("DD.MM.YYYY"),
     timeStart: now.format("HH:mm"),

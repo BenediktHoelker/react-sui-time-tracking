@@ -15,7 +15,7 @@ class ApplicationRouter extends Component {
     return (
       <Router>
         <Sidebar.Pushable as={Segment}>
-          {this.props.user ? <RecordSidebar /> : ""}
+          {this.props.user && <RecordSidebar />}
           <Sidebar.Pusher>
             <Segment basic loading={this.props.loginIsLoading}>
               <ActionMenu />

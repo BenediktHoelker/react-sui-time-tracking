@@ -105,10 +105,24 @@ let NewRecordForm = props => (
 //export default NewRecordForm;
 
 NewRecordForm = reduxForm({
+  enableReinitialize: true, // reinitialization after dropdown selection for all dependent dropdowns
+  keepDirtyOnReinitialize: true, // to keep all user selections
   form: "newRecordForm" // a unique identifier for this form
 })(NewRecordForm);
 
 // You have to connect() to any reducers that you wish to connect to yourself
-export default (NewRecordForm = connect(state => ({
-  initialValues: state.records.newRecord // pull initial values from account reducer
-}))(NewRecordForm));
+export default (NewRecordForm = connect((state, props) => {
+  const activity = props.activities[0] ? props.activities[0].name : "";
+  const project = props.projects[0] ? props.projects[0].name : "";
+  const subproject = props.subprojects[0] ? props.subprojects[0].name : "";
+  const task = props.tasks[0] ? props.tasks[0].name : "";
+  return {
+    initialValues: {
+      ...state.records.newRecord,
+      activity,
+      project,
+      subproject,
+      task,
+    }
+  };
+})(NewRecordForm));
