@@ -13,7 +13,7 @@ const openInNewTab = () => {
 const SidebarLeftOverlay = props => (
   <Sidebar
     as={Menu}
-    animation="left slide along"
+    animation="slide along"
     width="thin"
     visible={props.visible}
     icon="labeled"

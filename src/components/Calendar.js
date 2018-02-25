@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Icon, Popup, Table } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 const DaysTable = props => (
-  <Table compact="very" unstackable>
+  <Table compact="very">
     <Table.Header>
       <Table.Row>
         <Table.HeaderCell>Datum</Table.HeaderCell>
