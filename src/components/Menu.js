@@ -14,7 +14,7 @@ const HorizontalMenu = props => (
   <Menu stackable>
     <Menu.Item icon="sidebar" onClick={props.handleSidebarIconClick} />
     <Menu.Item header as="h3">
-      Arbeit
+      Zeiterfassung
     </Menu.Item>
     <Menu.Item
       as={Link}
