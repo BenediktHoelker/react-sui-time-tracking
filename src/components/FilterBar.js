@@ -1,16 +1,16 @@
-import React from 'react'
-import { Button, Select, Input } from 'semantic-ui-react'
+import React from "react";
+import { Select, Input } from "semantic-ui-react";
 
 const options = [
-  { key: 'all', text: 'All', value: 'all' },
-  { key: 'articles', text: 'Articles', value: 'articles' },
-  { key: 'products', text: 'Products', value: 'products' },
-]
+  { key: "project", text: "Projekt", value: "project" },
+  { key: "date", text: "Datum", value: "date" }
+];
 
-export const FilterBar = () => (
-  <Input type='text' placeholder='Search...' action>
+const FilterBar = props => (
+  <Input type="text" placeholder="Suchen..." action value={props.searchTerm} onChange={props.handleEnterSearchTerm}>
     <input />
-    <Select compact options={options} defaultValue='articles' />
-    <Button type='submit'>Search</Button>
+    <Select compact options={options} defaultValue="project" />
   </Input>
-)
+);
+
+export default FilterBar;

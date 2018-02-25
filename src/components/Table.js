@@ -1,10 +1,13 @@
 import React from "react";
 import { Button, Responsive, Search, Table } from "semantic-ui-react";
-import { FilterBar } from "./FilterBar";
+import FilterBar from "./FilterBar";
 
 const RecordTable = props => (
   <div>
-    <FilterBar />
+    <FilterBar
+      handleEnterSearchTerm={props.handleEnterSearchTerm}
+      searchTerm={props.searchTerm}
+    />
     <Table unstackable>
       <Table.Header>
         <Table.Row>
@@ -15,6 +18,7 @@ const RecordTable = props => (
           <Table.HeaderCell>Arbeitspaket</Table.HeaderCell>
           <Table.HeaderCell>Tätigkeit</Table.HeaderCell>
           <Table.HeaderCell>Beschreibung</Table.HeaderCell>
+          <Table.HeaderCell>Datum</Table.HeaderCell>
           <Table.HeaderCell>Aufwand</Table.HeaderCell>
           <Table.HeaderCell />
         </Table.Row>
@@ -30,6 +34,7 @@ const RecordTable = props => (
               <Table.Cell>{record.task}</Table.Cell>
               <Table.Cell>{record.activity}</Table.Cell>
               <Table.Cell>{record.description}</Table.Cell>
+              <Table.Cell>{record.date}</Table.Cell>
               <Table.Cell>{record.timeSpent}</Table.Cell>
               <Table.Cell>
                 <Button

@@ -4,6 +4,7 @@ import moment from "moment";
 const getProjects = state => state.categorization.projects;
 const getRecords = state => state.records.collection;
 const getSubprojects = state => state.categorization.subprojects;
+const getSearchTerm = state => state.ui.searchTerm;
 const getTasks = state => state.categorization.tasks;
 
 const getSelectedProject = state =>
@@ -41,6 +42,15 @@ export const getTasksBySubproject = createSelector(
           return tasks.byId[taskId];
         })
       : [];
+  }
+);
+
+export const getFilteredRecords = createSelector(
+  [getRecords, getSearchTerm],
+  (records, searchTerm) => {
+    return records.filter(record => {
+      return record.project.toUpperCase().includes(searchTerm.toUpperCase());
+    });
   }
 );
 

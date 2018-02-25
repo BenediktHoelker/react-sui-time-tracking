@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 
 import Table from "../components/Table";
 import { removeRecord } from "../actions/recordActions";
+import { enterSearchTerm } from "../actions/uiActions";
+import { getFilteredRecords } from "../selectors";
 
 class RecordTable extends Component {
   render() {
@@ -10,7 +12,9 @@ class RecordTable extends Component {
       <Table
         {...{
           handleRemove: this.props.handleRemove,
-          records: this.props.records,
+          handleEnterSearchTerm: this.props.handleEnterSearchTerm,
+          searchTerm: this.props.searchTerm,
+          records: this.props.filteredRecords,
           user: this.props.user
         }}
       />
@@ -20,6 +24,8 @@ class RecordTable extends Component {
 
 const mapStateToProps = state => {
   return {
+    filteredRecords: getFilteredRecords(state),
+    searchTerm: state.ui.searchTerm,
     records: state.records.collection,
     user: state.auth.user
   };
@@ -29,6 +35,10 @@ const mapDispatchToProps = dispatch => {
   return {
     handleRemove: id => {
       dispatch(removeRecord(id));
+    },
+    handleEnterSearchTerm: (event, { value }) => {
+      event.preventDefault();
+      dispatch(enterSearchTerm(value));
     }
   };
 };
