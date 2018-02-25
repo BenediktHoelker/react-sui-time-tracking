@@ -3,7 +3,8 @@ import {
   TOGGLE_NAVBAR,
   SIDEBAR_SET_ACTIVE_ITEM,
   MENU_SET_ACTIVE_ITEM,
-  ENTER_SEARCH_TERM
+  ENTER_SEARCH_TERM,
+  SELECT_SEARCH_SCOPE
 } from "../actions/actionTypes";
 
 export default function uiReducer(state = ui, action) {
@@ -27,6 +28,11 @@ export default function uiReducer(state = ui, action) {
       return {
         ...state,
         menuActiveItem: action.name
+      };
+    case SELECT_SEARCH_SCOPE:
+      return {
+        ...state,
+        searchScope: action.scope
       };
     default:
       return state;

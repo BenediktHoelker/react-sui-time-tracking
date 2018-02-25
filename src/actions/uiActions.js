@@ -15,3 +15,7 @@ export function menuSetActiveItem(name) {
 export function toggleNavbar() {
   return { type: types.TOGGLE_NAVBAR };
 }
+
+export function selectSearchScope(scope) {
+  return { type: types.SELECT_SEARCH_SCOPE, scope };
+}

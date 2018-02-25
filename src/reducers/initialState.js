@@ -55,6 +55,7 @@ export const dailyAdditions = {
 
 export const ui = {
   searchTerm: "",
+  searchScope: "date",
   menuActiveItem: "",
   sidebarActiveItem: "",
   sidebarIsVisible: false
