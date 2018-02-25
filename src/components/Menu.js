@@ -37,9 +37,7 @@ const HorizontalMenu = props => (
       active={props.activeItem === "tage"}
       onClick={props.handleItemClick}
     />
-
     <Menu.Item name="kibana" onClick={openInNewTab} text="Kibana" />
-
     {props.user ? (
       <Menu.Item onClick={props.logout} position="right">
         {props.user.displayName}

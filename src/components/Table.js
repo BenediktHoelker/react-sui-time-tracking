@@ -1,12 +1,10 @@
 import React from "react";
-import {
-  Button,
-  Responsive,
-  Table
-} from "semantic-ui-react";
+import { Button, Responsive, Search, Table } from "semantic-ui-react";
+import { FilterBar } from "./FilterBar";
 
 const RecordTable = props => (
   <div>
+    <FilterBar />
     <Table unstackable>
       <Table.Header>
         <Table.Row>
