@@ -7,6 +7,7 @@ import RecordAggregatedTable from "./RecordAggregatedTable";
 import RecordForm from "./RecordForm";
 import RecordSidebar from "./RecordSidebar";
 import RecordTable from "./RecordTable";
+import EmbedKibana from "../components/Embed";
 
 import { Message, Sidebar, Segment } from "semantic-ui-react";
 
@@ -28,6 +29,7 @@ class ApplicationRouter extends Component {
                     component={RecordAggregatedTable}
                   />
                   <Route exact path="/" component={RecordTable} />
+                  <Route exact path="/kibana" component={EmbedKibana} />
                 </div>
               ) : (
                 <div>
