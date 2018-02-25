@@ -49,7 +49,9 @@ export const getFilteredRecords = createSelector(
   [getRecords, getSearchScope, getSearchTerm],
   (records, searchScope, searchTerm) => {
     return records.filter(record => {
-      return record[searchScope].toUpperCase().includes(searchTerm.toUpperCase());
+      return record[searchScope]
+        ? record[searchScope].toUpperCase().includes(searchTerm.toUpperCase())
+        : false;
     });
   }
 );

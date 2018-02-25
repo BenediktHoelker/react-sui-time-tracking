@@ -3,7 +3,8 @@ import { Select, Input } from "semantic-ui-react";
 
 const options = [
   { key: "date", text: "Datum", value: "date" },
-  { key: "project", text: "Projekt", value: "project" }
+  { key: "project", text: "Projekt", value: "project" },
+  { key: "subproject", text: "Teilprojekt", value: "subproject" }
 ];
 
 const FilterBar = props => (
