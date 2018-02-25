@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Menu, Sidebar } from "semantic-ui-react";
+import { Header, Icon, Menu, Sidebar } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 const openInNewTab = () => {
@@ -13,60 +13,47 @@ const openInNewTab = () => {
 const SidebarLeftOverlay = props => (
   <Sidebar
     as={Menu}
-    animation="push"
+    animation="left slide along"
     width="thin"
     visible={props.visible}
     icon="labeled"
     vertical
+    inverted
   >
-    {/* {props.records.map(record => {
-      return (
-        <Menu.Item
-          id={record.id}
-          key={record.id}
-          name={record.project}
-          active={props.activeItem === record.id}
-          onClick={props.handleItemClick}
-        >
-          <Header as="h4">{record.project}</Header>
-          <p>{record.description}</p>
-        </Menu.Item>
-        
-      );
-    })} */}
-
     <Menu.Item
       as={Link}
       to="/create"
       name="erfassung"
       active={props.activeItem === "erfassung"}
       onClick={props.handleItemClick}
-    />
+    >
+      <Icon name="record" />
+      Erfassung
+    </Menu.Item>
     <Menu.Item
       as={Link}
       to="/"
       name="auswertung"
       active={props.activeItem === "auswertung"}
       onClick={props.handleItemClick}
-    />
+    >
+      <Icon name="list layout" />
+      Auswertung
+    </Menu.Item>
     <Menu.Item
       as={Link}
       to="/calendar"
-      name="Monatsuebersicht"
-      active={props.activeItem === "tage"}
+      name="monatsuebersicht"
+      active={props.activeItem === "monatsuebersicht"}
       onClick={props.handleItemClick}
-    />
-    <Menu.Item name="kibana" onClick={openInNewTab} text="Kibana" />
-    {props.user ? (
-      <Menu.Item onClick={props.logout} position="right">
-        {props.user.displayName}
-        - Logout
-      </Menu.Item>
-    ) : (
-      <Menu.Item onClick={props.login} position="right">
-        Login
-      </Menu.Item>
-    )}
+    >
+      <Icon name="calendar" />
+      Monatsübersicht
+    </Menu.Item>
+    <Menu.Item name="kibana" onClick={openInNewTab} text="Kibana">
+      <Icon name="dashboard" />
+      Dashboard
+    </Menu.Item>
   </Sidebar>
 );
 

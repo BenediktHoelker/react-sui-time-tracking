@@ -29,8 +29,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleSidebarItemClick: (event, { id }) => {
-      dispatch(sidebarSetActiveItem(id));
+    handleSidebarItemClick: (event, { name }) => {
+      dispatch(sidebarSetActiveItem(name));
     }
   };
 };

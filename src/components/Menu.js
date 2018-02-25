@@ -16,28 +16,6 @@ const HorizontalMenu = props => (
     <Menu.Item header as="h3">
       Zeiterfassung
     </Menu.Item>
-    <Menu.Item
-      as={Link}
-      to="/create"
-      name="erfassung"
-      active={props.activeItem === "erfassung"}
-      onClick={props.handleItemClick}
-    />
-    <Menu.Item
-      as={Link}
-      to="/"
-      name="auswertung"
-      active={props.activeItem === "auswertung"}
-      onClick={props.handleItemClick}
-    />
-    <Menu.Item
-      as={Link}
-      to="/calendar"
-      name="Monatsuebersicht"
-      active={props.activeItem === "tage"}
-      onClick={props.handleItemClick}
-    />
-    <Menu.Item name="kibana" onClick={openInNewTab} text="Kibana" />
     {props.user ? (
       <Menu.Item onClick={props.logout} position="right">
         {props.user.displayName}

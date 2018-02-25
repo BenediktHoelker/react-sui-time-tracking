@@ -22,7 +22,8 @@ export default function uiReducer(state = ui, action) {
     case SIDEBAR_SET_ACTIVE_ITEM:
       return {
         ...state,
-        sidebarActiveItem: action.id
+        sidebarActiveItem: action.id,
+        sidebarIsVisible: false
       };
     case MENU_SET_ACTIVE_ITEM:
       return {
