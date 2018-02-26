@@ -9,6 +9,7 @@ const options = [
 
 const FilterBar = props => (
   <Input
+    fluid
     type="text"
     placeholder="Filtern nach..."
     action

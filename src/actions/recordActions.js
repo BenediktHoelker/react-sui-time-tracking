@@ -14,7 +14,7 @@ export function removeRecord(recordId) {
 export function loadRecords() {
   return (dispatch, getState, firebase) => {
     const user = getState().auth.user;
-    const recordsRef = firebase.database.ref("records/" + user.uid);
+    const recordsRef = firebase.database.ref("records/" + user.uid).orderByKey();
 
     recordsRef.on("value", snapshot => {
       let records = snapshot.val();

@@ -33,7 +33,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Container style={{ margin: "1em", padding: "1em" }}>
+        <Container style={{ margin: "1em", padding: "0.3em" }}>
           <Provider store={store}>
             <ApplicationRouter />
           </Provider>
