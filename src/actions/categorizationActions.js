@@ -13,7 +13,7 @@ function snapshotToArray(snapshot) {
 
 export function loadProjects() {
   return (dispatch, getState, firebase) => {
-    const activitiesRef = firebase.database.ref("activities");
+    // const activitiesRef = firebase.firestore.ref("activities");
     const projectsRef = firebase.database.ref("projects");
     const subprojectsRef = firebase.database.ref("subprojects");
     const tasksRef = firebase.database.ref("tasks");
@@ -23,9 +23,21 @@ export function loadProjects() {
     dispatch(requestTasks());
     dispatch(requestActivities());
 
-    activitiesRef.on("value", snapshot => {
-      dispatch(receiveActivities(snapshot.val(), snapshotToArray(snapshot)));
-    });
+    firebase.firestore
+      .collection("activities")
+      .get()
+      .then(querySnapshot => {
+        const byId = {};
+        querySnapshot.forEach(doc => {
+          byId[doc.id] = doc.data();
+        });
+        dispatch(
+          receiveActivities(
+            byId,
+            querySnapshot.docs.map(doc => doc.id)
+          )
+        );
+      });
 
     projectsRef.on("value", snapshot => {
       dispatch(receiveProjects(snapshot.val(), snapshotToArray(snapshot)));

@@ -3,7 +3,7 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
-import { auth, database, provider } from "./firebase.js";
+import { auth, database, firestore, provider } from "./firebase.js";
 
 import { Container } from "semantic-ui-react";
 
@@ -16,7 +16,7 @@ import { receiveLogin } from "./actions/authActions";
 const store = createStore(
   rootReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(thunk.withExtraArgument({ auth, database, provider }))
+  applyMiddleware(thunk.withExtraArgument({ auth, database, firestore, provider }))
 );
 
 class App extends Component {
