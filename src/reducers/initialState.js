@@ -32,6 +32,8 @@ export const categorization = {
 
 export const records = {
   collection: [],
+  allIds: [],
+  byId: {},
   newRecord: {
     description: "React-Entwicklung",
     date: now.format("DD.MM.YYYY"),

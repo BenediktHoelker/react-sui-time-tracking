@@ -14,7 +14,9 @@ export function removeRecord(recordId) {
 export function loadRecords() {
   return (dispatch, getState, firebase) => {
     const user = getState().auth.user;
-    const recordsRef = firebase.database.ref("records/" + user.uid).orderByKey();
+    const recordsRef = firebase.database
+      .ref("records/" + user.uid)
+      .orderByKey();
 
     recordsRef.on("value", snapshot => {
       let records = snapshot.val();
@@ -51,8 +53,6 @@ export function submitRecord(event) {
     const userId = state.auth.user.uid;
     const newRecord = state.form.newRecordForm.values;
 
-    const recordsRef = firebase.database.ref("records/" + userId);
-
     const dateStart = moment(
       newRecord.date + " " + newRecord.timeStart,
       "DD.MM.YYYY HH:mm:ss"
@@ -67,19 +67,12 @@ export function submitRecord(event) {
     const record = {
       ...newRecord,
       ...{
-        timeSpent: timeSpent
+        timeSpent: timeSpent,
+        author: userId
       }
     };
 
-    if (record.id) {
-      // Edit
-      const key = "/records/" + userId + "/" + record.id;
-      firebase.database.ref(key).set(record);
-    } else {
-      // Create
-      recordsRef.push(record);
-      dispatch(setNewRecordStartTime([record]));
-    }
+    firebase.firestore.collection("records").add(record);
   };
 }
 
