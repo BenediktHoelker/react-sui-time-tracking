@@ -29,29 +29,27 @@ const RecordTable = props => (
       </Table.Header>
       <Table.Body>
         {props.records.map((record, index) => {
-          while (index < 15) {
-            return (
-              <Table.Row key={index}>
-                <Table.Cell>{record.project}</Table.Cell>
-                <Table.Cell>{record.subproject}</Table.Cell>
-                <Responsive as={Table.Cell} {...Responsive.onlyComputer}>
-                  {record.task}
-                </Responsive>
-                <Responsive as={Table.Cell} {...Responsive.onlyComputer}>
-                  {record.activity}
-                </Responsive>
-                <Table.Cell>{record.description}</Table.Cell>
-                <Table.Cell>{record.date}</Table.Cell>
-                <Table.Cell>{record.timeSpent}</Table.Cell>
-                <Table.Cell>
-                  <Button
-                    icon="delete"
-                    onClick={props.handleRemove.bind(this, record.id)}
-                  />
-                </Table.Cell>
-              </Table.Row>
-            );
-          }
+          return (
+            <Table.Row key={index}>
+              <Table.Cell>{record.project}</Table.Cell>
+              <Table.Cell>{record.subproject}</Table.Cell>
+              <Responsive as={Table.Cell} {...Responsive.onlyComputer}>
+                {record.task}
+              </Responsive>
+              <Responsive as={Table.Cell} {...Responsive.onlyComputer}>
+                {record.activity}
+              </Responsive>
+              <Table.Cell>{record.description}</Table.Cell>
+              <Table.Cell>{record.date}</Table.Cell>
+              <Table.Cell>{record.timeSpent}</Table.Cell>
+              <Table.Cell>
+                <Button
+                  icon="delete"
+                  onClick={props.handleRemove.bind(this, record.id)}
+                />
+              </Table.Cell>
+            </Table.Row>
+          );
         })}
       </Table.Body>
     </Table>

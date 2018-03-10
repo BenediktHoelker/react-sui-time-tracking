@@ -3,32 +3,11 @@ import { connect } from "react-redux";
 
 import Form from "../components/Form";
 import { submitRecord } from "../actions/recordActions";
-import {
-  getSubprojectsByProject,
-  getSelectedProject,
-  getTasksBySubproject
-} from "../selectors";
+import { getSubprojectsByProject, getTasksBySubproject } from "../selectors";
 
 class RecordForm extends Component {
   render() {
-    return (
-      <Form
-        activities={this.props.activities}
-        activitiesLoading={this.props.activitiesLoading}
-        projectIds={this.props.projectIds}
-        projectsById={this.props.projectsById}
-        projectsLoading={this.props.projectsLoading}
-        subprojectIds={this.props.subprojectIds}
-        subprojectsById={this.props.subprojectsById}
-        subprojectsLoading={this.props.subprojectsLoading}
-        taskIds={this.props.taskIds}
-        tasksById={this.props.tasksById}
-        tasksLoading={this.props.tasksLoading}
-        user={this.props.user}
-        newRecord={this.props.newRecord}
-        handleSubmit={this.props.handleSubmit}
-      />
-    );
+    return <Form {...this.props} />;
   }
 }
 

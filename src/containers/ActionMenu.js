@@ -7,17 +7,7 @@ import { menuSetActiveItem, toggleNavbar } from "../actions/uiActions";
 
 class ActionMenu extends Component {
   render() {
-    return (
-      <Menu
-        activeItem={this.props.activeItem}
-        records={this.props.records}
-        user={this.props.user}
-        logout={this.props.logout}
-        login={this.props.login}
-        handleItemClick={this.props.handleItemClick}
-        handleSidebarIconClick={this.props.handleSidebarIconClick}
-      />
-    );
+    return <Menu {...this.props} />;
   }
 }
 

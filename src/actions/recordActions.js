@@ -13,8 +13,6 @@ export function removeRecord(recordId) {
 
 export function loadRecords() {
   return (dispatch, getState, firebase) => {
-    const user = getState().auth.user;
-
     firebase.firestore
       .collection("records")
       .get()

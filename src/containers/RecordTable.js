@@ -8,24 +8,13 @@ import { getFilteredRecords } from "../selectors";
 
 class RecordTable extends Component {
   render() {
-    return (
-      <Table
-        {...{
-          handleRemove: this.props.handleRemove,
-          handleEnterSearchTerm: this.props.handleEnterSearchTerm,
-          handleSelectSearchScope: this.props.handleSelectSearchScope,
-          searchTerm: this.props.searchTerm,
-          records: this.props.filteredRecords,
-          user: this.props.user
-        }}
-      />
-    );
+    return <Table {...this.props} />;
   }
 }
 
 const mapStateToProps = state => {
   return {
-    filteredRecords: getFilteredRecords(state).map(recordId => {
+    records: getFilteredRecords(state).map(recordId => {
       const record = state.records.byId[recordId];
       return {
         ...record,

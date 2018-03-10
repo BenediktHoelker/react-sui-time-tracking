@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Icon, Menu, Sidebar } from "semantic-ui-react";
+import { Icon, Menu, Sidebar } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 const openInNewTab = () => {

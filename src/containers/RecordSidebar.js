@@ -6,15 +6,7 @@ import { sidebarSetActiveItem } from "../actions/uiActions";
 
 class RecordSidebar extends Component {
   render() {
-    return (
-      <Sidebar
-        activeItem={this.props.sidebarActiveItem}
-        records={this.props.records}
-        user={this.props.user}
-        visible={this.props.sidebarIsVisible}
-        handleItemClick={this.props.handleSidebarItemClick}
-      />
-    );
+    return <Sidebar {...this.props} />;
   }
 }
 

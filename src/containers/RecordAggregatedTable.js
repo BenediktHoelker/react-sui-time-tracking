@@ -11,17 +11,7 @@ import {
 
 class RecordsAggregatedTable extends Component {
   render() {
-    return (
-      <Table
-        daysOfEffort={this.props.daysOfEffort}
-        monthlyAmountOfEffort={this.props.monthlyAmountOfEffort}
-        travelDates={this.props.travelDates}
-        leaveDates={this.props.leaveDates}
-        handleRegisterDailyWork={this.props.handleRegisterDailyWork}
-        handleToggleLeave={this.props.handleToggleLeave}
-        handleToggleTravel={this.props.handleToggleTravel}
-      />
-    );
+    return <Table {...this.props} />;
   }
 }
 
