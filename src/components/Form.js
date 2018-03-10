@@ -31,9 +31,7 @@ let NewRecordForm = props => (
             options={props.projectIds.map(projectId => ({
               key: projectId,
               value: projectId,
-              text: props.projectsById[projectId]
-                ? props.projectsById[projectId].name
-                : ""
+              text: props.projectsById[projectId].name
             }))}
             loading={props.projectsLoading}
           />
@@ -44,9 +42,7 @@ let NewRecordForm = props => (
             options={props.subprojectIds.map(subprojectId => ({
               key: subprojectId,
               value: subprojectId,
-              text: props.subprojectsById[subprojectId]
-                ? props.subprojectsById[subprojectId].name
-                : ""
+              text: props.subprojectsById[subprojectId].name
             }))}
             loading={props.subprojectsLoading}
           />
@@ -54,10 +50,10 @@ let NewRecordForm = props => (
             component={SelectField}
             label="Arbeitspaket"
             name="task"
-            options={props.tasks.map(task => ({
-              key: task.name,
-              value: task.name,
-              text: task.name
+            options={props.taskIds.map(taskId => ({
+              key: taskId,
+              value: taskId,
+              text: props.tasksById[taskId].name
             }))}
             loading={props.tasksLoading}
           />
@@ -119,7 +115,7 @@ export default (NewRecordForm = connect((state, props) => {
   const activity = props.activities[0] ? props.activities[0].name : "";
   const project = props.projectIds[0];
   const subproject = props.subprojectIds[0];
-  const task = props.tasks[0] ? props.tasks[0].name : "";
+  const task = props.taskIds[0];
   return {
     initialValues: {
       ...state.records.newRecord,

@@ -27,30 +27,12 @@ export const getSubprojectsByProject = createSelector(
   }
 );
 
-// export const getSubprojectsByProject = createSelector(
-//   [getProjects, getSelectedProject, getSubprojects],
-//   (projects, selectedProject, subprojects) => {
-//     const project = projects.byId[selectedProject];
-//     // only show children of selected project
-//     return project &&
-//       project.subprojects &&
-//       subprojects &&
-//       subprojects.allIds.length > 0
-//       ? project.subprojects.map(subprojectId => {
-//           return subprojects.byId[subprojectId];
-//         })
-//       : [];
-//   }
-// );
-
 export const getTasksBySubproject = createSelector(
   [getSubprojects, getSelectedSubproject, getTasks],
   (subprojects, selectedSubproject, tasks) => {
     const subproject = subprojects.byId[selectedSubproject];
     return subproject && subproject.tasks && tasks && tasks.allIds.length > 0
-      ? subproject.tasks.map(taskId => {
-          return tasks.byId[taskId];
-        })
+      ? subproject.tasks
       : [];
   }
 );
