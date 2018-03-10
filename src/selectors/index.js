@@ -8,14 +8,10 @@ const getSearchTerm = state => state.ui.searchTerm;
 const getSearchScope = state => state.ui.searchScope;
 const getTasks = state => state.categorization.tasks;
 
-const getSelectedProject = state =>
-  state.form.newRecordForm
-    ? state.form.newRecordForm.values.project
-    : undefined;
-const getSelectedSubproject = state =>
-  state.form.newRecordForm
-    ? state.form.newRecordForm.values.subproject
-    : undefined;
+export const getSelectedProject = state =>
+  state.form.newRecordForm ? state.form.newRecordForm.values.project : {};
+export const getSelectedSubproject = state =>
+  state.form.newRecordForm ? state.form.newRecordForm.values.subproject : {};
 
 export const getSubprojectsByProject = createSelector(
   [getProjects, getSelectedProject, getSubprojects],
@@ -26,12 +22,26 @@ export const getSubprojectsByProject = createSelector(
       project.subprojects &&
       subprojects &&
       subprojects.allIds.length > 0
-      ? project.subprojects.map(subprojectId => {
-          return subprojects.byId[subprojectId];
-        })
+      ? project.subprojects
       : [];
   }
 );
+
+// export const getSubprojectsByProject = createSelector(
+//   [getProjects, getSelectedProject, getSubprojects],
+//   (projects, selectedProject, subprojects) => {
+//     const project = projects.byId[selectedProject];
+//     // only show children of selected project
+//     return project &&
+//       project.subprojects &&
+//       subprojects &&
+//       subprojects.allIds.length > 0
+//       ? project.subprojects.map(subprojectId => {
+//           return subprojects.byId[subprojectId];
+//         })
+//       : [];
+//   }
+// );
 
 export const getTasksBySubproject = createSelector(
   [getSubprojects, getSelectedSubproject, getTasks],

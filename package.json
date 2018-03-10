@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "firebase": "^4.10.1",
+    "firebase": "^4.11.0",
     "gh-pages": "^1.1.0",
     "lodash": "^4.17.5",
-    "moment": "^2.20.1",
+    "moment": "^2.21.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-moment": "^0.6.9",
@@ -16,7 +16,7 @@
     "react-semantic-redux-form": "^1.2.6",
     "recompose": "^0.26.0",
     "redux": "^3.7.2",
-    "redux-form": "^7.2.3",
+    "redux-form": "^7.3.0",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
     "semantic-ui-react": "^0.76.0"

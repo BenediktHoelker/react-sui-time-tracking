@@ -3,7 +3,11 @@ import { connect } from "react-redux";
 
 import Form from "../components/Form";
 import { submitRecord } from "../actions/recordActions";
-import { getSubprojectsByProject, getTasksBySubproject } from "../selectors";
+import {
+  getSubprojectsByProject,
+  getSelectedProject,
+  getTasksBySubproject
+} from "../selectors";
 
 class RecordForm extends Component {
   render() {
@@ -11,9 +15,11 @@ class RecordForm extends Component {
       <Form
         activities={this.props.activities}
         activitiesLoading={this.props.activitiesLoading}
-        projects={this.props.projects}
+        projectIds={this.props.projectIds}
+        projectsById={this.props.projectsById}
         projectsLoading={this.props.projectsLoading}
-        subprojects={this.props.subprojects}
+        subprojectIds={this.props.subprojectIds}
+        subprojectsById={this.props.subprojectsById}
         subprojectsLoading={this.props.subprojectsLoading}
         tasks={this.props.tasks}
         tasksLoading={this.props.tasksLoading}
@@ -31,11 +37,11 @@ const mapStateToProps = state => {
       return state.categorization.activities.byId[id];
     }),
     activitiesLoading: state.categorization.activitiesLoading,
-    projects: state.categorization.projects.allIds.map(id => {
-      return state.categorization.projects.byId[id];
-    }),
+    projectIds: state.categorization.projects.allIds,
+    projectsById: state.categorization.projects.byId,
     projectsLoading: state.categorization.projectsLoading,
-    subprojects: getSubprojectsByProject(state),
+    subprojectIds: getSubprojectsByProject(state),
+    subprojectsById: state.categorization.subprojects.byId,
     subprojectsLoading: state.categorization.subprojectsLoading,
     tasks: getTasksBySubproject(state),
     tasksLoading: state.categorization.tasksLoading,

@@ -28,10 +28,12 @@ let NewRecordForm = props => (
             component={SelectField}
             label="Projekt"
             name="project"
-            options={props.projects.map(project => ({
-              key: project.name,
-              value: project.name,
-              text: project.name
+            options={props.projectIds.map(projectId => ({
+              key: projectId,
+              value: projectId,
+              text: props.projectsById[projectId]
+                ? props.projectsById[projectId].name
+                : ""
             }))}
             loading={props.projectsLoading}
           />
@@ -39,10 +41,12 @@ let NewRecordForm = props => (
             component={SelectField}
             label="Teilprojekt"
             name="subproject"
-            options={props.subprojects.map(subproject => ({
-              key: subproject.name,
-              value: subproject.name,
-              text: subproject.name
+            options={props.subprojectIds.map(subprojectId => ({
+              key: subprojectId,
+              value: subprojectId,
+              text: props.subprojectsById[subprojectId]
+                ? props.subprojectsById[subprojectId].name
+                : ""
             }))}
             loading={props.subprojectsLoading}
           />
@@ -113,8 +117,8 @@ NewRecordForm = reduxForm({
 // You have to connect() to any reducers that you wish to connect to yourself
 export default (NewRecordForm = connect((state, props) => {
   const activity = props.activities[0] ? props.activities[0].name : "";
-  const project = props.projects[0] ? props.projects[0].name : "";
-  const subproject = props.subprojects[0] ? props.subprojects[0].name : "";
+  const project = props.projectIds[0];
+  const subproject = props.subprojectIds[0];
   const task = props.tasks[0] ? props.tasks[0].name : "";
   return {
     initialValues: {
@@ -122,7 +126,7 @@ export default (NewRecordForm = connect((state, props) => {
       activity,
       project,
       subproject,
-      task,
+      task
     }
   };
 })(NewRecordForm));

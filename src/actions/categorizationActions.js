@@ -13,7 +13,6 @@ function snapshotToArray(snapshot) {
 
 export function loadProjects() {
   return (dispatch, getState, firebase) => {
-    // const activitiesRef = firebase.firestore.ref("activities");
     const projectsRef = firebase.database.ref("projects");
     const subprojectsRef = firebase.database.ref("subprojects");
     const tasksRef = firebase.database.ref("tasks");
@@ -32,24 +31,58 @@ export function loadProjects() {
           byId[doc.id] = doc.data();
         });
         dispatch(
-          receiveActivities(
-            byId,
-            querySnapshot.docs.map(doc => doc.id)
-          )
+          receiveActivities(byId, querySnapshot.docs.map(doc => doc.id))
         );
       });
 
-    projectsRef.on("value", snapshot => {
-      dispatch(receiveProjects(snapshot.val(), snapshotToArray(snapshot)));
-    });
+    firebase.firestore
+      .collection("projects")
+      .get()
+      .then(querySnapshot => {
+        const byId = {};
+        querySnapshot.forEach(doc => {
+          byId[doc.id] = doc.data();
+        });
+        dispatch(receiveProjects(byId, querySnapshot.docs.map(doc => doc.id)));
+      });
 
-    subprojectsRef.on("value", snapshot => {
-      dispatch(receiveSubprojects(snapshot.val(), snapshotToArray(snapshot)));
-    });
+    firebase.firestore
+      .collection("subprojects")
+      .get()
+      .then(querySnapshot => {
+        const byId = {};
+        querySnapshot.forEach(doc => {
+          byId[doc.id] = doc.data();
+        });
+        dispatch(
+          receiveSubprojects(byId, querySnapshot.docs.map(doc => doc.id))
+        );
+      });
 
-    tasksRef.on("value", snapshot => {
-      dispatch(receiveTasks(snapshot.val(), snapshotToArray(snapshot)));
-    });
+    firebase.firestore
+      .collection("tasks")
+      .get()
+      .then(querySnapshot => {
+        const byId = {};
+        querySnapshot.forEach(doc => {
+          byId[doc.id] = doc.data();
+        });
+        dispatch(
+          receiveTasks(byId, querySnapshot.docs.map(doc => doc.id))
+        );
+      });
+
+    // projectsRef.on("value", snapshot => {
+    //   dispatch(receiveProjects(snapshot.val(), snapshotToArray(snapshot)));
+    // });
+
+    // subprojectsRef.on("value", snapshot => {
+    //   dispatch(receiveSubprojects(snapshot.val(), snapshotToArray(snapshot)));
+    // });
+
+    // tasksRef.on("value", snapshot => {
+    //   dispatch(receiveTasks(snapshot.val(), snapshotToArray(snapshot)));
+    // });
   };
 }
 
