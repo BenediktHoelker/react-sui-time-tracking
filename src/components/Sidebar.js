@@ -15,7 +15,7 @@ const SidebarLeftOverlay = props => (
     as={Menu}
     animation="slide along"
     width="thin"
-    visible={props.visible}
+    visible={props.sidebarIsVisible}
     icon="labeled"
     vertical
     inverted

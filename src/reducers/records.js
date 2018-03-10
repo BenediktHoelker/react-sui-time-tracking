@@ -1,6 +1,5 @@
 import { records } from "./initialState";
 import {
-  SET_RECORDS,
   RECEIVE_RECORDS,
   SET_NEW_RECORD_DATE,
   SET_NEW_RECORD_START_TIME
@@ -45,12 +44,6 @@ export default function recordReducer(state = records, action) {
           ...state.newRecord,
           timeStart: newRecordStartTime
         }
-      };
-    case SET_RECORDS:
-      const records = action.records;
-      return {
-        ...state,
-        collection: records
       };
     case RECEIVE_RECORDS:
       return {

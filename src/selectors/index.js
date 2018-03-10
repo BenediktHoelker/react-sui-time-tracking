@@ -53,14 +53,14 @@ export const getFilteredRecords = createSelector(
 export const getEffortAggregatedByDate = createSelector(
   [getRecords],
   records => {
-    return getDaysOfEffort(records);
+    return getDaysOfEffort(Array.from(records.byId));
   }
 );
 
 export const getEffortAggregatedByMonth = createSelector(
   [getRecords],
   records => {
-    return getMonthlyAmountOfEffort(records, moment().startOf("month"));
+    return getMonthlyAmountOfEffort(Array.from(records.byId), moment().startOf("month"));
   }
 );
 
