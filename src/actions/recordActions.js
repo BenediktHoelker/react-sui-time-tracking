@@ -15,6 +15,7 @@ export function loadRecords() {
   return (dispatch, getState, firebase) => {
     firebase.firestore
       .collection("records")
+      .limit(10)
       .get()
       .then(querySnapshot => {
         const byId = {};
