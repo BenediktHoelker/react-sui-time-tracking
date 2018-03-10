@@ -1,6 +1,7 @@
 import { records } from "./initialState";
 import {
   SET_RECORDS,
+  RECEIVE_RECORDS,
   SET_NEW_RECORD_DATE,
   SET_NEW_RECORD_START_TIME
 } from "../actions/actionTypes";
@@ -50,6 +51,13 @@ export default function recordReducer(state = records, action) {
       return {
         ...state,
         collection: records
+      };
+    case RECEIVE_RECORDS:
+      return {
+        ...state,
+        byId: action.byId,
+        allIds: action.allIds,
+        recordsLoading: false
       };
     default:
       return state;

@@ -31,7 +31,7 @@ const RecordTable = props => (
         {props.records.map((record, index) => {
           while (index < 15) {
             return (
-              <Table.Row key={record.id}>
+              <Table.Row key={index}>
                 <Table.Cell>{record.project}</Table.Cell>
                 <Table.Cell>{record.subproject}</Table.Cell>
                 <Responsive as={Table.Cell} {...Responsive.onlyComputer}>

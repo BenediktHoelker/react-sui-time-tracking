@@ -14,35 +14,22 @@ export function removeRecord(recordId) {
 export function loadRecords() {
   return (dispatch, getState, firebase) => {
     const user = getState().auth.user;
-    const recordsRef = firebase.database
-      .ref("records/" + user.uid)
-      .orderByKey();
 
-    recordsRef.on("value", snapshot => {
-      let records = snapshot.val();
-      let newState = [];
-      for (let record in records) {
-        newState.push({
-          id: record,
-          project: records[record].project,
-          subproject: records[record].subproject,
-          task: records[record].task,
-          activity: records[record].activity,
-          description: records[record].description,
-          date: records[record].date,
-          timeStart: records[record].timeStart,
-          timeEnd: records[record].timeEnd,
-          timeSpent: records[record].timeSpent
+    firebase.firestore
+      .collection("records")
+      .get()
+      .then(querySnapshot => {
+        const byId = {};
+        querySnapshot.forEach(doc => {
+          byId[doc.id] = doc.data();
         });
-      }
-
-      dispatch(setRecords(newState));
-    });
+        dispatch(receiveRecords(byId, querySnapshot.docs.map(doc => doc.id)));
+      });
   };
 }
 
-export function setRecords(records) {
-  return { type: types.SET_RECORDS, records: records };
+export function receiveRecords(byId, allIds) {
+  return { type: types.RECEIVE_RECORDS, byId: byId, allIds: allIds };
 }
 
 export function submitRecord(event) {

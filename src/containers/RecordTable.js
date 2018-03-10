@@ -25,10 +25,23 @@ class RecordTable extends Component {
 
 const mapStateToProps = state => {
   return {
-    filteredRecords: getFilteredRecords(state),
+    filteredRecords: getFilteredRecords(state).map(recordId => {
+      const record = state.records.byId[recordId];
+      return {
+        ...record,
+        project: state.categorization.projects.byId[record.project]
+          ? state.categorization.projects.byId[record.project].name
+          : record.project,
+        subproject: state.categorization.subprojects.byId[record.subproject]
+          ? state.categorization.subprojects.byId[record.subproject].name
+          : record.subproject,
+        task: state.categorization.tasks.byId[record.task]
+          ? state.categorization.tasks.byId[record.task].name
+          : record.task
+      };
+    }),
     searchTerm: state.ui.searchTerm,
     searchScope: state.ui.searchScope,
-    records: state.records.collection,
     user: state.auth.user
   };
 };
