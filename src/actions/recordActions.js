@@ -15,7 +15,8 @@ export function loadRecords() {
   return (dispatch, getState, firebase) => {
     firebase.firestore
       .collection("records")
-      .limit(10)
+      .where("date", ">=", "11.03.18")
+      .where("date", "<=", "31.03.13")
       .get()
       .then(querySnapshot => {
         const byId = {};

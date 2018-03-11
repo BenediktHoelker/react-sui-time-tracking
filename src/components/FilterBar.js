@@ -21,7 +21,6 @@ const FilterBar = props => (
       compact
       options={options}
       value={props.searchScope}
-      defaultValue="date"
       onChange={props.handleSelectSearchScope}
     />
   </Input>
