@@ -11,11 +11,12 @@ export function removeRecord(recordId) {
   };
 }
 
-export function loadRecordsOfMonth(dateOfMonth) {
-  const firstDayOfMonth = moment()
+export function loadRecordsOfMonth(month) {
+  const date = month ? "01." + month + ".2018" : "01.03.2018" ;
+  const firstDayOfMonth = moment(date)
     .startOf("month")
     .format("DD.MM.YYYY");
-  const lastDayOfMonth = moment()
+  const lastDayOfMonth = moment(date)
     .endOf("month")
     .format("DD.MM.YYYY");
 

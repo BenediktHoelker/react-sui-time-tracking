@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Table from "../components/Calendar";
-import { loadRecordsOfMonth, registerDailyWork } from "../actions/recordActions";
+import {
+  loadRecordsOfMonth,
+  registerDailyWork
+} from "../actions/recordActions";
 import { toggleTravel, toggleLeave } from "../actions/dailyAdditionActions";
 import {
   getEffortAggregatedByDate,
@@ -10,12 +13,16 @@ import {
 } from "../selectors";
 
 class RecordsAggregatedTable extends Component {
+  state = { month: "03" };
+
+  selectMonth = (e, { value }) => this.setState({ month: value });
+
   componentDidMount() {
-    this.props.loadRecordsOfMonth();
+    this.props.loadRecords(this.state.month);
   }
 
   render() {
-    return <Table {...this.props} />;
+    return <Table {...this.props} selectMonth={this.selectMonth} />;
   }
 }
 
@@ -43,8 +50,8 @@ const mapDispatchToProps = dispatch => {
     handleToggleLeave: date => {
       dispatch(toggleLeave(date));
     },
-    loadRecordsOfMonth: (date) => {
-      dispatch(loadRecordsOfMonth(date));
+    loadRecords: (month) => {
+      dispatch(loadRecordsOfMonth(month));
     }
   };
 };
