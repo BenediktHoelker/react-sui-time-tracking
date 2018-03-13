@@ -31,7 +31,6 @@ export const categorization = {
 };
 
 export const records = {
-  collection: [],
   allIds: [],
   byId: {},
   newRecord: {

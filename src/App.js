@@ -10,7 +10,7 @@ import { Container } from "semantic-ui-react";
 import ApplicationRouter from "./containers/ApplicationRouter";
 import rootReducer from "./reducers/rootReducer.js";
 import { loadProjects } from "./actions/categorizationActions";
-import { loadRecords } from "./actions/recordActions";
+import { loadRecordsOfMonth } from "./actions/recordActions";
 import { receiveLogin } from "./actions/authActions";
 
 const store = createStore(
@@ -24,7 +24,7 @@ class App extends Component {
     auth.onAuthStateChanged(user => {
       if (user) {
         store.dispatch(receiveLogin(user));
-        store.dispatch(loadRecords());
+        store.dispatch(loadRecordsOfMonth());
         store.dispatch(loadProjects());
       }
     });

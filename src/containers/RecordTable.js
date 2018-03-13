@@ -14,8 +14,7 @@ class RecordTable extends Component {
 
 const mapStateToProps = state => {
   return {
-    records: getFilteredRecords(state).map(recordId => {
-      const record = state.records.byId[recordId];
+    records: getFilteredRecords(state).map(record => {
       return {
         ...record,
         project: state.categorization.projects.byId[record.project]

@@ -4,21 +4,27 @@ import { menuSetActiveItem } from "./uiActions";
 
 export function removeRecord(recordId) {
   return (dispatch, getState, firebase) => {
-    const recordsRef = firebase.database.ref(
-      "/records/" + getState().auth.user.uid + "/" + recordId
-    );
-    recordsRef.remove();
+    firebase.firestore
+      .collection("records")
+      .doc(recordId)
+      .delete();
   };
 }
 
-export function loadRecords() {
+export function loadRecordsOfMonth(dateOfMonth) {
+  const firstDayOfMonth = moment()
+    .startOf("month")
+    .format("DD.MM.YYYY");
+  const lastDayOfMonth = moment()
+    .endOf("month")
+    .format("DD.MM.YYYY");
+
   return (dispatch, getState, firebase) => {
     firebase.firestore
       .collection("records")
-      .where("date", ">=", "11.03.18")
-      .where("date", "<=", "31.03.13")
-      .get()
-      .then(querySnapshot => {
+      .where("date", ">=", firstDayOfMonth)
+      .where("date", "<=", lastDayOfMonth)
+      .onSnapshot(querySnapshot => {
         const byId = {};
         querySnapshot.forEach(doc => {
           byId[doc.id] = doc.data();

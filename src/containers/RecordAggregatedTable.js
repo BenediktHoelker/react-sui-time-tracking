@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Table from "../components/Calendar";
-import { loadRecords, registerDailyWork } from "../actions/recordActions";
+import { loadRecordsOfMonth, registerDailyWork } from "../actions/recordActions";
 import { toggleTravel, toggleLeave } from "../actions/dailyAdditionActions";
 import {
   getEffortAggregatedByDate,
@@ -11,7 +11,7 @@ import {
 
 class RecordsAggregatedTable extends Component {
   componentDidMount() {
-    this.props.loadRecords();
+    this.props.loadRecordsOfMonth();
   }
 
   render() {
@@ -43,8 +43,8 @@ const mapDispatchToProps = dispatch => {
     handleToggleLeave: date => {
       dispatch(toggleLeave(date));
     },
-    loadRecords: () => {
-      dispatch(loadRecords());
+    loadRecordsOfMonth: (date) => {
+      dispatch(loadRecordsOfMonth(date));
     }
   };
 };
